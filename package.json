@@ -1,0 +1,35 @@
+{
+  "name": "sportsherd",
+  "version": "0.0.1",
+  "private": "true",
+  "description": "sportsherd",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/scarney81/sportsherd.git"
+  },
+  "author": "Seth Carney <scarney81@gmail.com>",
+  "contributors": [
+    {
+      "name": "Seth Carney",
+      "email": "scarney81@gmail.com"
+    },
+    {
+      "name": "Brett Gardner",
+      "email": "brett.gardner@gmail.com"
+    }
+  ],
+  "readmeFilename": "README.markdown",
+  "dependencies": {
+    "connect-assets": "2.4.x",
+    "express": "3.2.x",
+    "jade": "0.30.x",
+    "stylus": "0.32.x",
+    "connect-assets-jade": "0.1.x"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}
