@@ -3,6 +3,7 @@ var express     = require('express'),
     connect     = require('connect-assets'),
     connectJade = require('connect-assets-jade'),
     http        = require('http'),
+    mongoose    = require('mongoose'),
     path        = require('path'),
     middleware  = require('./middleware'),
     routes      = require('./routes');

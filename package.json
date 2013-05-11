@@ -21,10 +21,11 @@
   "readmeFilename": "README.markdown",
   "dependencies": {
     "connect-assets": "2.4.x",
+    "connect-assets-jade": "0.1.x",
     "express": "3.2.x",
     "jade": "0.30.x",
+    "mongoose": "3.6.x",
     "stylus": "0.32.x",
-    "connect-assets-jade": "0.1.x",
     "underscore": "1.4.x"
   },
   "devDependencies": {
