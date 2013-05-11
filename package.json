@@ -24,7 +24,12 @@
     "express": "3.2.x",
     "jade": "0.30.x",
     "stylus": "0.32.x",
-    "connect-assets-jade": "0.1.x"
+    "connect-assets-jade": "0.1.x",
+    "underscore": "1.4.x"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
   },
   "scripts": {
     "start": "node app.js"
