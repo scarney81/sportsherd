@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/scarney81/sportsherd.png)](https://travis-ci.org/scarney81/sportsherd)
+
 sportsherd
 ==========
 
