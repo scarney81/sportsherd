@@ -1,8 +1,8 @@
-/*globals describe, it, should */
+/*globals describe, it, should*/
 describe('base repository should', function() {
 
   it('should pass', function(done) {
-    true.should.be.ok;
+    "true".should.be.ok;
     done();
   });
 
