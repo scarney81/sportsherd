@@ -14,6 +14,7 @@ module.exports = function(app) {
   });
 
   // get all events
+  // TODO: modify to support paging (middleware)
   app.get('/events', function(req, res, next) {
 
   });
