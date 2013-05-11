@@ -32,7 +32,8 @@
     "should": "*"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "engines": {
     "node": ">=0.10.0"
