@@ -12,11 +12,15 @@ Repository.prototype.find_by_id = function(id, callback) {
 };
 
 Repository.prototype.save = function(obj, callback) {
-  // var model = new this._model(obj);
-  // model.save(function(err, model) {
-  //   if (err) return callback(err);
-  //   callback(null, model);
-  // });
+  var model = new this._model(obj);
+  model.save(function(err, model) {
+    if (err) return callback(err);
+    callback(null, model);
+  });
+};
+
+Repository.prototype.remove = function(model, callback) {
+  model.remove(callback);
 };
 
 module.exports = Repository;
