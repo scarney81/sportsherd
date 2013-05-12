@@ -1,0 +1,5 @@
+#!/bin/bash
+export PORT=3000
+export CONNECTION_STRING=mongodb://localhost/sportsherd
+
+node app.js

@@ -20,7 +20,7 @@ describe('teams', function() {
   });
 
   beforeEach(function(done) {
-    teams.save({ name: 'The Cereal Killers'}, function(err, team) {
+    teams.create({ name: 'The Cereal Killers'}, function(err, team) {
       if (err) return done(err);
       currentTeam = team;
       done();
@@ -28,22 +28,22 @@ describe('teams', function() {
   });
 
   afterEach(function(done) {
-    teams.remove(currentTeam, function(err) {
+    currentTeam.remove(function(err) {
       if (err) return done(err);
       done();
     });
   });
 
-  it('saves a new team', function(done) {
-    teams.save({ name: 'The Thunder Down Under' }, function(err, team) {
+  it('creates a new team', function(done) {
+    teams.create({ name: 'The Thunder Down Under' }, function(err, team) {
       if (err) return done(err);
       team.should.have.property('name', 'The Thunder Down Under');
       done();
     });
   });
 
-  it('cannot save team without name', function(done) {
-    teams.save({}, function(err, team) {
+  it('cannot create team without name', function(done) {
+    teams.create({}, function(err, team) {
       if (!err && team) return done('should not be able to create a team without a name');
       err.should.have.property('message', 'Validation failed');
       err.should.have.property('errors');
@@ -61,20 +61,10 @@ describe('teams', function() {
   });
 
   it('removes a team by its id', function(done) {
-    teams.save({ name: 'Space Monkey Mafia' }, function(err, team) {
+    teams.create({ name: 'Space Monkey Mafia' }, function(err, team) {
       if (err) return done(err);
       var id = team._id.toString();
       teams.removeById(id, function(err) {
-        if (err) return done(err);
-        done();
-      });
-    });
-  });
-
-  it('remove a team', function(done) {
-    teams.save({ name: 'Space Monkey Mafia' }, function(err, team) {
-      if (err) return done(err);
-      teams.remove(team, function(err) {
         if (err) return done(err);
         done();
       });

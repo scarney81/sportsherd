@@ -12,7 +12,7 @@ sportsherd [![Build Status](https://travis-ci.org/scarney81/sportsherd.png)](htt
 
   ```bash
   git clone git@github.com:scarney81/sportsherd.git && cd ./sportsherd
-  npm install
+  chmod u+x ./bin/setup.sh && ./bin/setup.sh
   ```
 
 2. Test it

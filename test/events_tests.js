@@ -20,7 +20,7 @@ describe('events', function() {
   });
 
   beforeEach(function(done) {
-    events.save({ name: 'Invention of Electricity'}, function(err, event) {
+    events.create({ name: 'Invention of Electricity'}, function(err, event) {
       if (err) return done(err);
       currentEvent = event;
       done();
@@ -28,22 +28,22 @@ describe('events', function() {
   });
 
   afterEach(function(done) {
-    events.remove(currentEvent, function(err) {
+    currentEvent.remove(function(err){
       if (err) return done(err);
       done();
     });
   });
 
-  it('saves a new event', function(done) {
-    events.save({ name: 'The Industrial Revolution' }, function(err, event) {
+  it('creates a new event', function(done) {
+    events.create({ name: 'The Industrial Revolution' }, function(err, event) {
       if (err) return done(err);
       event.should.have.property('name', 'The Industrial Revolution');
       done();
     });
   });
 
-  it('cannot save event without name', function(done) {
-    events.save({}, function(err, event) {
+  it('cannot create event without name', function(done) {
+    events.create({}, function(err, event) {
       if (!err && event) return done('should not be able to create a event without a name');
       err.should.have.property('message', 'Validation failed');
       err.should.have.property('errors');
@@ -61,20 +61,10 @@ describe('events', function() {
   });
 
   it('removes an event by its id', function(done) {
-    events.save({ name: 'The Manhattan Project' }, function(err, event) {
+    events.create({ name: 'The Manhattan Project' }, function(err, event) {
       if (err) return done(err);
       var id = event._id.toString();
       events.removeById(id, function(err) {
-        if (err) return done(err);
-        done();
-      });
-    });
-  });
-
-  it('remove an event', function(done) {
-    events.save({ name: 'Discover of artificial intelligence' }, function(err, event) {
-      if (err) return done(err);
-      events.remove(event, function(err) {
         if (err) return done(err);
         done();
       });

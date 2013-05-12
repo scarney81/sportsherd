@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
+var config = require('../config');
 
 // connect to the database
-mongoose.connect('mongodb://localhost/sportsherd');
+mongoose.connect(config.connectionString);
 
 // register error and open callbacks
 var connection = mongoose.connection;

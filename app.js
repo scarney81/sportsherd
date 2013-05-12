@@ -5,15 +5,15 @@ var express     = require('express'),
     http        = require('http'),
     mongoose    = require('mongoose'),
     path        = require('path'),
+    config      = require('../config'),
     middleware  = require('./middleware'),
     routes      = require('./routes');
 
-var port  = process.env.PORT || 3000;
 var app = express();
 
 connect.jsCompilers.jade = connectJade();
 
-app.set('port', port);
+app.set('port', config.port);
 app.set('views', __dirname + '/views');
 app.set('view options', { layout: false });
 app.set('view engine', 'jade');

@@ -1,3 +1,6 @@
+var Repository = require('../repositories/repository');
+var events = new Repository('Event');
+
 module.exports = function(app) {
 
   var render_index = function(req, res, next) {
@@ -15,23 +18,31 @@ module.exports = function(app) {
 
   // get all events
   // TODO: modify to support paging (middleware)
+  // TODO: only return events that are for the user
   app.get('/events', function(req, res, next) {
 
   });
 
   // create a event
   app.put('/events', function(req, res, next) {
-
+    var event = { name: req.body.name };
+    events.create(event, function(err, event) {
+      if (err) return next(err);
+      res.json(event);
+    });
   });
 
   // update a event
   app.post('/events/:event_id', function(req, res, next) {
-
+    
   });
 
   // remove a event
   app.del('/events/:event_id', function(req, res, next) {
-
+    req.event.remove(function(err) {
+      if (err) return next(err);
+      res.json(null);
+    });
   });
 
 };
