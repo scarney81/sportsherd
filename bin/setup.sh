@@ -10,12 +10,6 @@ cp ./bin/start.sh.template ./bin/start.sh
 # sed -i -e 's/%PARAMTER%/'$parameter'/g' ./bin/start.sh
 # rm ./bin/start.sh-e
 
-echo 'Creating ./bin/test.sh'
-rm ./bin/test.sh
-cp ./bin/test.sh.template ./bin/test.sh
-# sed -i -e 's/%PARAMTER%/'$parameter'/g' ./bin/test.sh
-# rm ./bin/test.sh-e
-
 echo 'Setting permission on shell scripts'
 chmod u+x ./bin/start.sh
 chmod u+x ./bin/test.sh
