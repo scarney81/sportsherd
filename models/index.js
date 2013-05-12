@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 
 // connect to the database
 mongoose.connect('mongodb://localhost/sportsherd');
-var connection = mongoose.connection;
 
 // register error and open callbacks
+var connection = mongoose.connection;
 connection.on('error', console.error.bind(console, 'connection error:'));
 connection.on('open', function() { console.log('connection to mongodb is open'); });
 

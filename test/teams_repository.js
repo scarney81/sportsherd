@@ -1,36 +1,73 @@
-/*globals describe, it, should, beforeEach*/
+/*globals describe, it, should, before, after, beforeEach, afterEach*/
 var Repository = require('../repositories/repository');
 
-describe('team', function() {
-  var teams = null;
-  var saved_team = null;
+describe('teams', function() {
+  var teams = new Repository('Team');
+  var currentTeam = null;
+
+  before(function(done) {
+    teams.removeAll(function(err) {
+      if (err) return done(err);
+      done();
+    });
+  });
+
+  after(function(done) {
+    teams.removeAll(function(err) {
+      if (err) return done(err);
+      done();
+    });
+  });
 
   beforeEach(function(done) {
-    teams = new Repository('Team');
-    done();
-  });
-
-  it('should be able to create a team', function(done) {
-    teams.save({ name: 'new team' }, function(err, team) {
+    teams.save({ name: 'The Cereal Killers'}, function(err, team) {
       if (err) return done(err);
-      team.should.have.property('name', 'new team');
-      saved_team = team;
+      currentTeam = team;
       done();
     });
   });
 
-  it('should be able to get a team', function(done) {
-    var id = saved_team._id;
-    teams.find_by_id(id, function(err, team) {
+  afterEach(function(done) {
+    teams.remove(currentTeam, function(err) {
       if (err) return done(err);
       done();
     });
   });
 
-  it('should be able to remove a team', function(done) {
-    teams.remove(saved_team, function(err) {
+  it('saves a new team', function(done) {
+    teams.save({ name: 'The Thunder Down Under' }, function(err, team) {
       if (err) return done(err);
+      team.should.have.property('name', 'The Thunder Down Under');
       done();
+    });
+  });
+
+  it('finds a team by its id', function(done) {
+    teams.findById(currentTeam._id, function(err, team) {
+      if (err) return done(err);
+      team.should.have.property('name', 'The Cereal Killers');
+      done();
+    });
+  });
+
+  it('removes a team by its id', function(done) {
+    teams.save({ name: 'Space Monkey Mafia' }, function(err, team) {
+      if (err) return done(err);
+      var id = team._id.toString();
+      teams.removeById(id, function(err) {
+        if (err) return done(err);
+        done();
+      });
+    });
+  });
+
+  it('remove a team', function(done) {
+    teams.save({ name: 'Space Monkey Mafia' }, function(err, team) {
+      if (err) return done(err);
+      teams.remove(team, function(err) {
+        if (err) return done(err);
+        done();
+      });
     });
   });
 

@@ -7,7 +7,7 @@ var Repository = function(model) {
   this._model = models.getModel(model);
 };
 
-Repository.prototype.find_by_id = function(id, callback) {
+Repository.prototype.findById = function(id, callback) {
   this._model.findById(id, callback);
 };
 
@@ -21,6 +21,15 @@ Repository.prototype.save = function(obj, callback) {
 
 Repository.prototype.remove = function(model, callback) {
   model.remove(callback);
+};
+
+Repository.prototype.removeById = function(id, callback) {
+  var objectId = ObjectId(id);
+  this._model.remove({ _id: objectId }, callback);
+};
+
+Repository.prototype.removeAll = function(callback) {
+  this._model.remove({}, callback);
 };
 
 module.exports = Repository;
