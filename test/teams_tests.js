@@ -42,6 +42,16 @@ describe('teams', function() {
     });
   });
 
+  it('cannot save team without name', function(done) {
+    teams.save({}, function(err, team) {
+      if (!err && team) return done('should not be able to create a team without a name');
+      err.should.have.property('message', 'Validation failed');
+      err.should.have.property('errors');
+      err.errors.should.have.property('name');
+      done();
+    });
+  });
+
   it('finds a team by its id', function(done) {
     teams.findById(currentTeam._id, function(err, team) {
       if (err) return done(err);
