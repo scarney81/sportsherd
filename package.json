@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "./bin/start.sh",
-    "test": "./bin/test.sh"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "engines": {
     "node": ">=0.10.0"

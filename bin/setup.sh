@@ -12,7 +12,6 @@ cp ./bin/start.sh.template ./bin/start.sh
 
 echo 'Setting permission on shell scripts'
 chmod u+x ./bin/start.sh
-chmod u+x ./bin/test.sh
 
 echo 'Removing node modules'
 rm -rf ./node_modules
