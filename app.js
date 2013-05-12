@@ -5,7 +5,7 @@ var express     = require('express'),
     http        = require('http'),
     mongoose    = require('mongoose'),
     path        = require('path'),
-    config      = require('../config'),
+    config      = require('./config'),
     middleware  = require('./middleware'),
     routes      = require('./routes');
 

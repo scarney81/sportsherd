@@ -7,6 +7,10 @@ var Repository = function(model) {
   this._model = models.getModel(model);
 };
 
+Repository.prototype.all = function(callback) {
+  this._model.find({}, callback);
+};
+
 Repository.prototype.findById = function(id, callback) {
   this._model.findById(id, callback);
 };

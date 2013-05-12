@@ -34,6 +34,15 @@ describe('events', function() {
     });
   });
 
+  it('returns all events', function(done) {
+    events.all(function(err, events) {
+      if (err) return done(err);
+      events.should.be.an.instanceOf(Array);
+      events.length.should.be.above(0);
+      done();
+    });
+  });
+
   it('creates a new event', function(done) {
     events.create({ name: 'The Industrial Revolution' }, function(err, event) {
       if (err) return done(err);

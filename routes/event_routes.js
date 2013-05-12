@@ -20,7 +20,10 @@ module.exports = function(app) {
   // TODO: modify to support paging (middleware)
   // TODO: only return events that are for the user
   app.get('/events', function(req, res, next) {
-
+    events.all(function(err, evts) {
+      if (err) return next(err);
+      res.json(evts);
+    });
   });
 
   // create a event
@@ -34,7 +37,7 @@ module.exports = function(app) {
 
   // update a event
   app.post('/events/:event_id', function(req, res, next) {
-    
+
   });
 
   // remove a event

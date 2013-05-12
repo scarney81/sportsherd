@@ -34,6 +34,15 @@ describe('teams', function() {
     });
   });
 
+  it('returns all teams', function(done) {
+    teams.all(function(err, teams) {
+      if (err) return done(err);
+      teams.should.be.an.instanceOf(Array);
+      teams.length.should.be.above(0);
+      done();
+    });
+  });
+
   it('creates a new team', function(done) {
     teams.create({ name: 'The Thunder Down Under' }, function(err, team) {
       if (err) return done(err);
