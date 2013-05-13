@@ -29,7 +29,8 @@ app.param('team_id', middleware.teams);
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-if (app.get('env') === 'development') app.use(express.errorHandler());
+app.use(middleware.errorHandler);
+// if (app.get('env') === 'development') app.use(express.errorHandler());
 
 routes(app);
 
