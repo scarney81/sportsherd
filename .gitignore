@@ -8,6 +8,8 @@ lib-cov
 *.gz
 *.sh
 
+.DS_Store
+
 pids
 logs
 results
