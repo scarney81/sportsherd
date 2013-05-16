@@ -2,6 +2,8 @@ module.exports = {
 
   authentication: require('./authentication_middleware'),
 
+  csrf: require('./csrf_middleware'),
+    
   errorHandler: require('./error_middleware'),
 
   events: require('./event_middleware'),
@@ -10,6 +12,8 @@ module.exports = {
 
   isPublic: require('./is_public_middleware'),
 
+  locals: require('./locals_middleware'),
+  
   teams: require('./team_middleware')
 
 };

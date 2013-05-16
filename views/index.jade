@@ -6,4 +6,6 @@ html
   body
     .wrapper
       .container
+    script(type='text/javascript')
+      window.CSRF = '#{locals.csrf_token}';
     != js('app')

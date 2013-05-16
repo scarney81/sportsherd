@@ -7,7 +7,7 @@ window.Sportsherd.statechart.addState('application', {
   exitState: function() {
     if(this.view) this.view.remove();
   },
-
+  
   doLogin: function() {
     this.goToState('login');
   },

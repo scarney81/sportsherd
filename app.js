@@ -15,27 +15,32 @@ var app = express();
 
 connect.jsCompilers.jade = connectJade();
 
-app.set('port', config.port);
-app.set('views', __dirname + '/views');
-app.set('view options', { layout: false });
-app.set('view engine', 'jade');
-app.use(connect());
-app.use(express.cookieParser());
-app.use(express.session({ secret: 'icanhazsekretz' }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
+app.configure(function(){
+  app.set('port', config.port);
+  app.set('views', __dirname + '/views');
+  app.set('view options', { layout: false });
+  app.set('view engine', 'jade');
+  app.use(connect());
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: 'icanhazsekretz' }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
 
-app.use(middleware.isPublic);
-app.use(middleware.isJSON);
-app.use(middleware.authentication(passport));
-app.param('event_id', middleware.events);
-app.param('team_id', middleware.teams);
+  app.use(middleware.isPublic);
+  app.use(middleware.isJSON);
+  app.use(middleware.csrf());
+  app.use(middleware.authentication(passport));
+  app.param('event_id', middleware.events);
+  app.param('team_id', middleware.teams);
 
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+  app.use(middleware.locals);
+
+  app.use(app.router);
+  app.use(express.static(path.join(__dirname, 'public')));
+});
 
 app.use(middleware.errorHandler);
 // if (app.get('env') === 'development') app.use(express.errorHandler());
