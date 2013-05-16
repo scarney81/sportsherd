@@ -7,11 +7,11 @@ window.Sportsherd.Router = Backbone.Router.extend({
 
   },
 
-  login: function(){
+  login: function() {
     window.Sportsherd.statechart.sendEvent('doLogin');
   },
 
-  home: function(){
+  home: function() {
     window.Sportsherd.statechart.sendEvent('home');
   }
 

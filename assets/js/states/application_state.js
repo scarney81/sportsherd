@@ -1,10 +1,10 @@
 window.Sportsherd.statechart.addState('application', {
 
-  enterState: function(){
+  enterState: function() {
     Backbone.history.start({ pushState:true });
   },
 
-  exitState: function(){
+  exitState: function() {
     if(this.view) this.view.remove();
   },
 
@@ -12,7 +12,11 @@ window.Sportsherd.statechart.addState('application', {
     this.goToState('login');
   },
 
-  home: function(){
+  logout: function() {
+    window.location.href = '/logout';
+  },
+
+  home: function() {
     this.view = new window.Sportsherd.ApplicationView();
     this.view.render();
   }
