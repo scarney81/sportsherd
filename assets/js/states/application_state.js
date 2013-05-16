@@ -1,15 +1,18 @@
 window.Sportsherd.statechart.addState('application', {
 
   enterState: function(){
-    Backbone.history.start({pushState:true});
+    Backbone.history.start({ pushState:true });
   },
+
   exitState: function(){
     if(this.view) this.view.remove();
   },
-  login: function(){
-    alert('foo');
+
+  doLogin: function() {
+    this.goToState('login');
   },
-  default: function(){
+
+  home: function(){
     this.view = new window.Sportsherd.ApplicationView();
     this.view.render();
   }

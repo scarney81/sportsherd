@@ -1,5 +1,8 @@
 #!/bin/bash
 export PORT=3000
 export CONNECTION_STRING=mongodb://localhost/sportsherd
+export FACEBOOK_CLIENT_ID={{FACEBOOK_CLIENT_ID}}
+export FACEBOOK_CLIENT_SECRET={{FACEBOOK_CLIENT_SECRET}}
+export FACEBOOK_CALLBACK_URL=http://localhost:3000/login/callback
 
 node app.js

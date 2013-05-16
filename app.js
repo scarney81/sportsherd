@@ -4,10 +4,12 @@ var express     = require('express'),
     connectJade = require('connect-assets-jade'),
     http        = require('http'),
     mongoose    = require('mongoose'),
+    passport    = require('passport'),
     path        = require('path'),
     config      = require('./config'),
     middleware  = require('./middleware'),
-    routes      = require('./routes');
+    routes      = require('./routes'),
+    strategy    = require('./oauthStrategy');
 
 var app = express();
 
@@ -18,11 +20,17 @@ app.set('views', __dirname + '/views');
 app.set('view options', { layout: false });
 app.set('view engine', 'jade');
 app.use(connect());
+app.use(express.cookieParser());
+app.use(express.cookieSession({ secret: 'icanhazsekretz' }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 
+app.use(middleware.isPublic);
 app.use(middleware.isJSON);
+app.use(middleware.authentication(passport));
 app.param('event_id', middleware.events);
 app.param('team_id', middleware.teams);
 

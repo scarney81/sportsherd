@@ -1,12 +1,18 @@
 window.Sportsherd.Router = Backbone.Router.extend({
   routes: {
-    'events':'login',
-    '*route':'default'
+    
+    'public/login': 'login',
+
+    '*route': 'home'
+
   },
+
   login: function(){
-    window.Sportsherd.statechart.sendEvent("login");
+    window.Sportsherd.statechart.sendEvent('doLogin');
   },
-  default: function(){
-    window.Sportsherd.statechart.sendEvent("default");
+
+  home: function(){
+    window.Sportsherd.statechart.sendEvent('home');
   }
+
 });
