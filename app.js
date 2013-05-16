@@ -21,7 +21,7 @@ app.set('view options', { layout: false });
 app.set('view engine', 'jade');
 app.use(connect());
 app.use(express.cookieParser());
-app.use(express.cookieSession({ secret: 'icanhazsekretz' }));
+app.use(express.session({ secret: 'icanhazsekretz' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.logger('dev'));
