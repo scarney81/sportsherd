@@ -1,9 +1,6 @@
-header#top(role='banner')
-  h1 Sportsherd 
-  a.nav-open(href='#nav') Site Nav
-
-nav#nav(role='navigation')
-  h2 Profile
+nav#nav
+  .profile
+    Seth Carney
   ul
     li.is-active
       a Teams                
@@ -11,6 +8,10 @@ nav#nav(role='navigation')
       a Events
     li
       a.logout Log Out                 
-  a.nav-close(href='#top') Return to Content
 
-.main(role='main')
+.page
+  header#top
+    h1 SportsHerd 
+    a.nav-btn(href='#nav') Site Nav
+
+  .content

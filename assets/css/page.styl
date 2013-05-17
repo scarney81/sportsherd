@@ -1,0 +1,52 @@
+#nav
+  position absolute
+  top 0
+  overflow hidden
+  height: 100%;
+  width: 20em;
+  background: #333333;
+  left: 0;
+  z-index 1
+
+.page
+  position relative
+  width 100%
+  min-height 50em
+  background $white
+  z-index 100
+  left: 0 !important;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 500ms ease;
+  -moz-transition: -moz-transform 500ms ease;
+  -o-transition: -o-transform 500ms ease;
+  transition: transform 500ms ease;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow hidden   
+
+.nav-btn
+  display block
+  width: 2.5em
+  height: 2.5em
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: #333333;
+  text-indent: -100%;
+  -webkit-tap-highlight-color rgba(0, 0, 0, 0);
+
+.showNav
+  .page
+    -webkit-transform: translate3d(20em, 0, 0) scale3d(1, 1, 1);
+    -moz-transform: translate3d(20em, 0, 0) scale3d(1, 1, 1);
+    -ms-transform: translate3d(20em, 0, 0) scale3d(1, 1, 1);
+    -o-transform: translate3d(20em, 0, 0) scale3d(1, 1, 1);
+    transform: translate3d(20em, 0, 0) scale3d(1, 1, 1);
+
