@@ -7,7 +7,7 @@ window.SH.statechart.addState('home', {
   },
 
   exitState: function() {
-    if(this.view) this.view.remove();
+    if(this.view) this.view.close();
   }
 
 });

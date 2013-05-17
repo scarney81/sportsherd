@@ -8,7 +8,7 @@ window.SH.statechart.addState('login', {
   },
 
   exitState: function() {
-    if(this.view) this.view.remove();
+    if(this.view) this.view.close();
   },
 
   login: function() {

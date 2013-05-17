@@ -5,7 +5,7 @@ window.SH.statechart.addState('application', {
   },
 
   exitState: function() {
-    if(this.view) this.view.remove();
+    if(this.view) this.view.close();
   },
   
   doLogin: function() {
