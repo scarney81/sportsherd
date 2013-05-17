@@ -7,10 +7,6 @@ window.SH.statechart.addState('application', {
   exitState: function() {
     if(this.view) this.view.close();
   },
-  
-  doLogin: function() {
-    this.goToState('login');
-  },
 
   logout: function() {
     window.location.href = '/logout';

@@ -10,7 +10,7 @@ module.exports = function(app) {
   });
 
   app.get('/public/login', function(req, res, next) {
-    res.render('index');
+    res.render('login');
   });
 
   app.get('/login', passport.authenticate('facebook'));
