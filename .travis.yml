@@ -1,5 +1,21 @@
-language: node_js
 services: mongodb
-node_js:
+env: 
+  global: 
+  - secure: |-
+      C+jTn7wIoDgE7A0dEufZazSt8s1gyLtDpDH502WLqSSuMaLdreexWxkHD/U/
+      ZQ0DD3kwODqRgyE47epqb2D6ZmXHqHA/tycl1VaD3O19p0fiH/cpl1ecKvOS
+      3pHRH6+bZxKIB540TcjyJJmLIVbKuzAoQ+BSJ65qVWh4DGKvQ4g=
+after_success: 
+  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  - git remote add heroku git@heroku.com:sportsherd-test.git
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+  - heroku keys:clear
+  - yes | heroku keys:add
+  - yes | git push heroku master
+node_js: 
   - "0.10"
   - "0.8"
+language: node_js
