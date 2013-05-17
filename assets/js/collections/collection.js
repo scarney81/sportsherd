@@ -1,1 +1,1 @@
-window.Sportsherd.Collection = {};
+window.SH.Collection = {};

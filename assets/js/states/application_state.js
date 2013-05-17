@@ -1,4 +1,4 @@
-window.Sportsherd.statechart.addState('application', {
+window.SH.statechart.addState('application', {
 
   enterState: function() {
     Backbone.history.start({ pushState:true });
@@ -17,7 +17,7 @@ window.Sportsherd.statechart.addState('application', {
   },
 
   home: function() {
-    this.view = new window.Sportsherd.ApplicationView();
+    this.view = new window.SH.ApplicationView();
     this.view.render();
   }
 

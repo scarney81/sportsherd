@@ -1,5 +1,7 @@
 /*globals Backbone*/
-window.Sportsherd.LoginView = Backbone.View.extend({
+// #= require 'base_view'
+
+window.SH.LoginView = window.SH.BaseView.extend({
 
   template: window.JadeTemplates['templates/login'],
 
@@ -9,12 +11,7 @@ window.Sportsherd.LoginView = Backbone.View.extend({
     'click #login': 'login'
   },
 
-  render: function() {
-    this.$el.html(this.template());
-    return this;
-  },
-
   login: function() {
-    window.Sportsherd.statechart.sendEvent('login');
+    window.SH.statechart.sendEvent('login');
   }
 });

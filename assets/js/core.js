@@ -1,5 +1,5 @@
-window.Sportsherd = window.Sportsherd || {};
-window.Sportsherd.statechart = Stativus.createStatechart();
+window.SH = window.SH || {};
+window.SH.statechart = Stativus.createStatechart();
 
 // Change in session redirect behavior. Need to remove #_=_.
 // https://developers.facebook.com/blog/post/552/
@@ -23,7 +23,6 @@ window.Sportsherd.statechart = Stativus.createStatechart();
 
 $(document).ready(function() {
   $.ajaxSetup({ headers: {'X-CSRF-Token': window.CSRF} });
-
-  window.Sportsherd.router = new window.Sportsherd.Router();
-  window.Sportsherd.statechart.initStates({ 'default': 'application', 'error': 'notInError' });
+  window.SH.router = new window.SH.Router();
+  window.SH.statechart.initStates({ 'default': 'application', 'error': 'notInError' });
 });

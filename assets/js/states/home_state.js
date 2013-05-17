@@ -1,4 +1,4 @@
-window.Sportsherd.statechart.addState('home', {
+window.SH.statechart.addState('home', {
 
   parentState: 'application',
 

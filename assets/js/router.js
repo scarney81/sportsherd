@@ -1,4 +1,4 @@
-window.Sportsherd.Router = Backbone.Router.extend({
+window.SH.Router = Backbone.Router.extend({
   routes: {
     
     'public/login': 'login',
@@ -8,11 +8,11 @@ window.Sportsherd.Router = Backbone.Router.extend({
   },
 
   login: function() {
-    window.Sportsherd.statechart.sendEvent('doLogin');
+    window.SH.statechart.sendEvent('doLogin');
   },
 
   home: function() {
-    window.Sportsherd.statechart.sendEvent('home');
+    window.SH.statechart.sendEvent('home');
   }
 
 });

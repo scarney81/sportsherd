@@ -1,1 +1,1 @@
-window.Sportsherd.Model = {};
+window.SH.Model = {};

@@ -1,9 +1,9 @@
-window.Sportsherd.statechart.addState('login', {
+window.SH.statechart.addState('login', {
 
   parentState: 'application',
 
   enterState: function() {
-    this.view = new window.Sportsherd.LoginView();
+    this.view = new window.SH.LoginView();
     this.view.render();
   },
 

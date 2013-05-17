@@ -1,5 +1,7 @@
 /*globals Backbone*/
-window.Sportsherd.ApplicationView = Backbone.View.extend({
+// #= require 'base_view'
+
+window.SH.ApplicationView = window.SH.BaseView.extend({
 
 	template: window.JadeTemplates['templates/application'],
 
@@ -9,13 +11,8 @@ window.Sportsherd.ApplicationView = Backbone.View.extend({
     'click .logout': 'logout'
   },
 
-	render: function() {
-		this.$el.html(this.template());
-		return this;
-	},
-
   logout: function() {
-    window.Sportsherd.statechart.sendEvent('logout');
+    window.SH.statechart.sendEvent('logout');
     return this;
   }
   
