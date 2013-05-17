@@ -8,6 +8,7 @@ window.SH.BaseView = window.Backbone.View.extend({
   close: function() {
     this.remove();
     this.unbind();
+    this.undelegateEvents();
   }
 
 });
