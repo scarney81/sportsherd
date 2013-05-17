@@ -13,5 +13,6 @@ window.SH.LoginView = window.SH.BaseView.extend({
 
   login: function() {
     window.SH.statechart.sendEvent('login');
+    return this;
   }
 });
