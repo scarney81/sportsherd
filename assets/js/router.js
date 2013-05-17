@@ -6,7 +6,7 @@ window.SH.Router = Backbone.Router.extend({
   },
 
   home: function() {
-    window.SH.statechart.sendEvent('home');
+    window.SH.statechart.sendEvent('home', 'navigation');
   }
 
 });

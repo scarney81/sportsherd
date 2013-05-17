@@ -1,6 +1,9 @@
 window.SH.statechart.addState('application', {
 
   enterState: function() {
+    this.view = new window.SH.ApplicationView();
+    this.view.render();
+    
     Backbone.history.start({ pushState:true });
   },
 
@@ -8,13 +11,8 @@ window.SH.statechart.addState('application', {
     if(this.view) this.view.close();
   },
 
-  logout: function() {
-    window.location.href = '/logout';
-  },
-
-  home: function() {
-    this.view = new window.SH.ApplicationView();
-    this.view.render();
+  toggleNavigation: function() {
+    if (this.view) this.view.toggleNavigation();
   }
 
 });

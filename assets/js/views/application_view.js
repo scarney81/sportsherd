@@ -7,13 +7,19 @@ window.SH.ApplicationView = window.SH.BaseView.extend({
 
 	el: '.container',
 
-  events: {
-    'click .logout': 'logout'
+  render: function() {
+    this.$el.html(this.template());
+
+    var header = new window.SH.HeaderView();
+    header.render();
+    this.views.push(header);
+    return this;
   },
 
-  logout: function() {
-    window.SH.statechart.sendEvent('logout');
-    return this;
+  toggleNavigation: function() {
+    var $container = this.$el;
+    if ($container.hasClass('showNav')) $container.removeClass('showNav');
+    else $container.addClass('showNav');
   }
-  
+
 });

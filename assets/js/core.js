@@ -24,5 +24,5 @@ window.SH.statechart = Stativus.createStatechart();
 $(document).ready(function() {
   $.ajaxSetup({ headers: {'X-CSRF-Token': window.CSRF} });
   window.SH.router = new window.SH.Router();
-  window.SH.statechart.initStates({ 'default': 'application', 'error': 'notInError' });
+  window.SH.statechart.initStates({ 'default': 'application', 'navigation': 'nav', 'error': 'notInError' });
 });
