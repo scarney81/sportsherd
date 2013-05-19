@@ -10,7 +10,7 @@
     initialSubstate: 'dashboard-upcoming-events',
 
     enterState: function() {
-      var view = new sh.DashboardView();
+      var view = new sh.DashboardView(sh.Data.Teams);
       $('.content').html(view.render().el);
       this.setData('view', view);
     },
@@ -51,7 +51,36 @@
 
   sc.addState('dashboard-upcoming-events', dashboard_substate('Upcoming'));
 
-  sc.addState('dashboard-teams', dashboard_substate('Teams'));
+  sc.addState('dashboard-teams', {
+
+    parentState: 'dashboard',
+
+    enterState: function() {
+      var self = this;
+      var teams = sh.Data.Teams;
+      if (teams) {
+        if (teams.length) this.goToState('dashboard-teams-ready');
+        else teams.fetch({ success: function() { self.goToState('dashboard-teams-ready'); }});
+      }
+    },
+
+    states: [
+      {
+        name: 'dashboard-teams-ready',
+
+        enterState: function() {
+          var view = this.getData('view');
+          if (view) view.expandTeams();
+        },
+
+        exitState: function() {
+          var view = this.getData('view');
+          if (view) view.collapseTeams();
+        }
+      }
+    ]
+
+  });
 
   sc.addState('dashboard-events', dashboard_substate('Events'));
   

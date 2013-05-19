@@ -8,7 +8,7 @@
     enterState: function() {
       this.view = new sh.ApplicationView();
       this.view.render();
-      
+
       Backbone.history.start({ pushState:true });
     },
 

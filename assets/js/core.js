@@ -23,6 +23,14 @@ window.SH.statechart = Stativus.createStatechart();
 
 $(document).ready(function() {
   $.ajaxSetup({ headers: {'X-CSRF-Token': window.CSRF} });
+
+  // initialize models
+  window.SH.Data = {};
+  window.SH.Data.Teams = new window.SH.TeamCollection();
+
+  //  initialize router
   window.SH.router = new window.SH.Router();
+
+  // intialize statechart
   window.SH.statechart.initStates({ 'default': 'application', 'navigation': 'nav', 'error': 'notInError' });
 });

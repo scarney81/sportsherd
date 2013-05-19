@@ -10,7 +10,8 @@
     },
 
     render: function() {
-      this.$el.html(this.template());
+      var data = this.model ? this.model.toJSON() : {};
+      this.$el.html(this.template(data));
       return this;
     },
 
@@ -19,15 +20,7 @@
       return this;
     },
 
-    // over-ride base remove function
-    remove: function() {
-      this.$el.remove();
-      this.stopListening();
-      return this;
-    },
-
     close: function() {
-      console.log('closing', this);
       this.remove();
       this.unbind();
       this.undelegateEvents();

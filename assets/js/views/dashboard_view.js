@@ -10,6 +10,11 @@
 
     className: 'dashboard',
 
+    initialize: function(teams) {
+      this.teams = teams;
+      sh.DashboardView.__super__.initialize.call(this);
+    },
+
     _renderSubView: function(view) {
       this.$el.append(view.render().el);
       this.views.push(view); // add to views collection for cleanup on close
@@ -21,7 +26,7 @@
       this._upcomingView = new sh.UpcomingDashboardView();
       this._renderSubView(this._upcomingView);
       
-      this._teamsView = new sh.TeamsDashboardView();
+      this._teamsView = new sh.TeamsDashboardView({ collection: this.teams });
       this._renderSubView(this._teamsView);
       
       this._eventsView = new sh.EventsDashboardView();
