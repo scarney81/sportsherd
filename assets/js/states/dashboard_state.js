@@ -17,7 +17,7 @@
 
     exitState: function() {
       var view = this.getData('view');
-      if (this.view) this.view.close();
+      if (view) view.close();
     },
 
     showUpcoming: function() { this.goToState('dashboard-upcoming-events'); },

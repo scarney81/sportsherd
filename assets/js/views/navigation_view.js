@@ -1,18 +1,38 @@
 // #= require 'base_view'
 
-window.SH.NavigationView = window.SH.BaseView.extend({
+(function() {
 
-  template: window.JadeTemplates['templates/navigation'],
+  var sh = window.SH;
+  var sc = window.SH.statechart;
+  sh.NavigationView = sh.BaseView.extend({
 
-  el: 'nav#nav',
+    template: window.JadeTemplates['templates/navigation'],
 
-  events: {
-    'click .logout': 'logout'
-  },
+    el: 'nav#nav',
 
-  logout: function() {
-    window.SH.statechart.sendEvent('logout');
-    return this;
-  }
+    events: {
+      'click a.dashboard': 'dashboard',
+      'click a.events': 'evts',
+      'click a.teams': 'teams',
+      'click a.logout': 'logout'
+    },
 
-});
+    dashboard: function() {
+      sc.sendEvent('gotoDashboard');
+    },
+
+    evts: function() {
+      return this.sendEvent('gotoEvents');
+    },
+
+    teams: function() {
+      return this.sendEvent('gotoTeams');
+    },
+
+    logout: function() {
+      return this.sendEvent('logout');
+    }
+
+  });
+
+})();

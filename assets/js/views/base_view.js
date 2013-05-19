@@ -27,6 +27,7 @@
     },
 
     close: function() {
+      console.log('closing', this);
       this.remove();
       this.unbind();
       this.undelegateEvents();

@@ -38,7 +38,7 @@
       if (this._teamsView) delete this._teamsView;
       if (this._eventsView) delete this._eventsView;
       if (this._accountView) delete this._accountView;
-      sh.BaseView.__super__.close.call(this);
+      sh.DashboardView.__super__.close.call(this);
     },
 
     expandUpcoming: function() { if (this._upcomingView) this._upcomingView.expand(); },
