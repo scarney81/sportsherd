@@ -38,45 +38,31 @@
       return this;
     },
 
-    expandUpcoming: function() {
-      this.$el.find('h3.upcoming').next('p').removeClass('hidden');
+    expand: function(element) {
+      this.$el.find('h3.'+element).next('p').removeClass('hidden');
       return this;
     },
 
-    expandTeams: function() {
-      this.$el.find('h3.teams').next('p').removeClass('hidden');
+    collapse: function(element) {
+      this.$el.find('h3.'+element).next('p').addClass('hidden');
       return this;
     },
 
-    expandEvents: function() {
-      this.$el.find('h3.events').next('p').removeClass('hidden');
-      return this;
-    },
+    expandUpcoming: function() { return this.expand('upcoming'); },
 
-    expandAccount: function() {
-      this.$el.find('h3.account').next('p').removeClass('hidden');
-      return this;
-    },
+    expandTeams: function() { return this.expand('teams'); },
 
-    collapseUpcoming: function() {
-      this.$el.find('h3.upcoming').next('p').addClass('hidden');
-      return this;
-    },
+    expandEvents: function() { return this.expand('events'); },
 
-    collapseTeams: function() {
-      this.$el.find('h3.teams').next('p').addClass('hidden');
-      return this;
-    },
+    expandAccount: function() { return this.expand('account'); },
 
-    collapseEvents: function() {
-      this.$el.find('h3.events').next('p').addClass('hidden');
-      return this;
-    },
+    collapseUpcoming: function() { return this.collapse('upcoming'); },
 
-    collapseAccount: function() {
-      this.$el.find('h3.account').next('p').addClass('hidden');
-      return this;
-    }
+    collapseTeams: function() { return this.collapse('teams'); },
+
+    collapseEvents: function() { return this.collapse('events'); },
+
+    collapseAccount: function() { return this.collapse('account'); }
 
   });
 
