@@ -7,7 +7,7 @@
 
     template: window.JadeTemplates['templates/dashboard'],
 
-    el: '.content',
+    className: 'dashboard',
 
     events: {
       'click h3.upcoming': 'showUpcoming',
@@ -33,12 +33,12 @@
     },
 
     expand: function(element) {
-      this.$el.find('h3.'+element).next('p').removeClass('hidden');
+      this.$el.find('ul.'+element).removeClass('hidden');
       return this;
     },
 
     collapse: function(element) {
-      this.$el.find('h3.'+element).next('p').addClass('hidden');
+      this.$el.find('ul.'+element).addClass('hidden');
       return this;
     },
 

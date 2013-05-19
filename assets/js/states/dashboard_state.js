@@ -11,7 +11,7 @@
 
     enterState: function() {
       var view = new sh.DashboardView();
-      view.render();
+      $('.content').html(view.render().el);
       this.setData('view', view);
     },
 
@@ -20,86 +20,41 @@
       if (this.view) this.view.close();
     },
 
-    showUpcoming: function() {
-      this.goToState('dashboard-upcoming-events');
-    },
+    showUpcoming: function() { this.goToState('dashboard-upcoming-events'); },
 
-    showTeams: function() {
-      this.goToState('dashboard-teams');
-    },
+    showTeams: function() { this.goToState('dashboard-teams'); },
 
-    showEvents: function() {
-      this.goToState('dashboard-events');
-    },
+    showEvents: function() { this.goToState('dashboard-events'); },
 
-    showAccount: function() {
-      this.goToState('dashboard-account');
-    }
+    showAccount: function() { this.goToState('dashboard-account'); }
 
   });
 
-  sc.addState('dashboard-upcoming-events', {
+  var dashboard_substate = function(name) {
+    var state = {
 
-    parentState: 'dashboard',
+      parentState: 'dashboard',
+      
+      enterState: function() {
+        var view = this.getData('view'), func = 'expand'+name;
+        if (view && view[func] && typeof view[func] === 'function') view[func]();
+      },
 
-    enterState: function() {
-      var view = this.getData('view');
-      if (view) view.expandUpcoming();
-    },
+      exitState: function() {
+        var view = this.getData('view'), func = 'collapse'+name;
+        if (view && view[func] && typeof view[func] === 'function') view[func]();
+      }
 
-    exitState: function() {
-      var view = this.getData('view');
-      if (view) view.collapseUpcoming();
-    }
+    };
+    return state;
+  };
 
-  });
+  sc.addState('dashboard-upcoming-events', dashboard_substate('Upcoming'));
 
-  sc.addState('dashboard-teams', {
+  sc.addState('dashboard-teams', dashboard_substate('Teams'));
 
-    parentState: 'dashboard',
-
-    enterState: function() {
-      var view = this.getData('view');
-      if (view) view.expandTeams();
-    },
-
-    exitState: function() {
-      var view = this.getData('view');
-      if (view) view.collapseTeams();
-    }
-
-  });
-
-  sc.addState('dashboard-events', {
-
-    parentState: 'dashboard',
-
-    enterState: function() {
-      var view = this.getData('view');
-      if (view) view.expandEvents();
-    },
-
-    exitState: function() {
-      var view = this.getData('view');
-      if (view) view.collapseEvents();
-    }
-
-  });
-
-  sc.addState('dashboard-account', {
-
-    parentState: 'dashboard',
-
-    enterState: function() {
-      var view = this.getData('view');
-      if (view) view.expandAccount();
-    },
-
-    exitState: function() {
-      var view = this.getData('view');
-      if (view) view.collapseAccount();
-    }
-
-  });
+  sc.addState('dashboard-events', dashboard_substate('Events'));
+  
+  sc.addState('dashboard-account', dashboard_substate('Account'));
 
 })();

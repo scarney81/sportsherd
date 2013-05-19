@@ -21,8 +21,7 @@
 
     // over-ride base remove function
     remove: function() {
-      // this.$el.remove(); // base function
-      this.$el.html('');
+      this.$el.remove();
       this.stopListening();
       return this;
     },
