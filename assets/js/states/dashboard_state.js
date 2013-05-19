@@ -7,13 +7,33 @@
 
     parentState: 'application',
 
+    initialSubstate: 'dashboard-upcoming-events',
+
     enterState: function() {
-      this.view = new sh.DashboardView();
-      this.view.render();
+      var view = new sh.DashboardView();
+      view.render();
+      this.setData('view', view);
     },
 
     exitState: function() {
+      var view = this.getData('view');
       if (this.view) this.view.close();
+    },
+
+    showUpcoming: function() {
+      this.goToState('dashboard-upcoming-events');
+    },
+
+    showTeams: function() {
+      this.goToState('dashboard-teams');
+    },
+
+    showEvents: function() {
+      this.goToState('dashboard-events');
+    },
+
+    showAccount: function() {
+      this.goToState('dashboard-account');
     }
 
   });
@@ -23,12 +43,13 @@
     parentState: 'dashboard',
 
     enterState: function() {
-      // expand upcoming events view
+      var view = this.getData('view');
+      if (view) view.expandUpcoming();
     },
 
-    willExitState: function(done) {
-      // collapse upcoming events view
-      done();
+    exitState: function() {
+      var view = this.getData('view');
+      if (view) view.collapseUpcoming();
     }
 
   });
@@ -38,12 +59,13 @@
     parentState: 'dashboard',
 
     enterState: function() {
-      // expand teams view
+      var view = this.getData('view');
+      if (view) view.expandTeams();
     },
 
-    willExitState: function(done) {
-      // collapse teams view
-      done();
+    exitState: function() {
+      var view = this.getData('view');
+      if (view) view.collapseTeams();
     }
 
   });
@@ -53,12 +75,13 @@
     parentState: 'dashboard',
 
     enterState: function() {
-      // TODO: expand events view
+      var view = this.getData('view');
+      if (view) view.expandEvents();
     },
 
-    willExitState: function(done) {
-      // TODO: collapse events view
-      done();
+    exitState: function() {
+      var view = this.getData('view');
+      if (view) view.collapseEvents();
     }
 
   });
@@ -68,12 +91,13 @@
     parentState: 'dashboard',
 
     enterState: function() {
-      // TODO: expande account view
+      var view = this.getData('view');
+      if (view) view.expandAccount();
     },
 
-    willExitState: function(done) {
-      // TODO: collapse account view
-      done();
+    exitState: function() {
+      var view = this.getData('view');
+      if (view) view.collapseAccount();
     }
 
   });
