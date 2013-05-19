@@ -1,34 +1,46 @@
-window.SH.BaseView = window.Backbone.View.extend({
+(function() {
 
-  initialize: function() {
-    this.views = [];
-  },
+  var sh = window.SH;
+  var sc = window.SH.statechart;
 
-  render: function() {
-    this.$el.html(this.template());
-    return this;
-  },
+  window.SH.BaseView = window.Backbone.View.extend({
 
-  // over-ride base remove function
-  remove: function() {
-    // this.$el.remove(); // base function
-    this.$el.html('');
-    this.stopListening();
-    return this;
-  },
+    initialize: function() {
+      this.views = [];
+    },
 
-  close: function() {
-    this.remove();
-    this.unbind();
-    this.undelegateEvents();
+    render: function() {
+      this.$el.html(this.template());
+      return this;
+    },
 
-    if (this.views && this.views.length) {
-      this.views.forEach(function(view) {
-        if (view.close) view.close();
-      });
+    sendEvent: function(event) {
+      sc.sendEvent(event);
+      return this;
+    },
+
+    // over-ride base remove function
+    remove: function() {
+      // this.$el.remove(); // base function
+      this.$el.html('');
+      this.stopListening();
+      return this;
+    },
+
+    close: function() {
+      this.remove();
+      this.unbind();
+      this.undelegateEvents();
+
+      if (this.views && this.views.length) {
+        this.views.forEach(function(view) {
+          if (view.close) view.close();
+        });
+      }
+
+      return this;
     }
 
-    return this;
-  }
+  });
 
-});
+})();

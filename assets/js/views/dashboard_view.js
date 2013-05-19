@@ -3,8 +3,6 @@
 (function() {
 
   var sh = window.SH;
-  var sc = window.SH.statechart;
-
   sh.DashboardView = sh.BaseView.extend({
 
     template: window.JadeTemplates['templates/dashboard'],
@@ -19,23 +17,19 @@
     },
 
     showUpcoming: function() {
-      sc.sendEvent('showUpcoming');
-      return this;
+      return this.sendEvent('showUpcoming');
     },
 
     showTeams: function() {
-      sc.sendEvent('showTeams');
-      return this;
+      return this.sendEvent('showTeams');
     },
 
     showEvents: function() {
-      sc.sendEvent('showEvents');
-      return this;
+      return this.sendEvent('showEvents');
     },
 
     showAccount: function() {
-      sc.sendEvent('showAccount');
-      return this;
+      return this.sendEvent('showAccount');
     },
 
     expand: function(element) {
