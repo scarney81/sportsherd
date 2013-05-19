@@ -1,7 +1,13 @@
+var switch_state = function(state) {
+  window.SH.statechart.sendEvent('switchState', state);
+};
+
 window.SH.Router = Backbone.Router.extend({
   routes: {
 
     'events': 'events',
+
+    'profile': 'profile',
     
     'teams': 'teams',
     
@@ -10,15 +16,19 @@ window.SH.Router = Backbone.Router.extend({
   },
 
   events: function() {
-    window.SH.statechart.sendEvent('switchState', 'events');
+    switch_state('events');
+  },
+
+  profile: function() {
+    switch_state('profile');
   },
 
   teams: function() {
-    window.SH.statechart.sendEvent('switchState', 'teams');
+    switch_state('teams');
   },
 
   dashboard: function() {
-    window.SH.statechart.sendEvent('switchState', 'dashboard');
+    switch_state('dashboard');
   }
 
 });

@@ -11,14 +11,19 @@
     el: 'nav#nav',
 
     events: {
+      'click .profile': 'profile',
       'click a.dashboard': 'dashboard',
       'click a.events': 'evts',
       'click a.teams': 'teams',
       'click a.logout': 'logout'
     },
 
+    profile: function() {
+      return this.sendEvent('gotoProfile');
+    },
+
     dashboard: function() {
-      sc.sendEvent('gotoDashboard');
+      return this.sendEvent('gotoDashboard');
     },
 
     evts: function() {

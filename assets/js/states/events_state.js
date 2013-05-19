@@ -8,14 +8,12 @@
     parentState: 'application',
 
     enterState: function() {
-      var view = new sh.EventsView();
-      $('.content').html(view.render().el);
-      this.setData('view', view);
+      this.view = new sh.EventsView();
+      $('.content').html(this.view.render().el);
     },
 
     exitState: function() {
-      var view = this.getData('view');
-      if (view) view.close();
+      if (this.view) this.view.close();
     }
 
   });
