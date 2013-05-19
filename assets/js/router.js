@@ -1,34 +1,38 @@
-var switch_state = function(state) {
-  window.SH.statechart.sendEvent('switchState', state);
-};
+(function() {
 
-window.SH.Router = Backbone.Router.extend({
-  routes: {
+  var switch_state = function(state) {
+    window.SH.statechart.sendEvent('switchState', state);
+  };
 
-    'events': 'events',
+  window.SH.Router = Backbone.Router.extend({
+    routes: {
 
-    'profile': 'profile',
-    
-    'teams': 'teams',
-    
-    '*route': 'dashboard'
+      'events': 'events',
 
-  },
+      'profile': 'profile',
+      
+      'teams': 'teams',
+      
+      '*route': 'dashboard'
 
-  events: function() {
-    switch_state('events');
-  },
+    },
 
-  profile: function() {
-    switch_state('profile');
-  },
+    events: function() {
+      switch_state('events');
+    },
 
-  teams: function() {
-    switch_state('teams');
-  },
+    profile: function() {
+      switch_state('profile');
+    },
 
-  dashboard: function() {
-    switch_state('dashboard');
-  }
+    teams: function() {
+      switch_state('teams');
+    },
 
-});
+    dashboard: function() {
+      switch_state('dashboard');
+    }
+
+  });
+
+})();
