@@ -1,4 +1,5 @@
 // #= require 'base_view'
+// #= require_tree 'dashboard'
 
 (function() {
 
@@ -9,54 +10,52 @@
 
     className: 'dashboard',
 
-    events: {
-      'click h3.upcoming': 'showUpcoming',
-      'click h3.teams': 'showTeams',
-      'click h3.events': 'showEvents',
-      'click h3.account': 'showAccount'
+    _renderSubView: function(view) {
+      this.$el.append(view.render().el);
+      this.views.push(view); // add to views collection for cleanup on close
     },
 
-    showUpcoming: function() {
-      return this.sendEvent('showUpcoming');
-    },
+    render: function() {
+      this.$el.html(this.template());
 
-    showTeams: function() {
-      return this.sendEvent('showTeams');
-    },
+      this._upcomingView = new sh.UpcomingDashboardView();
+      this._renderSubView(this._upcomingView);
+      
+      this._teamsView = new sh.TeamsDashboardView();
+      this._renderSubView(this._teamsView);
+      
+      this._eventsView = new sh.EventsDashboardView();
+      this._renderSubView(this._eventsView);
+      
+      this._accountView = new sh.AccountDashboardView();
+      this._renderSubView(this._accountView);
 
-    showEvents: function() {
-      return this.sendEvent('showEvents');
-    },
-
-    showAccount: function() {
-      return this.sendEvent('showAccount');
-    },
-
-    expand: function(element) {
-      this.$el.find('ul.'+element).removeClass('hidden');
       return this;
     },
 
-    collapse: function(element) {
-      this.$el.find('ul.'+element).addClass('hidden');
-      return this;
+    close: function() {
+      if (this._upcomingView) delete this._upcomingView;
+      if (this._teamsView) delete this._teamsView;
+      if (this._eventsView) delete this._eventsView;
+      if (this._accountView) delete this._accountView;
+      sh.BaseView.__super__.close.call(this);
     },
 
-    expandUpcoming: function() { return this.expand('upcoming'); },
+    expandUpcoming: function() { if (this._upcomingView) this._upcomingView.expand(); },
 
-    expandTeams: function() { return this.expand('teams'); },
+    expandTeams: function() { if (this._teamsView) this._teamsView.expand(); },
 
-    expandEvents: function() { return this.expand('events'); },
+    expandEvents: function() { if (this._eventsView) this._eventsView.expand(); },
 
-    expandAccount: function() { return this.expand('account'); },
+    expandAccount: function() { if (this._accountView) this._accountView.expand(); },
 
-    collapseUpcoming: function() { return this.collapse('upcoming'); },
+    collapseUpcoming: function() { if (this._upcomingView) this._upcomingView.collapse(); },
 
-    collapseTeams: function() { return this.collapse('teams'); },
+    collapseTeams: function() { if (this._teamsView) this._teamsView.collapse(); },
 
-    collapseEvents: function() { return this.collapse('events'); },
+    collapseEvents: function() { if (this._eventsView) this._eventsView.collapse(); },
 
-    collapseAccount: function() { return this.collapse('account'); }
+    collapseAccount: function() { if (this._accountView) this._accountView.collapse(); }
 
   });
 
