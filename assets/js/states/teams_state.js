@@ -27,7 +27,14 @@
     
     parentState: 'teams',
 
-    enterState: function() {
+    enterState: function() { // TODO: Show loading animation
+      this.sendEvent('loadTeams');
+    },
+
+    exitState: function() { // TODO: Hide loading animation
+    },
+
+    loadTeams: function() {
       var self = this;
       var teams = sh.Data.Teams;
       if (teams) {

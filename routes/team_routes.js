@@ -21,7 +21,6 @@ module.exports = function(app) {
     res.json(teams);
   });
 
-
   // // get a specific team
   // app.get('/teams/:team_id', function(req, res, next) {
   //   res.json(req.team);

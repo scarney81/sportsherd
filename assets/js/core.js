@@ -27,6 +27,7 @@ $(document).ready(function() {
   // initialize models
   window.SH.Data = {};
   window.SH.Data.Teams = new window.SH.TeamCollection();
+  window.SH.Data.Events = new window.SH.EventCollection();
 
   //  initialize router
   window.SH.router = new window.SH.Router();

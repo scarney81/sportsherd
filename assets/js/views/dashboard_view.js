@@ -10,8 +10,9 @@
 
     className: 'dashboard',
 
-    initialize: function(teams) {
+    initialize: function(teams, evts) {
       this.teams = teams;
+      this.evts = evts;
       sh.DashboardView.__super__.initialize.call(this);
     },
 
@@ -29,7 +30,7 @@
       this._teamsView = new sh.TeamsDashboardView({ collection: this.teams });
       this._renderSubView(this._teamsView);
       
-      this._eventsView = new sh.EventsDashboardView();
+      this._eventsView = new sh.EventsDashboardView({ collection: this.evts });
       this._renderSubView(this._eventsView);
       
       this._accountView = new sh.AccountDashboardView();
