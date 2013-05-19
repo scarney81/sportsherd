@@ -1,18 +1,25 @@
-window.SH.statechart.addState('application', {
+(function() {
 
-  enterState: function() {
-    this.view = new window.SH.ApplicationView();
-    this.view.render();
-    
-    Backbone.history.start({ pushState:true });
-  },
+  var sh = window.SH;
+  var sc = window.SH.statechart;
 
-  exitState: function() {
-    if(this.view) this.view.close();
-  },
+  sc.addState('application', {
 
-  toggleNavigation: function() {
-    if (this.view) this.view.toggleNavigation();
-  }
+    enterState: function() {
+      this.view = new sh.ApplicationView();
+      this.view.render();
+      
+      Backbone.history.start({ pushState:true });
+    },
 
-});
+    exitState: function() {
+      if(this.view) this.view.close();
+    },
+
+    toggleNavigation: function() {
+      if (this.view) this.view.toggleNavigation();
+    }
+
+  });  
+
+})();

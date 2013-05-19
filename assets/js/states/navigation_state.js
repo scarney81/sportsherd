@@ -1,23 +1,29 @@
-window.SH.statechart.addState('nav', {
+(function() {
 
-  globalConcurrentState: 'navigation',
+  var sh = window.SH;
+  var sc = window.SH.statechart;
 
-  enterState: function() {
-    this.view = new window.SH.NavigationView();
-    this.view.render();
-  },
+  sc.addState('nav', {
 
-  exitState: function() {
-    if (this.view) this.view.close();
-  },
+    globalConcurrentState: 'navigation',
 
-  logout: function() {
-    window.location.href = '/logout';
-  },
+    enterState: function() {
+      this.view = new sh.NavigationView();
+      this.view.render();
+    },
 
-  home: function() {
-    // TODO: Build some kind of home state
-  }
+    exitState: function() {
+      if (this.view) this.view.close();
+    },
 
+    logout: function() {
+      window.location.href = '/logout';
+    },
 
-});
+    dashboard: function() {
+      sc.goToState('dashboard', 'default');
+    }
+
+  });
+
+})();

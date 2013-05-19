@@ -1,12 +1,12 @@
 window.SH.Router = Backbone.Router.extend({
   routes: {
     
-    '*route': 'home'
+    '*route': 'dashboard'
 
   },
 
-  home: function() {
-    window.SH.statechart.sendEvent('home');
+  dashboard: function() {
+    window.SH.statechart.sendEvent('dashboard');
   }
 
 });

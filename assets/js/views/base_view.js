@@ -9,6 +9,14 @@ window.SH.BaseView = window.Backbone.View.extend({
     return this;
   },
 
+  // over-ride base remove function
+  remove: function() {
+    // this.$el.remove(); // base function
+    this.$el.html('');
+    this.stopListening();
+    return this;
+  },
+
   close: function() {
     this.remove();
     this.unbind();
@@ -19,6 +27,8 @@ window.SH.BaseView = window.Backbone.View.extend({
         if (view.close) view.close();
       });
     }
+
+    return this;
   }
 
 });

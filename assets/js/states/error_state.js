@@ -1,11 +1,17 @@
-window.SH.statechart.addState('notInError', {
+(function() {
 
-  globalConcurrentState: 'error'
+  var sc = window.SH.statechart;
 
-});
+  sc.addState('notInError', {
 
-window.SH.statechart.addState('inError', {
+    globalConcurrentState: 'error'
 
-  globalConcurrentState: 'error'
+  });
 
-});
+  sc.addState('inError', {
+
+    globalConcurrentState: 'error'
+
+  });
+
+})();
