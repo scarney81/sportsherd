@@ -20,7 +20,7 @@
       if (this.view) this.view.close();
     },
 
-    switchState: function(state) { sc.goToState(state, 'default'); },
+    switchState: function(state) { sc.goToHistoryState(state, 'default'); },
 
     logout: function() { window.location.href = '/logout'; },
 

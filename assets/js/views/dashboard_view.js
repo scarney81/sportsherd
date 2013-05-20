@@ -13,33 +13,36 @@
     initialize: function(teams, evts) {
       this.teams = teams;
       this.evts = evts;
+      this.subviews = [];
       sh.DashboardView.__super__.initialize.call(this);
     },
 
-    _renderSubView: function(view) {
+    _renderSubView: function(view, name) {
       this.$el.append(view.render().el);
       this.views.push(view); // add to views collection for cleanup on close
+      this.subviews[name] = view;
     },
 
     render: function() {
       this.$el.html(this.template());
 
-      this._upcomingView = new sh.UpcomingDashboardView();
-      this._renderSubView(this._upcomingView);
+      var upcomingView = new sh.UpcomingDashboardView();
+      this._renderSubView(upcomingView, 'upcoming');
       
-      this._teamsView = new sh.TeamsDashboardView({ collection: this.teams });
-      this._renderSubView(this._teamsView);
+      var teamsView = new sh.TeamsDashboardView({ collection: this.teams });
+      this._renderSubView(teamsView, 'teams');
       
-      this._eventsView = new sh.EventsDashboardView({ collection: this.evts });
-      this._renderSubView(this._eventsView);
+      var eventsView = new sh.EventsDashboardView({ collection: this.evts });
+      this._renderSubView(eventsView, 'events');
       
-      this._accountView = new sh.AccountDashboardView();
-      this._renderSubView(this._accountView);
+      var accountView = new sh.AccountDashboardView();
+      this._renderSubView(accountView, 'account');
 
       return this;
     },
 
     close: function() {
+      if (this.subviews) delete this.subviews;
       if (this._upcomingView) delete this._upcomingView;
       if (this._teamsView) delete this._teamsView;
       if (this._eventsView) delete this._eventsView;
@@ -47,21 +50,17 @@
       sh.DashboardView.__super__.close.call(this);
     },
 
-    expandUpcoming: function() { if (this._upcomingView) this._upcomingView.expand(); },
+    expand: function(section) {
+      if (!this.subviews) return;
+      var view = this.subviews[section];
+      if (view) view.expand();
+    },
 
-    expandTeams: function() { if (this._teamsView) this._teamsView.expand(); },
-
-    expandEvents: function() { if (this._eventsView) this._eventsView.expand(); },
-
-    expandAccount: function() { if (this._accountView) this._accountView.expand(); },
-
-    collapseUpcoming: function() { if (this._upcomingView) this._upcomingView.collapse(); },
-
-    collapseTeams: function() { if (this._teamsView) this._teamsView.collapse(); },
-
-    collapseEvents: function() { if (this._eventsView) this._eventsView.collapse(); },
-
-    collapseAccount: function() { if (this._accountView) this._accountView.collapse(); }
+    collapse: function(section) {
+      if (!this.subviews) return;
+      var view = this.subviews[section];
+      if (view) view.collapse();
+    }
 
   });
 
