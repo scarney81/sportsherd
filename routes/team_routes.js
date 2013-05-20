@@ -18,7 +18,7 @@ module.exports = function(app) {
       { id: 2, name: 'The Cereal Killers' },
       { id: 3, name: 'Thunder Down Under' }
     ];
-    res.json(teams);
+    setTimeout(function() { res.json(teams); }, 2000);
   });
 
   // // get a specific team

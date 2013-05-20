@@ -50,14 +50,22 @@
       sh.DashboardView.__super__.close.call(this);
     },
 
+    busy: function(section) {
+      var view = this.subviews[section];
+      if (view) view.busy();
+    },
+
+    idle: function(section) {
+      var view = this.subviews[section];
+      if (view) view.idle();
+    },
+
     expand: function(section) {
-      if (!this.subviews) return;
       var view = this.subviews[section];
       if (view) view.expand();
     },
 
     collapse: function(section) {
-      if (!this.subviews) return;
       var view = this.subviews[section];
       if (view) view.collapse();
     }

@@ -12,14 +12,14 @@
       sh.TeamsDashboardView.__super__.initialize.call(this);
     },
 
+    showDashboard: function() { return this.sendEvent('showTeams'); },
+
     render: function() {
       var self = this;
       this.$el.html(this.template());
       this.collection.each(function(team) { self.renderTeam(team); });
       return this;
     },
-
-    showDashboard: function() { return this.sendEvent('showTeams'); },
 
     renderTeam: function(team) {
       var view = new sh.TeamView({ model: team });

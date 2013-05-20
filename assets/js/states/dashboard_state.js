@@ -26,6 +26,10 @@
 
     showAccount: function() { this.goToState('dashboard-account'); },
 
+    idle: function(section) { this.view.idle(section); },
+
+    busy: function(section) { this.view.busy(section); },
+
     expand: function(section) { this.view.expand(section); },
 
     collapse: function(section) { this.view.collapse(section); }
@@ -48,14 +52,22 @@
 
     parentState: 'dashboard',
 
-    enterState: function() {
-      var self = this;
-      var teams = sh.Data.Teams;
-      if (teams.length) this.goToState('dashboard-teams-ready');
-      else teams.fetch({ success: function() { self.goToState('dashboard-teams-ready'); }});
-    },
+    initialSubstate: 'dashboard-teams-loading',
 
     states: [
+      {
+        name: 'dashboard-teams-loading',
+        enterState: function() {
+          var self = this;
+          var teams = sh.Data.Teams;
+          this.sendEvent('busy', 'teams');
+          if (teams.length) this.goToState('dashboard-teams-ready');
+          else teams.fetch({ success: function() { self.goToState('dashboard-teams-ready'); }});
+        },
+        exitState: function() {
+          this.sendEvent('idle', 'teams');
+        }
+      },
       {
         name: 'dashboard-teams-ready',
         enterState: function() {
@@ -73,14 +85,22 @@
 
     parentState: 'dashboard',
 
-    enterState: function() {
-      var self = this;
-      var events = sh.Data.Events;
-      if (events.length) this.goToState('dashboard-events-ready');
-      else events.fetch({ success: function() { self.goToState('dashboard-events-ready'); }});
-    },
+    initialSubstate: 'dashboard-events-loading',
 
     states: [
+      {
+        name: 'dashboard-events-loading',
+        enterState: function() {
+          var self = this;
+          var events = sh.Data.Events;
+          this.sendEvent('busy', 'events');
+          if (events.length) this.goToState('dashboard-events-ready');
+          else events.fetch({ success: function() { self.goToState('dashboard-events-ready'); }});
+        },
+        exitState: function() {
+          this.sendEvent('idle', 'events');
+        }
+      },
       {
         name: 'dashboard-events-ready',
         enterState: function() {

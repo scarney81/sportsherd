@@ -12,6 +12,15 @@
       return this;
     },
 
+    busy: function() {
+      this.$el.find('h3').append(' - Loading...');
+    },
+
+    idle: function() {
+      var $head = this.$el.find('h3');
+      $head.text($head.text().replace(' - Loading...', ''));
+    },
+
     expand: function() {
       this.$el.find('ul').removeClass('hidden');
       return this;

@@ -12,14 +12,14 @@
       sh.EventsDashboardView.__super__.initialize.call(this);
     },
 
+    showDashboard: function() { return this.sendEvent('showEvents'); },
+
     render: function() {
       var self = this;
       this.$el.html(this.template());
       this.collection.each(function(event) { self.renderEvent(event); });
       return this;
     },
-
-    showDashboard: function() { return this.sendEvent('showEvents'); },
 
     renderEvent: function(event) {
       var view = new sh.EventView({ model: event });
