@@ -3,6 +3,8 @@
   var sh = window.SH;
   var sc = window.SH.statechart;
 
+  var delegateEventSplitter = /^(\S+)\s*(.*)$/;
+
   window.SH.BaseView = window.Backbone.View.extend({
 
     initialize: function() {
@@ -12,6 +14,31 @@
     render: function() {
       var data = this.model ? this.model.toJSON() : {};
       this.$el.html(this.template(data));
+      this.delegateEvents();
+      return this;
+    },
+
+    delegateEvents: function(events) {
+      if (!(events || (events = _.result(this, 'events')))) return this;
+      this.undelegateEvents();
+      for (var key in events) {
+        if (events.hasOwnProperty(key)) {
+          var method = events[key];
+          if (!_.isFunction(method)) method = this[events[key]];
+          if (!method) continue;
+
+          var match = key.match(delegateEventSplitter);
+          var eventName = match[1], selector = match[2];
+          method = _.bind(method, this);
+          eventName += '.delegateEvents' + this.cid;
+          if (selector === '') this.$el.on(eventName, method);
+          else {
+            // this.$el.on(eventName, selector, method);
+            // apply directly to element instead of parent (this prevents flicker in iOS)
+            this.$el.find(selector).on(eventName, method);
+          }
+        }
+      }
       return this;
     },
 
