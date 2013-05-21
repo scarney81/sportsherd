@@ -50,12 +50,28 @@
       sh.DashboardView.__super__.close.call(this);
     },
 
+    disableDashboardNav: function() {
+      this.undelegateEvents();
+      this.views.forEach(function(view) {
+        view.undelegateEvents();
+      });
+    },
+
+    enableDashboardNav: function() {
+      this.delegateEvents();
+      this.views.forEach(function(view) {
+        view.delegateEvents();
+      });
+    },
+
     busy: function(section) {
+      this.disableDashboardNav();
       var view = this.subviews[section];
       if (view) view.busy();
     },
 
     idle: function(section) {
+      this.enableDashboardNav();
       var view = this.subviews[section];
       if (view) view.idle();
     },

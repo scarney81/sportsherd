@@ -63,14 +63,12 @@
           this.sendEvent('busy', 'teams');
           if (teams.length) this.goToState('dashboard-teams-ready');
           else teams.fetch({ success: function() { self.goToState('dashboard-teams-ready'); }});
-        },
-        exitState: function() {
-          this.sendEvent('idle', 'teams');
         }
       },
       {
         name: 'dashboard-teams-ready',
         enterState: function() {
+          this.sendEvent('idle', 'teams');
           this.sendEvent('expand', 'teams');
         },
         exitState: function() {
@@ -96,14 +94,12 @@
           this.sendEvent('busy', 'events');
           if (events.length) this.goToState('dashboard-events-ready');
           else events.fetch({ success: function() { self.goToState('dashboard-events-ready'); }});
-        },
-        exitState: function() {
-          this.sendEvent('idle', 'events');
         }
       },
       {
         name: 'dashboard-events-ready',
         enterState: function() {
+          this.sendEvent('idle', 'events');
           this.sendEvent('expand', 'events');
         },
         exitState: function() {
