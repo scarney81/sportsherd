@@ -8,7 +8,7 @@
   sc.addState('application', {
 
     enterState: function() {
-      this.view = new views.ApplicationView();
+      this.view = new views.Application();
       this.view.render();
 
       backbone.history.start({ pushState:true });

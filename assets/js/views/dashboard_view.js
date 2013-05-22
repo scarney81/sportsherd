@@ -6,7 +6,7 @@
   "use strict";
 
   var views = app.Views;
-  views.DashboardView = views.Base.extend({
+  views.Dashboard = views.Base.extend({
 
     template: window.JadeTemplates['templates/dashboard'],
 
@@ -16,7 +16,7 @@
       this.teams = teams;
       this.evts = evts;
       this.subviews = [];
-      views.DashboardView.__super__.initialize.call(this);
+      views.Dashboard.__super__.initialize.call(this);
     },
 
     _renderSubView: function(view, name) {
@@ -28,16 +28,16 @@
     render: function() {
       this.$el.html(this.template());
 
-      var upcomingView = new views.UpcomingDashboardView();
+      var upcomingView = new views.UpcomingDashboard();
       this._renderSubView(upcomingView, 'upcoming');
       
-      var teamsView = new views.TeamsDashboardView({ collection: this.teams });
+      var teamsView = new views.TeamsDashboard({ collection: this.teams });
       this._renderSubView(teamsView, 'teams');
       
-      var eventsView = new views.EventsDashboardView({ collection: this.evts });
+      var eventsView = new views.EventsDashboard({ collection: this.evts });
       this._renderSubView(eventsView, 'events');
       
-      var accountView = new views.AccountDashboardView();
+      var accountView = new views.AccountDashboard();
       this._renderSubView(accountView, 'account');
 
       return this;
@@ -49,7 +49,7 @@
       if (this._teamsView) delete this._teamsView;
       if (this._eventsView) delete this._eventsView;
       if (this._accountView) delete this._accountView;
-      views.DashboardView.__super__.close.call(this);
+      views.Dashboard.__super__.close.call(this);
     },
 
     disableDashboardNav: function() {

@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.ApplicationView = views.Base.extend({
+  views.Application = views.Base.extend({
 
     template: window.JadeTemplates['templates/application'],
 
@@ -14,7 +14,7 @@
     render: function() {
       this.$el.html(this.template());
 
-      var header = new views.HeaderView();
+      var header = new views.Header();
       header.render();
       this.views.push(header);
       return this;

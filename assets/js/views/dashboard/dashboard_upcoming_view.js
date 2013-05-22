@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.UpcomingDashboardView = views.BaseDashboardView.extend({
+  views.UpcomingDashboard = views.BaseDashboard.extend({
 
     template: window.JadeTemplates['templates/dashboard/upcoming'],
 

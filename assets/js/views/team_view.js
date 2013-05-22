@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.TeamView = views.Base.extend({
+  views.Team = views.Base.extend({
 
     template: window.JadeTemplates['templates/team'],
 

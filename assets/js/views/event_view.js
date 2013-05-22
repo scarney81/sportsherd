@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.EventView = views.Base.extend({
+  views.Event = views.Base.extend({
 
     template: window.JadeTemplates['templates/event'],
 

@@ -14,7 +14,7 @@
 
     enterState: function() {
       var events = data.Events;
-      var view = new views.EventsView({ collection: events });
+      var view = new views.Events({ collection: events });
 
       $('.content').html(view.render().el);
       this.setData('view', view);

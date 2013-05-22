@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.ProfileView = views.Base.extend({
+  views.Profile = views.Base.extend({
 
     template: window.JadeTemplates['templates/profile'],
 

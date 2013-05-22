@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.EventsView = views.Base.extend({
+  views.Events = views.Base.extend({
 
     template: window.JadeTemplates['templates/events'],
 
@@ -14,7 +14,7 @@
     initialize: function() {
       this.collection.on('add', this.renderEvent, this);
       this.collection.on('reset', this.render, this);
-      views.EventsView.__super__.initialize.call(this);
+      views.Events.__super__.initialize.call(this);
     },
 
     render: function() {
@@ -25,7 +25,7 @@
     },
 
     renderEvent: function(event) {
-      var view = new views.EventView({ model: event });
+      var view = new views.Event({ model: event });
       this.$el.find('ul.events').append(view.render().el);
       this.views.push(view);
       return this;

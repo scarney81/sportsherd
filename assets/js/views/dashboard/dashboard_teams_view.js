@@ -5,14 +5,14 @@
   "use strict";
   
   var views = app.Views;
-  views.TeamsDashboardView = views.BaseDashboardView.extend({
+  views.TeamsDashboard = views.BaseDashboard.extend({
 
     template: window.JadeTemplates['templates/dashboard/teams'],
 
     initialize: function() {
       this.collection.on('add', this.renderTeam, this);
       this.collection.on('reset', this.render, this);
-      views.TeamsDashboardView.__super__.initialize.call(this);
+      views.TeamsDashboard.__super__.initialize.call(this);
     },
 
     showDashboard: function() { return this.sendEvent('showTeams'); },
@@ -25,7 +25,7 @@
     },
 
     renderTeam: function(team) {
-      var view = new views.TeamView({ model: team });
+      var view = new views.Team({ model: team });
       this.$el.find('ul.teams').append(view.render().el);
       this.views.push(view);
     }

@@ -14,7 +14,7 @@
     globalConcurrentState: 'navigation',
 
     enterState: function() {
-      this.view = new views.NavigationView();
+      this.view = new views.Navigation();
       this.view.render();
     },
 

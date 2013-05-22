@@ -14,7 +14,7 @@
 
     enterState: function() {
       var teams = data.Teams;
-      var view = new views.TeamsView({ collection: teams });
+      var view = new views.Teams({ collection: teams });
 
       $('.content').html(view.render().el);
       this.setData('view', view);

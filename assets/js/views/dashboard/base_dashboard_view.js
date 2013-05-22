@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.BaseDashboardView = views.Base.extend({
+  views.BaseDashboard = views.Base.extend({
 
     events: {
       'click h3': 'showDashboard'

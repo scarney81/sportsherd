@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.AccountDashboardView = views.BaseDashboardView.extend({
+  views.AccountDashboard = views.BaseDashboard.extend({
 
     template: window.JadeTemplates['templates/dashboard/account'],
 

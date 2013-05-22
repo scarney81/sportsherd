@@ -10,7 +10,7 @@
     parentState: 'application',
 
     enterState: function() {
-      this.view = new views.ProfileView();
+      this.view = new views.Profile();
       $('.content').html(this.view.render().el);
     },
 

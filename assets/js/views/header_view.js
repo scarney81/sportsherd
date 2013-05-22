@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.HeaderView = views.Base.extend({
+  views.Header = views.Base.extend({
 
     template: window.JadeTemplates['templates/header'],
 

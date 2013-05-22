@@ -5,7 +5,7 @@
   "use strict";
 
   var views = app.Views;
-  views.NavigationView = views.Base.extend({
+  views.Navigation = views.Base.extend({
 
     template: window.JadeTemplates['templates/navigation'],
 

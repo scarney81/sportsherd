@@ -13,7 +13,7 @@
     initialSubstate: 'dashboard-upcoming-events',
 
     enterState: function() {
-      this.view = new views.DashboardView(data.Teams, data.Events);
+      this.view = new views.Dashboard(data.Teams, data.Events);
       $('.content').html(this.view.render().el);
     },
 
