@@ -1,15 +1,13 @@
-(function() {
+(function(app, backbone) {
+  "use strict";
 
-  var sh = window.SH;
-  var sc = window.SH.statechart;
-
+  var sc = app.statechart;
+  var views = app;
   var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
-  window.SH.BaseView = window.Backbone.View.extend({
+  views.BaseView = backbone.View.extend({
 
-    initialize: function() {
-      this.views = [];
-    },
+    initialize: function() { this.views = []; },
 
     render: function() {
       var data = this.model ? this.model.toJSON() : {};
@@ -63,4 +61,4 @@
 
   });
 
-})();
+})(window.SH, Backbone);

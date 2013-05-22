@@ -25,7 +25,10 @@ $(document).ready(function() {
   $.ajaxSetup({ headers: {'X-CSRF-Token': window.CSRF} });
 
   // initialize models
-  window.SH.Data = {};
+  window.SH.Collections = {};
+  window.SH.Models = {};
+  window.SH.Views = {};
+  
   window.SH.Data.Teams = new window.SH.TeamCollection();
   window.SH.Data.Events = new window.SH.EventCollection();
 

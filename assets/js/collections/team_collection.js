@@ -1,15 +1,12 @@
-/*globals Backbone*/
-
 // #= require '../models/team_model'
-(function() {
+(function(app, backbone) {
 
-  var sh = window.SH;
-  sh.TeamCollection = Backbone.Collection.extend({
+  app.Collections.Teams = backbone.Collection.extend({
 
     url: '/teams',
 
-    model: sh.TeamModel
+    model: app.Models.Team
   
   });
 
-})();
+})(window.SH, Backbone);

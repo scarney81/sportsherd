@@ -1,11 +1,9 @@
-/*globals Backbone*/
-(function() {
+(function(app, backbone) {
 
-  var sh = window.SH;
-  sh.TeamModel = Backbone.Model.extend({
+  app.Models.Team = backbone.Model.extend({
 
     urlRoot: '/team'
 
   });
 
-})();
+})(window.SH, Backbone);

@@ -1,15 +1,12 @@
-/*globals Backbone*/
-
 // #= require '../models/event_model'
-(function() {
+(function(app, backbone) {
 
-  var sh = window.SH;
-  sh.EventCollection = Backbone.Collection.extend({
+  app.Collections.Events = backbone.Collection.extend({
 
     url: '/events',
 
-    model: sh.EventModel
+    model: app.Models.Event
   
   });
 
-})();
+})(window.SH, Backbone);

@@ -1,11 +1,9 @@
-/*globals Backbone*/
-(function() {
+(function(app, backbone) {
 
-  var sh = window.SH;
-  sh.EventModel = Backbone.Model.extend({
+  app.Models.Event = backbone.Model.extend({
 
     urlRoot: '/event'
 
   });
 
-})();
+})(window.SH, Backbone);
