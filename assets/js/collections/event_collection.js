@@ -1,3 +1,4 @@
+/*globals App*/
 // #= require '../models/event_model'
 (function(app, backbone) {
   "use strict";
@@ -10,4 +11,4 @@
   
   });
 
-})(window.SH, Backbone);
+})(App, Backbone);

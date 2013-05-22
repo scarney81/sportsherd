@@ -1,3 +1,4 @@
+/*globals App*/
 // #= require 'base_view'
 
 (function(app) {
@@ -40,4 +41,4 @@
 
   });
 
-})(window.SH);
+})(App);

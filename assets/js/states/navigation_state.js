@@ -1,10 +1,12 @@
-(function() {
+/*globals App*/
+(function(app) {
 
-  var sh = window.SH;
-  var sc = window.SH.statechart;
+  var sc = app.statechart;
+  var views = app.Views;
+  var router = app.router;
 
   var navigate = function(url) {
-    return function() { window.SH.router.navigate(url, { trigger: true }); };
+    return function() { router.navigate(url, { trigger: true }); };
   };
 
   sc.addState('nav', {
@@ -12,7 +14,7 @@
     globalConcurrentState: 'navigation',
 
     enterState: function() {
-      this.view = new sh.NavigationView();
+      this.view = new views.NavigationView();
       this.view.render();
     },
 
@@ -34,4 +36,4 @@
 
   });
 
-})();
+})(App);

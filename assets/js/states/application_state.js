@@ -1,15 +1,16 @@
-(function() {
+/*globals App*/
+(function(app, backbone) {
 
-  var sh = window.SH;
-  var sc = window.SH.statechart;
+  var sc = app.statechart;
+  var views = app.Views;
 
   sc.addState('application', {
 
     enterState: function() {
-      this.view = new sh.ApplicationView();
+      this.view = new views.ApplicationView();
       this.view.render();
 
-      Backbone.history.start({ pushState:true });
+      backbone.history.start({ pushState:true });
     },
 
     exitState: function() {
@@ -22,4 +23,4 @@
 
   });  
 
-})();
+})(App, Backbone);

@@ -1,7 +1,9 @@
-(function() {
+/*globals App*/
+(function(app) {
 
-  var sh = window.SH;
-  var sc = window.SH.statechart;
+  var sc = app.statechart;
+  var views = app.Views;
+  var data = app.Data;
 
   sc.addState('dashboard', {
 
@@ -10,7 +12,7 @@
     initialSubstate: 'dashboard-upcoming-events',
 
     enterState: function() {
-      this.view = new sh.DashboardView(sh.Data.Teams, sh.Data.Events);
+      this.view = new views.DashboardView(data.Teams, data.Events);
       $('.content').html(this.view.render().el);
     },
 
@@ -59,7 +61,7 @@
         name: 'dashboard-teams-loading',
         enterState: function() {
           var self = this;
-          var teams = sh.Data.Teams;
+          var teams = data.Teams;
           this.sendEvent('busy', 'teams');
           if (teams.length) this.goToState('dashboard-teams-ready');
           else teams.fetch({ success: function() { self.goToState('dashboard-teams-ready'); }});
@@ -90,7 +92,7 @@
         name: 'dashboard-events-loading',
         enterState: function() {
           var self = this;
-          var events = sh.Data.Events;
+          var events = data.Events;
           this.sendEvent('busy', 'events');
           if (events.length) this.goToState('dashboard-events-ready');
           else events.fetch({ success: function() { self.goToState('dashboard-events-ready'); }});
@@ -110,4 +112,4 @@
 
   });
   
-})();
+})(App);

@@ -1,3 +1,4 @@
+/*globals App*/
 // #= require 'base_dashboard_view'
 
 (function(app) {
@@ -31,4 +32,4 @@
     }
 
   });
-})(window.SH);
+})(App);

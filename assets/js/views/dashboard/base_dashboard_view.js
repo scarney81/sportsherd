@@ -35,4 +35,4 @@
 
   });
 
-})(window.SH, Backbone);
+})(App, Backbone);

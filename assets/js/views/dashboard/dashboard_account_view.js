@@ -1,3 +1,4 @@
+/*globals App*/
 // #= require 'base_dashboard_view'
 
 (function(app) {
@@ -11,4 +12,4 @@
     showDashboard: function() { return this.sendEvent('showAccount'); }
 
   });
-})(window.SH);
+})(App);

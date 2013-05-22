@@ -1,10 +1,10 @@
-(function() {
+/*globals App*/
+(function(app, backbone) {
 
-  var switch_state = function(state) {
-    window.SH.statechart.sendEvent('switchState', state);
-  };
+  var sc = app.statechart;
+  var switch_state = function(state) { sc.sendEvent('switchState', state); };
 
-  window.SH.Router = Backbone.Router.extend({
+  app.Router = backbone.Router.extend({
     routes: {
 
       'events': 'events',
@@ -35,4 +35,4 @@
 
   });
 
-})();
+})(App, Backbone);

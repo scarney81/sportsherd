@@ -1,3 +1,4 @@
+/*globals App*/
 // #= require 'base_view'
 // #= require_tree 'dashboard'
 
@@ -89,4 +90,4 @@
 
   });
 
-})(window.SH);
+})(App);

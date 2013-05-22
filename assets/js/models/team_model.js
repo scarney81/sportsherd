@@ -1,3 +1,4 @@
+/*globals App*/
 (function(app, backbone) {
   "use strict";
 
@@ -7,4 +8,4 @@
 
   });
 
-})(window.SH, Backbone);
+})(App, Backbone);

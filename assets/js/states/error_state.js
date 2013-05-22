@@ -1,6 +1,7 @@
-(function() {
+/*globals App*/
+(function(app) {
 
-  var sc = window.SH.statechart;
+  var sc = app.statechart;
 
   sc.addState('notInError', {
 
@@ -14,4 +15,4 @@
 
   });
 
-})();
+})(App);

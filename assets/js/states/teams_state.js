@@ -1,7 +1,9 @@
-(function() {
+/*globals App*/
+(function(app) {
 
-  var sh = window.SH;
-  var sc = window.SH.statechart;
+  var sc = app.statechart;
+  var views = app.Views;
+  var data = app.Data;
 
   sc.addState('teams', {
 
@@ -10,9 +12,9 @@
     initialSubstate: 'teams-loading',
 
     enterState: function() {
-      var teams = sh.Data.Teams;
+      var teams = data.Teams;
+      var view = new views.TeamsView({ collection: teams });
 
-      var view = new sh.TeamsView({ collection: teams });
       $('.content').html(view.render().el);
       this.setData('view', view);
     },
@@ -36,7 +38,8 @@
 
     loadTeams: function() {
       var self = this;
-      var teams = sh.Data.Teams;
+      var teams = data.Teams;
+      
       if (teams) {
         if (teams.length) this.goToState('teams-ready');
         else teams.fetch({ success: function() { self.goToState('teams-ready'); }});
@@ -47,10 +50,8 @@
 
   sc.addState('teams-ready', {
     
-    parentState: 'teams',
+    parentState: 'teams'
     
-    enterState: function() {}
-
   });
 
-})();
+})(App);

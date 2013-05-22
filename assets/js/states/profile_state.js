@@ -1,14 +1,15 @@
-(function() {
+/*globals App*/
+(function(app) {
 
-  var sh = window.SH;
-  var sc = window.SH.statechart;
+  var sc = app.statechart;
+  var views = app.Views;
 
   sc.addState('profile', {
 
     parentState: 'application',
 
     enterState: function() {
-      this.view = new sh.ProfileView();
+      this.view = new views.ProfileView();
       $('.content').html(this.view.render().el);
     },
 
@@ -18,4 +19,4 @@
 
   });
 
-})();
+})(App);

@@ -1,3 +1,4 @@
+/*globals App*/
 // #= require 'base_view'
 
 (function(app) {
@@ -13,7 +14,7 @@
     render: function() {
       this.$el.html(this.template());
 
-      var header = new window.SH.HeaderView();
+      var header = new views.HeaderView();
       header.render();
       this.views.push(header);
       return this;
@@ -27,4 +28,4 @@
 
   });
 
-})(window.SH, Backbone);
+})(App, Backbone);
