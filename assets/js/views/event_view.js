@@ -1,9 +1,10 @@
 // #= require 'base_view'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  var sh = window.SH;
-  sh.EventView = sh.BaseView.extend({
+  var views = app.Views;
+  views.EventView = views.Base.extend({
 
     template: window.JadeTemplates['templates/event'],
 
@@ -13,4 +14,4 @@
 
   });
 
-})();
+})(window.SH);

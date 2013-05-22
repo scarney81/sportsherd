@@ -1,9 +1,10 @@
 // #= require 'base_view'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  var sh = window.SH;
-  sh.EventsView = sh.BaseView.extend({
+  var views = app.Views;
+  views.EventsView = views.Base.extend({
 
     template: window.JadeTemplates['templates/events'],
 
@@ -12,7 +13,7 @@
     initialize: function() {
       this.collection.on('add', this.renderEvent, this);
       this.collection.on('reset', this.render, this);
-      sh.EventsView.__super__.initialize.call(this);
+      views.EventsView.__super__.initialize.call(this);
     },
 
     render: function() {
@@ -23,11 +24,12 @@
     },
 
     renderEvent: function(event) {
-      var view = new sh.EventView({ model: event });
+      var view = new views.EventView({ model: event });
       this.$el.find('ul.events').append(view.render().el);
       this.views.push(view);
+      return this;
     }
 
   });
 
-})();
+})(window.SH);

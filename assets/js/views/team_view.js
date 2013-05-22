@@ -1,9 +1,10 @@
 // #= require 'base_view'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  var sh = window.SH;
-  sh.TeamView = sh.BaseView.extend({
+  var views = app.Views;
+  views.TeamView = views.Base.extend({
 
     template: window.JadeTemplates['templates/team'],
 
@@ -13,4 +14,4 @@
 
   });
 
-})();
+})(window.SH);

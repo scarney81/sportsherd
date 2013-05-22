@@ -2,6 +2,11 @@
   window.SH = window.SH || {};
   window.SH.statechart = Stativus.createStatechart();
 
+  // initialize models
+  window.SH.Collections = {};
+  window.SH.Models = {};
+  window.SH.Views = {};
+
   // Change in session redirect behavior. Need to remove #_=_.
   // https://developers.facebook.com/blog/post/552/
   // https://github.com/jaredhanson/passport-facebook/issues/12#issuecomment-5913711
@@ -24,13 +29,8 @@
 $(document).ready(function() {
   $.ajaxSetup({ headers: {'X-CSRF-Token': window.CSRF} });
 
-  // initialize models
-  window.SH.Collections = {};
-  window.SH.Models = {};
-  window.SH.Views = {};
-  
-  window.SH.Data.Teams = new window.SH.TeamCollection();
-  window.SH.Data.Events = new window.SH.EventCollection();
+  // window.SH.Data.Teams = new window.SH.TeamCollection();
+  // window.SH.Data.Events = new window.SH.EventCollection();
 
   //  initialize router
   window.SH.router = new window.SH.Router();

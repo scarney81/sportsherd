@@ -1,9 +1,10 @@
 // #= require 'base_view'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  var sh = window.SH;
-  sh.ProfileView = sh.BaseView.extend({
+  var views = app.Views;
+  views.ProfileView = views.Base.extend({
 
     template: window.JadeTemplates['templates/profile'],
 
@@ -11,4 +12,4 @@
 
   });
 
-})();
+})(window.SH);

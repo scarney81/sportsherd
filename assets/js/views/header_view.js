@@ -1,7 +1,10 @@
 // #= require 'base_view'
 
-(function() {
-  window.SH.HeaderView = window.SH.BaseView.extend({
+(function(app) {
+  "use strict";
+
+  var views = app.Views;
+  views.HeaderView = views.Base.extend({
 
     template: window.JadeTemplates['templates/header'],
 
@@ -12,8 +15,8 @@
     },
 
     toggleNavigation: function() {
-      window.SH.statechart.sendEvent('toggleNavigation');
+      this.sendEvent('toggleNavigation');
     }
 
   });
-})();
+})(window.SH);

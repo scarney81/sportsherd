@@ -2,10 +2,10 @@
   "use strict";
 
   var sc = app.statechart;
-  var views = app;
+  var views = app.Views;
   var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
-  views.BaseView = backbone.View.extend({
+  views.Base = backbone.View.extend({
 
     initialize: function() { this.views = []; },
 

@@ -1,15 +1,17 @@
 // #= require 'base_dashboard_view'
 
-(function() {
-  var sh = window.SH;
-  sh.TeamsDashboardView = sh.BaseDashboardView.extend({
+(function(app) {
+  "use strict";
+  
+  var views = app.Views;
+  views.TeamsDashboardView = views.BaseDashboardView.extend({
 
     template: window.JadeTemplates['templates/dashboard/teams'],
 
     initialize: function() {
       this.collection.on('add', this.renderTeam, this);
       this.collection.on('reset', this.render, this);
-      sh.TeamsDashboardView.__super__.initialize.call(this);
+      views.TeamsDashboardView.__super__.initialize.call(this);
     },
 
     showDashboard: function() { return this.sendEvent('showTeams'); },
@@ -22,10 +24,10 @@
     },
 
     renderTeam: function(team) {
-      var view = new sh.TeamView({ model: team });
+      var view = new views.TeamView({ model: team });
       this.$el.find('ul.teams').append(view.render().el);
       this.views.push(view);
     }
 
   });
-})();
+})(window.SH);

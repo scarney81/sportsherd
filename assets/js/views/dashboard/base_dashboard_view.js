@@ -1,8 +1,10 @@
 // #= require '../base_view'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  window.SH.BaseDashboardView = window.SH.BaseView.extend({
+  var views = app.Views;
+  views.BaseDashboardView = views.Base.extend({
 
     events: {
       'click h3': 'showDashboard'
@@ -33,4 +35,4 @@
 
   });
 
-})();
+})(window.SH, Backbone);

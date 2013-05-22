@@ -1,9 +1,10 @@
 // #= require 'base_view'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  var sh = window.SH;
-  sh.TeamsView = sh.BaseView.extend({
+  var views = app.Views;
+  views.TeamsView = views.Base.extend({
 
     template: window.JadeTemplates['templates/teams'],
 
@@ -12,7 +13,7 @@
     initialize: function() {
       this.collection.on('add', this.renderTeam, this);
       this.collection.on('reset', this.render, this);
-      sh.TeamsView.__super__.initialize.call(this);
+      views.TeamsView.__super__.initialize.call(this);
     },
 
     render: function() {
@@ -23,11 +24,11 @@
     },
 
     renderTeam: function(team) {
-      var view = new sh.TeamView({ model: team });
+      var view = new views.TeamView({ model: team });
       this.$el.find('ul.teams').append(view.render().el);
       this.views.push(view);
     }
 
   });
 
-})();
+})(window.SH);

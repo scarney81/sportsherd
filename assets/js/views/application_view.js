@@ -1,9 +1,10 @@
-/*globals Backbone*/
 // #= require 'base_view'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  window.SH.ApplicationView = window.SH.BaseView.extend({
+  var views = app.Views;
+  views.ApplicationView = views.Base.extend({
 
     template: window.JadeTemplates['templates/application'],
 
@@ -26,4 +27,4 @@
 
   });
 
-})();
+})(window.SH, Backbone);

@@ -1,10 +1,11 @@
 // #= require 'base_view'
 // #= require_tree 'dashboard'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  var sh = window.SH;
-  sh.DashboardView = sh.BaseView.extend({
+  var views = app.Views;
+  views.DashboardView = views.Base.extend({
 
     template: window.JadeTemplates['templates/dashboard'],
 
@@ -14,7 +15,7 @@
       this.teams = teams;
       this.evts = evts;
       this.subviews = [];
-      sh.DashboardView.__super__.initialize.call(this);
+      views.DashboardView.__super__.initialize.call(this);
     },
 
     _renderSubView: function(view, name) {
@@ -26,16 +27,16 @@
     render: function() {
       this.$el.html(this.template());
 
-      var upcomingView = new sh.UpcomingDashboardView();
+      var upcomingView = new views.UpcomingDashboardView();
       this._renderSubView(upcomingView, 'upcoming');
       
-      var teamsView = new sh.TeamsDashboardView({ collection: this.teams });
+      var teamsView = new views.TeamsDashboardView({ collection: this.teams });
       this._renderSubView(teamsView, 'teams');
       
-      var eventsView = new sh.EventsDashboardView({ collection: this.evts });
+      var eventsView = new views.EventsDashboardView({ collection: this.evts });
       this._renderSubView(eventsView, 'events');
       
-      var accountView = new sh.AccountDashboardView();
+      var accountView = new views.AccountDashboardView();
       this._renderSubView(accountView, 'account');
 
       return this;
@@ -47,7 +48,7 @@
       if (this._teamsView) delete this._teamsView;
       if (this._eventsView) delete this._eventsView;
       if (this._accountView) delete this._accountView;
-      sh.DashboardView.__super__.close.call(this);
+      views.DashboardView.__super__.close.call(this);
     },
 
     disableDashboardNav: function() {
@@ -88,4 +89,4 @@
 
   });
 
-})();
+})(window.SH);

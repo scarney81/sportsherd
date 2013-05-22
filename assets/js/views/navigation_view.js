@@ -1,10 +1,10 @@
 // #= require 'base_view'
 
-(function() {
+(function(app) {
+  "use strict";
 
-  var sh = window.SH;
-  var sc = window.SH.statechart;
-  sh.NavigationView = sh.BaseView.extend({
+  var views = app.Views;
+  views.NavigationView = views.Base.extend({
 
     template: window.JadeTemplates['templates/navigation'],
 
@@ -40,4 +40,4 @@
 
   });
 
-})();
+})(window.SH);
