@@ -1,5 +1,6 @@
 /*globals App*/
 (function(app, backbone) {
+  "use strict";
 
   var sc = app.statechart;
   var views = app.Views;

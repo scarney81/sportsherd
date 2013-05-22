@@ -1,5 +1,6 @@
 /*globals App*/
 (function(app) {
+  "use strict";
 
   var sc = app.statechart;
 

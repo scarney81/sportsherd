@@ -1,3 +1,4 @@
+/*globals App*/
 // #= require '../base_view'
 
 (function(app) {

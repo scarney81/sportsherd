@@ -1,5 +1,6 @@
 var App = App || {};
 
+// create statechart
 App.statechart = Stativus.createStatechart();
 
 // initialize models
