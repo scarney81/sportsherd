@@ -4,10 +4,9 @@
 
   var sc = app.statechart;
   var views = app.Views;
-  var router = app.router;
 
   var navigate = function(url) {
-    return function() { router.navigate(url, { trigger: true }); };
+    return function() { app.router.navigate(url, { trigger: true }); };
   };
 
   sc.addState('nav', {
