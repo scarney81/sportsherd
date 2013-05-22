@@ -11,9 +11,7 @@
       'click h3': 'showDashboard'
     },
 
-    showDashboard: function() {
-      return this;
-    },
+    showDashboard: function() { return this; },
 
     busy: function() {
       this.$el.find('h3').append(' - Loading...');

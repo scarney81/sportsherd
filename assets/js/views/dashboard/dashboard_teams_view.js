@@ -21,6 +21,7 @@
       var self = this;
       this.$el.html(this.template());
       this.collection.each(function(team) { self.renderTeam(team); });
+      this.delegateEvents();
       return this;
     },
 

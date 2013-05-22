@@ -34,6 +34,7 @@
           else {
             // this.$el.on(eventName, selector, method);
             // apply directly to element instead of parent (this prevents flicker in iOS)
+            console.log('wiring: '+selector+'-'+eventName+'-'+method);
             this.$el.find(selector).on(eventName, method);
           }
         }
