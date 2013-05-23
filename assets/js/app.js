@@ -1,7 +1,7 @@
 // #= require 'lib/jquery.min.js'
 // #= require 'lib/underscore.min.js'
 // #= require 'lib/backbone.min.js'
-// #= require 'lib/stativus.min.js'
+// #= require 'lib/stativus.js'
 
 // #= require 'core'
 // #= require 'router'
