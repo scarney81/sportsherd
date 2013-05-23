@@ -3,6 +3,7 @@
   "use strict";
 
   var sc = app.Statechart;
+  var data = app.Data;
   var views = app.Views;
 
   var navigate = function(url) {
@@ -14,11 +15,14 @@
     globalConcurrentState: 'navigation',
 
     enterState: function() {
-      this.view = new views.Navigation();
+      this.model = data.Profiles.get('my');
+
+      this.view = new views.Navigation({ model: this.model });
       this.view.render();
     },
 
     exitState: function() {
+      if (this.model) delete this.model;
       if (this.view) this.view.close();
     },
 

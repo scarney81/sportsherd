@@ -33,10 +33,11 @@ $(document).ready(function() {
 
   App.Data.Teams = new App.Collections.Teams();
   App.Data.Events = new App.Collections.Events();
+  App.Data.Profiles = new App.Collections.Profiles();
 
   //  initialize router
   App.Router = new App.Router();
 
   // intialize statechart
-  App.Statechart.initStates({ 'default': 'application', 'navigation': 'nav', 'error': 'notInError' });
+  App.Statechart.initStates({ 'default': 'application', 'error': 'notInError' });
 });

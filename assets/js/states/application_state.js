@@ -2,6 +2,8 @@
 (function(app, backbone) {
   "use strict";
 
+  var data = app.Data;
+  var Profile = app.Models.Profile;
   var sc = app.Statechart;
   var views = app.Views;
 
@@ -11,7 +13,18 @@
       this.view = new views.Application();
       this.view.render();
 
-      backbone.history.start({ pushState:true });
+      var profile = data.Profiles.get('my');
+
+      if(!!!profile) {
+        profile = new Profile({ id: 'my' });
+        profile.fetch({
+          success: function(profile) {
+            data.Profiles.push(profile);
+            sc.goToState('nav', 'navigation');
+            backbone.history.start({ pushState: true });
+          }
+        });
+      }
     },
 
     exitState: function() {
