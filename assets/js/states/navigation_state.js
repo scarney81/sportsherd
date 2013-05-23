@@ -6,7 +6,7 @@
   var views = app.Views;
 
   var navigate = function(url) {
-    return function() { app.router.navigate(url, { trigger: true }); };
+    return function() { app.Router.navigate(url, { trigger: true }); };
   };
 
   sc.addState('nav', {

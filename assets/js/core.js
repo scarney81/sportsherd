@@ -8,6 +8,7 @@ App.Collections = {};
 App.Models = {};
 App.Views = {};
 App.Data = {};
+App.Router = {};
 
 // Change in session redirect behavior. Need to remove #_=_.
 // https://developers.facebook.com/blog/post/552/
@@ -34,7 +35,7 @@ $(document).ready(function() {
   App.Data.Events = new App.Collections.Events();
 
   //  initialize router
-  App.router = new App.Router();
+  App.Router = new App.Router();
 
   // intialize statechart
   App.statechart.initStates({ 'default': 'application', 'navigation': 'nav', 'error': 'notInError' });
