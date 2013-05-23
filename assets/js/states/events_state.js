@@ -2,7 +2,7 @@
 (function(app) {
   "use strict";
 
-  var sc = app.statechart;
+  var sc = app.Statechart;
   var views = app.Views;
   var data = app.Data;
 
@@ -10,14 +10,14 @@
 
     parentState: 'application',
 
-    initialSubstate: 'events-loading',
-
     enterState: function() {
       var events = data.Events;
-      var view = new views.Events({ collection: events });
 
-      $('.content').html(view.render().el);
-      this.setData('view', view);
+      this.view = new views.Events({ collection: events });
+      $('.content').html(this.view.render().el);
+
+      var state = events.length ? 'events-ready' : 'events-loading';
+      this.goToState(state);
     },
 
     exitState: function() {
@@ -30,29 +30,22 @@
     
     parentState: 'events',
 
-    enterState: function() { // TODO: Show loading animation
-      this.sendEvent('loadEvents');
-    },
+    enterState: function() {
+      this.sendEvent('busy');
 
-    exitState: function() { // TODO: Hide loading animation
-    },
-
-    loadEvents: function() {
       var self = this;
-      var events = data.Events;
-      if (events) {
-        if (events.length) this.goToState('events-ready');
-        else events.fetch({ success: function() { self.goToState('events-ready'); }});
-      }
+      data.Events.fetch({ success: function() { self.goToState('events-ready'); }});
+    },
+
+    exitState: function() {
+      this.sendEvent('idle');
     }
 
   });
 
   sc.addState('events-ready', {
     
-    parentState: 'events',
-    
-    enterState: function() {}
+    parentState: 'events'
 
   });
 

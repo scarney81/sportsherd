@@ -2,7 +2,7 @@
 (function(app) {
   "use strict";
 
-  var sc = app.statechart;
+  var sc = app.Statechart;
   var views = app.Views;
   var data = app.Data;
 
@@ -10,14 +10,14 @@
 
     parentState: 'application',
 
-    initialSubstate: 'teams-loading',
-
     enterState: function() {
       var teams = data.Teams;
-      var view = new views.Teams({ collection: teams });
 
-      $('.content').html(view.render().el);
-      this.setData('view', view);
+      this.view = new views.Teams({ collection: teams });
+      $('.content').html(this.view.render().el);
+
+      var state = teams.length ? 'teams-ready' : 'teams-loading';
+      this.goToState(state);
     },
 
     exitState: function() {
@@ -30,21 +30,15 @@
     
     parentState: 'teams',
 
-    enterState: function() { // TODO: Show loading animation
-      this.sendEvent('loadTeams');
-    },
-
-    exitState: function() { // TODO: Hide loading animation
-    },
-
-    loadTeams: function() {
-      var self = this;
-      var teams = data.Teams;
+    enterState: function() {
+      this.sendEvent('busy');
       
-      if (teams) {
-        if (teams.length) this.goToState('teams-ready');
-        else teams.fetch({ success: function() { self.goToState('teams-ready'); }});
-      }
+      var self = this;
+      data.Teams.fetch({ success: function() { self.goToState('teams-ready'); }});
+    },
+
+    exitState: function() {
+      this.sendEvent('idle');
     }
 
   });

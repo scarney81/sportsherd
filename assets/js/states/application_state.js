@@ -2,7 +2,7 @@
 (function(app, backbone) {
   "use strict";
 
-  var sc = app.statechart;
+  var sc = app.Statechart;
   var views = app.Views;
 
   sc.addState('application', {

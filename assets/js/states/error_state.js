@@ -2,7 +2,7 @@
 (function(app) {
   "use strict";
 
-  var sc = app.statechart;
+  var sc = app.Statechart;
 
   sc.addState('notInError', {
 

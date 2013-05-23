@@ -1,14 +1,14 @@
-var App = App || {};
+var App = App || {
+  Statechart: {},
+  Collections: {},
+  Models: {},
+  Views: {},
+  Data: {},
+  Router: {}
+};
 
 // create statechart
-App.statechart = Stativus.createStatechart();
-
-// initialize models
-App.Collections = {};
-App.Models = {};
-App.Views = {};
-App.Data = {};
-App.Router = {};
+App.Statechart = Stativus.createStatechart();
 
 // Change in session redirect behavior. Need to remove #_=_.
 // https://developers.facebook.com/blog/post/552/
@@ -38,5 +38,5 @@ $(document).ready(function() {
   App.Router = new App.Router();
 
   // intialize statechart
-  App.statechart.initStates({ 'default': 'application', 'navigation': 'nav', 'error': 'notInError' });
+  App.Statechart.initStates({ 'default': 'application', 'navigation': 'nav', 'error': 'notInError' });
 });

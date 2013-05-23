@@ -1,7 +1,7 @@
 /*globals App*/
 (function(app, backbone) {
 
-  var sc = app.statechart;
+  var sc = app.Statechart;
   var switch_state = function(state) { sc.sendEvent('switchState', state); };
 
   app.Router = backbone.Router.extend({

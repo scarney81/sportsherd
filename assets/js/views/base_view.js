@@ -2,7 +2,7 @@
 (function(app, backbone) {
   "use strict";
 
-  var sc = app.statechart;
+  var sc = app.Statechart;
   var views = app.Views;
   var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
@@ -36,6 +36,22 @@
             // apply directly to element instead of parent (this prevents flicker in iOS)
             this.$el.find(selector).on(eventName, method);
           }
+        }
+      }
+      return this;
+    },
+
+    undelegateEvents: function(events) {
+      // this.$el.off('.delegateEvents'+this.cid);
+      // re-write undelegateEvents to turn off events on specific elements
+      if (!(events || (events = _.result(this, 'events')))) return this;
+      for (var key in events) {
+        if (events.hasOwnProperty(key)) {
+          var match = key.match(delegateEventSplitter);
+          var eventName = match[1], selector = match[2];
+          eventName += '.delegateEvents'+this.cid;
+          if (selector === '') this.$el.off(eventName);
+          else this.$el.find(selector).off(eventName);
         }
       }
       return this;

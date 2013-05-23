@@ -2,7 +2,7 @@
 (function(app) {
   "use strict";
 
-  var sc = app.statechart;
+  var sc = app.Statechart;
   var views = app.Views;
 
   var navigate = function(url) {
@@ -23,6 +23,10 @@
     },
 
     switchState: function(state) { sc.goToState(state, 'default'); },
+
+    idle: function() { this.view.idle(); },
+
+    busy: function() { this.view.busy(); },
 
     logout: function() { window.location.href = '/logout'; },
 

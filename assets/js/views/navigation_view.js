@@ -19,6 +19,16 @@
       'click a.logout': 'logout'
     },
 
+    idle: function() {
+      this.delegateEvents();
+      return this;
+    },
+
+    busy: function() {
+      this.undelegateEvents();
+      return this;
+    },
+
     profile: function() {
       return this.sendEvent('gotoProfile');
     },
