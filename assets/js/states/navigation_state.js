@@ -6,7 +6,7 @@
   var views = app.Views;
 
   var navigate = function(url) {
-    return function() { app.Router.navigate(url, { trigger: true }); };
+    app.Router.navigate(url, { trigger: true });
   };
 
   sc.addState('nav', {
@@ -30,13 +30,18 @@
 
     logout: function() { window.location.href = '/logout'; },
 
-    gotoProfile: navigate('/profile'),
+    gotoProfile: function() { this.go('/profile'); },
 
-    gotoDashboard: navigate(''),
+    gotoDashboard: function() { this.go(''); },
 
-    gotoEvents: navigate('/events'),
+    gotoEvents: function() { this.go('/events'); },
 
-    gotoTeams: navigate('/teams')
+    gotoTeams: function() { this.go('/teams'); },
+
+    go: function(url) {
+      this.sendEvent('toggleNavigation');
+      navigate(url);
+    }
 
   });
 
