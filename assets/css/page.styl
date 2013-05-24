@@ -2,18 +2,63 @@
   position absolute
   top 0
   overflow hidden
-  height: 100%;
-  width: 260px;
-  background: #333333;
-  left: 0;
+  height 100%
+  width 260px
+  background $navcolor
+  color $navcolorlight2
+  left 0
   z-index 1
+  font-family $altfont
+
+  .profile
+    padding 10px
+    border-top 1px solid $navcolorlight
+    border-bottom 1px solid $navcolordark
+  ul
+    list-style none
+    margin 0
+    padding 0
+    li
+      margin 0
+      padding 0
+      border-top 1px solid $navcolorlight
+      border-bottom 1px solid $navcolordark
+      a
+        display block
+        width 100%
+        padding 10px
+
+
+.header
+  padding 10px
+  h1
+    line-height 1em
+    margin 0
+
+.nav-btn
+  display block
+  float left
+  width 32px
+  height 32px
+  padding 0
+  border 0
+  outline none
+  background #90cd98
+  color white
+  -webkit-tap-highlight-color rgba(0, 0, 0, 0)
+  border-radius 4px
+  margin-right 10px
+  font-size 1.4em
+  text-indent 6px
+  line-height 1.5em
 
 .page
   position relative
   width 100%
-  background $white
+  height 100%
+  background $bodycolor
   z-index 100
-  left: 0 !important;
+  left 0 !important
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
@@ -32,22 +77,6 @@
   backface-visibility: hidden;
   overflow hidden
 
-.header
-  -webkit-transform: translate3d(0, 0, 0);
-  -webkit-transform-style: preserve-3d;
-  -webkit-backface-visibility: hidden;   
-
-.nav-btn
-  display block
-  width: 2.5em
-  height: 2.5em
-  padding: 0;
-  border: 0;
-  outline: none;
-  background: #333333;
-  text-indent: -100%;
-  -webkit-tap-highlight-color rgba(0, 0, 0, 0);
-
 .showNav
   .page
     -webkit-transform: translate3d(260px, 0, 0) scale3d(1, 1, 1);
@@ -56,3 +85,5 @@
     -o-transform: translate3d(260px, 0, 0) scale3d(1, 1, 1);
     transform: translate3d(260px, 0, 0) scale3d(1, 1, 1);
 
+.content
+    padding 10px
