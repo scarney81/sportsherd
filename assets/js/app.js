@@ -3,6 +3,7 @@
 // #= require 'lib/backbone.min.js'
 // #= require 'lib/stativus.js'
 
+// #= require 'helpers'
 // #= require 'core'
 // #= require 'router'
 // #= require_tree 'models'

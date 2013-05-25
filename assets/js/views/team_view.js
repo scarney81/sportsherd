@@ -1,17 +1,26 @@
 /*globals App*/
-// #= require 'base_view'
+// #= require 'base_model_view'
 
 (function(app) {
   "use strict";
 
+  var sc = app.Statechart;
   var views = app.Views;
-  views.Team = views.Base.extend({
+  views.Team = views.Model.extend({
 
     template: window.JadeTemplates['templates/team'],
 
     tagName: 'li',
 
-    className: 'team'
+    className: 'team',
+
+    events: {
+      'click a.team': 'showTeam'
+    },
+
+    showTeam: function() {
+      sc.sendEvent('showTeam', this.model.id);
+    }
 
   });
 

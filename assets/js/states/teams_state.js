@@ -45,7 +45,11 @@
 
   sc.addState('teams-ready', {
     
-    parentState: 'teams'
+    parentState: 'teams',
+
+    showTeam: function(id) {
+      app.Router.navigate('/teams/'+id, { trigger: true });
+    }
     
   });
 

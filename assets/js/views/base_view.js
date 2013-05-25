@@ -11,8 +11,7 @@
     initialize: function() { this.views = []; },
 
     render: function() {
-      var data = this.model ? this.model.toJSON() : {};
-      this.$el.html(this.template(data));
+      this.$el.html(this.template());
       this.delegateEvents();
       return this;
     },

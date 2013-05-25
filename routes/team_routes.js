@@ -4,9 +4,9 @@ var Repository = require('../repositories/repository');
 module.exports = function(app) {
 
   var teams = [
-    { id: 1, name: 'Coconut Bangers Ballclub' },
-    { id: 2, name: 'The Cereal Killers' },
-    { id: 3, name: 'Thunder Down Under' }
+    { id: '51a01909a262420b31000001', name: 'Coconut Bangers Ballclub' },
+    { id: '51a01909a262420b31000002', name: 'The Cereal Killers' },
+    { id: '51a01909a262420b31000004', name: 'Thunder Down Under' }
   ];
 
   var render_index = function(req, res, next) {

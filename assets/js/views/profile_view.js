@@ -1,11 +1,11 @@
 /*globals App*/
-// #= require 'base_view'
+// #= require 'base_model_view'
 
 (function(app) {
   "use strict";
 
   var views = app.Views;
-  views.Profile = views.Base.extend({
+  views.Profile = views.Model.extend({
 
     template: window.JadeTemplates['templates/profile'],
 

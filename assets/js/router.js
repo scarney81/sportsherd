@@ -3,6 +3,7 @@
 
   var sc = app.Statechart;
   var switch_state = function(state) { sc.sendEvent('switchState', state); };
+  var switch_state_with_id = function(state, id) { sc.sendEvent('switchStateWithId', state, id); };
 
   app.Router = backbone.Router.extend({
     routes: {
@@ -10,6 +11,8 @@
       'events': 'events',
 
       'profile': 'profile',
+
+      'teams/:id': 'team',
       
       'teams': 'teams',
       
@@ -27,6 +30,10 @@
 
     teams: function() {
       switch_state('teams');
+    },
+
+    team: function(id) {
+      switch_state_with_id('team', id);
     },
 
     dashboard: function() {

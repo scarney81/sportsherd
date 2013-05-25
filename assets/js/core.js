@@ -1,14 +1,12 @@
-var App = App || {
-  Statechart: {},
-  Collections: {},
-  Models: {},
-  Views: {},
-  Data: {},
-  Router: {}
-};
+var App = App || {};
 
+App.Collections = {};
+App.Data = {};
+App.Models = {};
+App.Router = {};
 // create statechart
 App.Statechart = Stativus.createStatechart();
+App.Views = {};
 
 // Change in session redirect behavior. Need to remove #_=_.
 // https://developers.facebook.com/blog/post/552/

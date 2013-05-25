@@ -4,6 +4,7 @@ var Repository = require('../repositories/repository');
 var events = new Repository('Event');
 
 module.exports = function(req, res, next, id) {
+  if (!req.isJSON) return next();
 
   events.findById(id, function(err, event) {
     if (err) return next(err);

@@ -4,6 +4,7 @@ var Repository = require('../repositories/repository');
 var teams = new Repository('Team');
 
 module.exports = function(req, res, next, id) {
+  if (!req.isJSON) return next();
 
   teams.findById(id, function(err, team) {
     if (err) return next(err);

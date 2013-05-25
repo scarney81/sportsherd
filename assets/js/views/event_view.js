@@ -1,11 +1,11 @@
 /*globals App*/
-// #= require 'base_view'
+// #= require 'base_model_view'
 
 (function(app) {
   "use strict";
 
   var views = app.Views;
-  views.Event = views.Base.extend({
+  views.Event = views.Model.extend({
 
     template: window.JadeTemplates['templates/event'],
 

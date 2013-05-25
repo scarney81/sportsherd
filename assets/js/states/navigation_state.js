@@ -28,6 +28,8 @@
 
     switchState: function(state) { sc.goToState(state, 'default'); },
 
+    switchStateWithId: function(state, id) { sc.goToState(state, 'default', 'default', { id: id }); },
+
     idle: function() { this.view.idle(); },
 
     busy: function() { this.view.busy(); },
