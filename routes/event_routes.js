@@ -17,7 +17,7 @@ module.exports = function(app) {
       { id: 2, name: 'Industrial Revolution' },
       { id: 3, name: 'The Manhattan Project' }
     ];
-    setTimeout(function() { res.json(events); }, 1500);
+    res.json(events);
   });
 
   // get a specific event

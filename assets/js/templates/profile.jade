@@ -1,1 +1,7 @@
 h2 Profile
+
+img(src='http://graph.facebook.com/#{facebookId}/picture?type=large')
+div Display Name: #{displayName}
+div Given Name: #{name.givenName}
+div Family Name: #{name.familyName}
+div: a(href='#{profileUrl}', target='_blank') Profile
