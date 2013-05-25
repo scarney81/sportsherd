@@ -17,10 +17,11 @@ module.exports = function(app) {
     };
 
     res.json({
-      name: userProperty('name'),
+      facebookId: userProperty('id'),
       displayName: userProperty('displayName'),
-      profileUrl: userProperty('profileUrl'),
-      facebookId: userProperty('id')
+      emails: userProperty('emails'),
+      name: userProperty('name'),
+      profileUrl: userProperty('profileUrl')
     });
   });
 

@@ -13,7 +13,7 @@ module.exports = function(app) {
     res.render('login');
   });
 
-  app.get('/login', passport.authenticate('facebook'));
+  app.get('/login', passport.authenticate('facebook', {scope:'email'}));
 
   app.get('/login/callback', passport.authenticate('facebook'), function(req, res, next) {
     if (req.isUnauthenticated()) res.redirect('/login/error');

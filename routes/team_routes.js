@@ -1,7 +1,13 @@
 var Repository = require('../repositories/repository');
-var teams = new Repository('Event');
+// var teams = new Repository('Event');
 
 module.exports = function(app) {
+
+  var teams = [
+    { id: 1, name: 'Coconut Bangers Ballclub' },
+    { id: 2, name: 'The Cereal Killers' },
+    { id: 3, name: 'Thunder Down Under' }
+  ];
 
   var render_index = function(req, res, next) {
     if (req.isJSON) return next();
@@ -13,11 +19,6 @@ module.exports = function(app) {
 
 
   app.get('/teams', function(req, res, next) {
-    var teams = [
-      { id: 1, name: 'Coconut Bangers Ballclub' },
-      { id: 2, name: 'The Cereal Killers' },
-      { id: 3, name: 'Thunder Down Under' }
-    ];
     res.json(teams);
   });
 
