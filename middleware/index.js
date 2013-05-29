@@ -1,10 +1,12 @@
 module.exports = {
-
+  
   authentication: require('./authentication_middleware'),
 
   csrf: require('./csrf_middleware'),
     
   errorHandler: require('./error_middleware'),
+
+  facebookProxy: require('./facebook_proxy_middleware'),
 
   events: require('./event_middleware'),
 

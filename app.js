@@ -33,6 +33,7 @@ app.configure(function(){
   app.use(middleware.isJSON);
   app.use(middleware.csrf());
   app.use(middleware.authentication(passport));
+  app.use(middleware.facebookProxy);
   app.param('event_id', middleware.events);
   app.param('team_id', middleware.teams);
 

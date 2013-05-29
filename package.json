@@ -22,11 +22,12 @@
   "dependencies": {
     "connect-assets": "2.4.x",
     "connect-assets-jade": "0.0.x",
-    "express": "3.2.x",
+    "express": "~3.2.5",
     "jade": "0.28.x",
     "mongoose": "3.6.x",
     "passport": "0.1.x",
     "passport-facebook": "0.1.x",
+    "request": "2.21.x",
     "stylus": "0.32.x",
     "underscore": "1.4.x"
   },
