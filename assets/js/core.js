@@ -31,6 +31,7 @@ $(document).ready(function() {
 
   App.Data.Teams = new App.Collections.Teams();
   App.Data.Events = new App.Collections.Events();
+  App.Data.Groups = new App.Collections.Groups();
   App.Data.Profiles = new App.Collections.Profiles();
 
   //  initialize router

@@ -12,6 +12,8 @@
 
       'profile': 'profile',
 
+      'teams/new': 'newTeam',
+
       'teams/:id': 'team',
       
       'teams': 'teams',
@@ -34,6 +36,10 @@
 
     team: function(id) {
       switch_state_with_id('team', id);
+    },
+
+    newTeam: function() {
+      switch_state('teams-new');
     },
 
     dashboard: function() {

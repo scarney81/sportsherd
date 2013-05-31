@@ -2,9 +2,9 @@
 (function(app, backbone) {
   "use strict";
 
-  app.Models.Event = backbone.Model.extend({
+  app.Models.Group = backbone.Model.extend({
 
-    urlRoot: '/events'
+    urlRoot: '/groups'
 
   });
 

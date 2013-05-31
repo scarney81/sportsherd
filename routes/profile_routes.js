@@ -16,17 +16,12 @@ module.exports = function(app) {
         : '';
     };
 
-    req.facebook.getGroups('me', function(err, groups) {
-      if (err) return next(err);
-      
-      res.json({
-        facebookId: userProperty('id'),
-        displayName: userProperty('displayName'),
-        emails: userProperty('emails'),
-        name: userProperty('name'),
-        profileUrl: userProperty('profileUrl'),
-        groups: groups
-      });
+    res.json({
+      facebookId: userProperty('id'),
+      displayName: userProperty('displayName'),
+      emails: userProperty('emails'),
+      name: userProperty('name'),
+      profileUrl: userProperty('profileUrl')
     });
   });
 

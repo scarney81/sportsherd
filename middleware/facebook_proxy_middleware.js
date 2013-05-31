@@ -6,6 +6,6 @@ module.exports = function(req, res, next) {
   if (req.isPublic) return next();
   if (_.isUndefined(req.user) || _.isNull(req.user)) return next();
 
-  req.facebook = new Facebook(req.user.accessToken);
+  req.facebook = new Facebook({ accessToken: req.user.accessToken });
   next();
 };

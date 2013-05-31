@@ -18,21 +18,29 @@ facebook.prototype._buildRequestOptions = function(uri) {
   return { uri: uri, headers: headers, json: true };
 };
 
-facebook.prototype._execute = function(options) {
-
+facebook.prototype._execute = function(options, callback) {
+  request(options, function(err, res, body) {
+    if (err) return callback(err);
+    if (res.statusCode !== 200) return callback(res.statusCode, body);
+    callback(null, body || {});
+  });
 };
 
-facebook.prototype.getGroups = function(userId, callback) {
-  var uri = baseUrl+userId+'/groups?fields=privacy';
-  var options = this._buildRequestOptions(uri);
-  
-  request(options, function(err, response, body) {
-    if (err) return callback(err);
-    if (response.statusCode !== 200) return callback(response.statusCode, body);
+facebook.prototype._buildResourceURI = function(resource) {
+  // TODO: check base url for trailing /
+  // TODO: check resource for leading /
+  return this._baseUrl+resource;
+};
 
-    var groups = body.data || [];
-    callback(null, groups);
+facebook.prototype.groups = function(userId, callback) {
+  var uri = this._buildResourceURI(userId+'/groups?fields=name,privacy');
+  var options = this._buildRequestOptions(uri);
+
+  this._execute(options, function(err, body) {
+    if (err) return callback(err);
+    callback(null, body.data || []);
   });
+  
 };
 
 module.exports = facebook;

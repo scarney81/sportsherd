@@ -49,8 +49,37 @@
 
     showTeam: function(id) {
       app.Router.navigate('/teams/'+id, { trigger: true });
+    },
+
+    createTeam: function() {
+      app.Router.navigate('/teams/new', { trigger: true });
     }
     
+  });
+
+  sc.addState('teams-new', {
+
+    parentState: 'application',
+
+    enterState: function() {
+      this.view = new views.NewTeam();
+      $('.content').html(this.view.render().el);
+
+      this.sendEvent('loadGroups');
+    },
+
+    loadGroups: function() {
+      var self = this;
+      var groups = data.Groups;
+      groups.fetch({ success: function(groups) {
+        self.view.renderGroups(groups);
+      }});
+    },
+
+    exitState: function() {
+      if (this.view) this.view.close();
+    }
+
   });
 
 })(App);
