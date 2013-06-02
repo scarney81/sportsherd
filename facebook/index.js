@@ -18,18 +18,18 @@ facebook.prototype._buildRequestOptions = function(uri) {
   return { uri: uri, headers: headers, json: true };
 };
 
+facebook.prototype._buildResourceURI = function(resource) {
+  // TODO: check base url for trailing /
+  // TODO: check resource for leading /
+  return this._baseUrl+resource;
+};
+
 facebook.prototype._execute = function(options, callback) {
   request(options, function(err, res, body) {
     if (err) return callback(err);
     if (res.statusCode !== 200) return callback(res.statusCode, body);
     callback(null, body || {});
   });
-};
-
-facebook.prototype._buildResourceURI = function(resource) {
-  // TODO: check base url for trailing /
-  // TODO: check resource for leading /
-  return this._baseUrl+resource;
 };
 
 facebook.prototype.groups = function(userId, callback) {
