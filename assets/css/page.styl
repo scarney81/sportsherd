@@ -5,46 +5,68 @@
   height 100%
   width 260px
   background $navcolor
-  color $navcolorlight2
+  color $lightgrey
   left 0
   z-index 1
-  font-family $altfont
-
+  font-family $basefont
+  text-shadow 1px 1px $navcolordark2  
   .profile
     padding 10px
     border-top 1px solid $navcolorlight
     border-bottom 1px solid $navcolordark
+    text-indent 5px
+    line-height 2em
   ul
     list-style none
     margin 0
     padding 0
     li
+      position relative
       margin 0
       padding 0
       border-top 1px solid $navcolorlight
       border-bottom 1px solid $navcolordark
       a
+        -webkit-tap-highlight-color rgba(255,255,255,.2)
         display block
-        width 100%
+        width 90%
         padding 10px
-
+      i
+        margin-right 5px
+    li.is-active:after
+      z-index 50
+      display block
+      content ""
+      position absolute
+      top 50%
+      right 0
+      margin-top -0.8em
+      border-top 0.8em transparent solid
+      border-bottom 0.8em transparent solid
+      border-right 0.8em white solid
 
 .header
-  padding 10px
+  box-sizing border-box
+  position relative
+  height 44px
+  background-color $bgcolor1
+  border-bottom 1px solid #999
+  color $grey
   h1
-    line-height 1em
-    margin 0
+    line-height 2.6em
+    margin 0 auto
+    font-size 18px
+    text-align center
+    font-weight normal
 
 .nav-btn
+  position absolute
   display block
-  float left
   width 32px
   height 32px
-  padding 0
+  padding 6px
   border 0
   outline none
-  background #90cd98
-  color white
   -webkit-tap-highlight-color rgba(0, 0, 0, 0)
   border-radius 4px
   margin-right 10px
@@ -56,7 +78,7 @@
   position relative
   width 100%
   height 100%
-  background $bodycolor
+  background $white
   z-index 100
   left 0 !important
   -webkit-transform: translate3d(0, 0, 0);
@@ -64,10 +86,10 @@
   -ms-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  -webkit-transition: -webkit-transform 500ms ease;
-  -moz-transition: -moz-transform 500ms ease;
-  -o-transition: -o-transform 500ms ease;
-  transition: transform 500ms ease;
+  -webkit-transition: -webkit-transform 250ms ease;
+  -moz-transition: -moz-transform 250ms ease;
+  -o-transition: -o-transform 250ms ease;
+  transition: transform 250ms ease;
   -webkit-perspective: 1000;
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
@@ -76,6 +98,7 @@
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
   overflow hidden
+  //box-shadow: -4px 0px 5px #564531;
 
 .showNav
   .page
@@ -87,3 +110,11 @@
 
 .content
     padding 10px
+
+.profilePic
+    float left
+    border-radius 50%
+    border 1px solid $white
+    width 30px
+    height 30px
+    background-size: 30px 30px;

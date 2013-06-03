@@ -1,11 +1,21 @@
 .profile
-  div= displayName
+  div
+    span.profilePic(style="background-image: url('http://graph.facebook.com/#{facebookId}/picture?type=square')")
+    = displayName
 ul
   li.is-active
-    a.dashboard Home
+    a.dashboard 
+      i.icon-home
+      | Home
   li
-    a.teams Teams
+    a.teams 
+      i.icon-group
+      | Teams
   li
-    a.events Events
+    a.events
+      i.icon-calendar
+      | Events
   li
-    a.logout Log Out
+    a.logout
+      i.icon-off
+      | Log Out
