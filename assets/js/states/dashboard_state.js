@@ -1,10 +1,14 @@
 /*globals App*/
+// #= require ../controllers/teams_controller
+
 (function(app) {
   "use strict";
 
   var sc = app.Statechart;
   var views = app.Views;
   var data = app.Data;
+
+  var teamController = app.Controllers.Teams;
 
   sc.addState('dashboard', {
 
@@ -13,7 +17,8 @@
     initialSubstate: 'dashboard-upcoming-events',
 
     enterState: function() {
-      this.view = new views.Dashboard(data.Teams, data.Events);
+      var teams = teamController.teams;
+      this.view = new views.Dashboard(teams, data.Events);
       $('.content').html(this.view.render().el);
     },
 
@@ -61,11 +66,14 @@
       {
         name: 'dashboard-teams-loading',
         enterState: function() {
-          var self = this;
-          var teams = data.Teams;
-          this.sendEvent('busy', 'teams');
-          if (teams.length) this.goToState('dashboard-teams-ready');
-          else teams.fetch({ success: function() { self.goToState('dashboard-teams-ready'); }});
+          var that = this;
+          var teams = teamController.teams;
+
+          if (teamController.fetchedTeams) this.goToState('dashboard-teams-ready');
+          else {
+            this.sendEvent('busy', 'teams');
+            teamController.fetchTeams(function() { that.goToState('dashboard-teams-ready'); });
+          }
         }
       },
       {

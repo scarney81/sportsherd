@@ -1,22 +1,27 @@
 /*globals App*/
+// #= require ../controllers/groups_controller
+// #= require ../controllers/teams_controller
+
 (function(app) {
   "use strict";
 
   var sc = app.Statechart;
   var views = app.Views;
-  var data = app.Data;
+  var groupController = app.Controllers.Groups;
+  var teamController = app.Controllers.Teams;
 
   sc.addState('teams', {
 
     parentState: 'application',
 
     enterState: function() {
-      var teams = data.Teams;
+      var teams = teamController.teams;
+      var fetched = teamController.fetchedTeams;
 
       this.view = new views.Teams({ collection: teams });
       $('.content').html(this.view.render().el);
 
-      var state = teams.length ? 'teams-ready' : 'teams-loading';
+      var state = fetched ? 'teams-ready' : 'teams-loading';
       this.goToState(state);
     },
 
@@ -31,10 +36,10 @@
     parentState: 'teams',
 
     enterState: function() {
+      var that = this;
+
       this.sendEvent('busy');
-      
-      var self = this;
-      data.Teams.fetch({ success: function() { self.goToState('teams-ready'); }});
+      teamController.fetchTeams(function() { that.goToState('teams-ready'); });
     },
 
     exitState: function() {
@@ -62,6 +67,8 @@
     parentState: 'application',
 
     enterState: function() {
+      var groups = groupController.groups;
+
       this.view = new views.NewTeam();
       $('.content').html(this.view.render().el);
 
@@ -69,11 +76,14 @@
     },
 
     loadGroups: function() {
-      var self = this;
-      var groups = data.Groups;
-      groups.fetch({ success: function(groups) {
-        self.view.renderGroups(groups);
-      }});
+      var that = this;
+      var fetched = groupController.fetchedGroups;
+      var groups = groupController.groups;
+
+      var render = function() { that.view.renderGroups(groups); };
+
+      if (fetched) render();
+      else groupController.fetchGroups(render);
     },
 
     exitState: function() {

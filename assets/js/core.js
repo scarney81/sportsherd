@@ -1,6 +1,7 @@
 var App = App || {};
 
 App.Collections = {};
+App.Controllers = {};
 App.Data = {};
 App.Models = {};
 App.Router = {};
@@ -29,9 +30,7 @@ if (window.location.hash === '#_=_') {
 $(document).ready(function() {
   $.ajaxSetup({ headers: {'X-CSRF-Token': window.CSRF} });
 
-  App.Data.Teams = new App.Collections.Teams();
   App.Data.Events = new App.Collections.Events();
-  App.Data.Groups = new App.Collections.Groups();
   App.Data.Profiles = new App.Collections.Profiles();
 
   //  initialize router
