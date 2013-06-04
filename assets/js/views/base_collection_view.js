@@ -17,7 +17,7 @@
 
     render: function() {
       var self = this;
-      this.$el.html(this.template());
+      if (this.template) this.$el.html(this.template());
       this.collection.each(function(model) { self.renderModel(model); });
       this.delegateEvents();
       return this;

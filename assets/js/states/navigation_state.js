@@ -1,13 +1,16 @@
 /*globals App*/
 // #= require '../controllers/profile_controller'
+// #= require '../controllers/navigation_controller'
+// #= require '../views/navigation_view'
 
 (function(app) {
   "use strict";
 
   var sc = app.Statechart;
-  var views = app.Views;
 
+  var NavigationView = app.Views.Navigation;
   var profileController = app.Controllers.Profiles;
+  var navController = app.Controllers.Navigation;
 
   var navigate = function(url) {
     app.Router.navigate(url, { trigger: true });
@@ -18,24 +21,20 @@
     globalConcurrentState: 'navigation',
 
     enterState: function() {
-      this.model = profileController.currentUser;
+      if (!navController.profile) navController.profile = profileController.currentUser;
+      var model = navController.getNavigationModel();
 
-      this.view = new views.Navigation({ model: this.model });
+      this.view = new NavigationView({ model: model });
       this.view.render();
     },
 
     exitState: function() {
-      if (this.model) delete this.model;
       if (this.view) this.view.close();
     },
 
     switchState: function(state) { sc.goToState(state, 'default'); },
 
     switchStateWithId: function(state, id) { sc.goToState(state, 'default', 'default', { id: id }); },
-
-    idle: function() { this.view.idle(); },
-
-    busy: function() { this.view.busy(); },
 
     logout: function() { window.location.href = '/logout'; },
 
