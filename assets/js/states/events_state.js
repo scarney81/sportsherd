@@ -1,22 +1,26 @@
 /*globals App*/
+// #= require '../controllers/events_controller'
+
 (function(app) {
   "use strict";
 
   var sc = app.Statechart;
   var views = app.Views;
-  var data = app.Data;
+
+  var eventsController = app.Controllers.Events;
 
   sc.addState('events', {
 
     parentState: 'application',
 
     enterState: function() {
-      var events = data.Events;
+      var events = eventsController.events;
+      var fetched = eventsController.fetchedEvents;
 
       this.view = new views.Events({ collection: events });
       $('.content').html(this.view.render().el);
 
-      var state = events.length ? 'events-ready' : 'events-loading';
+      var state = fetched ? 'events-ready' : 'events-loading';
       this.goToState(state);
     },
 
@@ -31,10 +35,10 @@
     parentState: 'events',
 
     enterState: function() {
-      this.sendEvent('busy');
+      var that = this;
 
-      var self = this;
-      data.Events.fetch({ success: function() { self.goToState('events-ready'); }});
+      this.sendEvent('busy');
+      eventsController.events.fetch({ success: function() { that.goToState('events-ready'); }});
     },
 
     exitState: function() {

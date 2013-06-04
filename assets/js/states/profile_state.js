@@ -1,17 +1,20 @@
 /*globals App*/
+// #= require '../controllers/profile_controller'
+
 (function(app) {
   "use strict";
 
-  var data = app.Data;
   var sc = app.Statechart;
   var views = app.Views;
+
+  var profileController = app.Controllers.Profiles;
 
   sc.addState('profile', {
 
     parentState: 'application',
 
     enterState: function() {
-      this.model = data.Profiles.get('my');
+      this.model = profileController.currentUser;
 
       this.view = new views.Profile({ model: this.model });
       $('.content').html(this.view.render().el);

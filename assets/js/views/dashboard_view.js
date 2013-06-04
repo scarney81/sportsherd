@@ -28,27 +28,19 @@
     render: function() {
       this.$el.html(this.template());
 
-      var upcomingView = new views.UpcomingDashboard();
-      this._renderSubView(upcomingView, 'upcoming');
-      
       var teamsView = new views.TeamsDashboard({ collection: this.teams });
       this._renderSubView(teamsView, 'teams');
       
       var eventsView = new views.EventsDashboard({ collection: this.evts });
       this._renderSubView(eventsView, 'events');
       
-      var accountView = new views.AccountDashboard();
-      this._renderSubView(accountView, 'account');
-
       return this;
     },
 
     close: function() {
       if (this.subviews) delete this.subviews;
-      if (this._upcomingView) delete this._upcomingView;
       if (this._teamsView) delete this._teamsView;
       if (this._eventsView) delete this._eventsView;
-      if (this._accountView) delete this._accountView;
       views.Dashboard.__super__.close.call(this);
     },
 

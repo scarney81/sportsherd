@@ -1,4 +1,6 @@
 /*globals App*/
+// #= require '../collections/group_collection'
+
 (function(app) {
 
   var controllers = app.Controllers;

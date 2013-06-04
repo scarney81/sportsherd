@@ -1,5 +1,6 @@
 /*globals App*/
 // #= require '../models/group_model'
+
 (function(app, backbone) {
   "use strict";
 

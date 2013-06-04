@@ -1,10 +1,13 @@
 /*globals App*/
+// #= require '../controllers/profile_controller'
+
 (function(app) {
   "use strict";
 
   var sc = app.Statechart;
-  var data = app.Data;
   var views = app.Views;
+
+  var profileController = app.Controllers.Profiles;
 
   var navigate = function(url) {
     app.Router.navigate(url, { trigger: true });
@@ -15,7 +18,7 @@
     globalConcurrentState: 'navigation',
 
     enterState: function() {
-      this.model = data.Profiles.get('my');
+      this.model = profileController.currentUser;
 
       this.view = new views.Navigation({ model: this.model });
       this.view.render();

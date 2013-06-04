@@ -1,4 +1,5 @@
 /*globals App*/
+// #= require ../controllers/events_controller
 // #= require ../controllers/teams_controller
 
 (function(app) {
@@ -6,19 +7,20 @@
 
   var sc = app.Statechart;
   var views = app.Views;
-  var data = app.Data;
 
+  var eventController = app.Controllers.Events;
   var teamController = app.Controllers.Teams;
 
   sc.addState('dashboard', {
 
     parentState: 'application',
 
-    initialSubstate: 'dashboard-upcoming-events',
+    initialSubstate: 'dashboard-teams',
 
     enterState: function() {
       var teams = teamController.teams;
-      this.view = new views.Dashboard(teams, data.Events);
+      var events = eventController.events;
+      this.view = new views.Dashboard(teams, events);
       $('.content').html(this.view.render().el);
     },
 
@@ -26,13 +28,9 @@
       this.view.close();
     },
 
-    showUpcoming: function() { this.goToState('dashboard-upcoming-events'); },
-
     showTeams: function() { this.goToState('dashboard-teams'); },
 
     showEvents: function() { this.goToState('dashboard-events'); },
-
-    showAccount: function() { this.goToState('dashboard-account'); },
 
     idle: function(section) { this.view.idle(section); },
 
@@ -44,36 +42,23 @@
 
   });
 
-  var dashboard_substate = function(name) {
-    var state = {
-      parentState: 'dashboard',
-      enterState: function() { this.sendEvent('expand', name); },
-      exitState: function() { this.sendEvent('collapse', name); }
-    };
-    return state;
-  };
-
-  sc.addState('dashboard-upcoming-events', dashboard_substate('upcoming'));
-  sc.addState('dashboard-account', dashboard_substate('account'));
-
   sc.addState('dashboard-teams', {
 
     parentState: 'dashboard',
 
-    initialSubstate: 'dashboard-teams-loading',
+    enterState: function() {
+      var state = teamController.fetchedTeams ? 'dashboard-teams-ready' : 'dashboard-teams-loading';
+      this.goToState(state);
+    },
 
     states: [
       {
         name: 'dashboard-teams-loading',
         enterState: function() {
           var that = this;
-          var teams = teamController.teams;
 
-          if (teamController.fetchedTeams) this.goToState('dashboard-teams-ready');
-          else {
-            this.sendEvent('busy', 'teams');
-            teamController.fetchTeams(function() { that.goToState('dashboard-teams-ready'); });
-          }
+          this.sendEvent('busy', 'teams');
+          teamController.fetchTeams(function() { that.goToState('dashboard-teams-ready'); });
         }
       },
       {
@@ -94,17 +79,19 @@
 
     parentState: 'dashboard',
 
-    initialSubstate: 'dashboard-events-loading',
+    enterState: function() {
+      var state = eventController.fetchedEvents ? 'dashboard-events-ready' : 'dashboard-events-loading';
+      this.goToState(state);
+    },
 
     states: [
       {
         name: 'dashboard-events-loading',
         enterState: function() {
-          var self = this;
-          var events = data.Events;
+          var that = this;
+
           this.sendEvent('busy', 'events');
-          if (events.length) this.goToState('dashboard-events-ready');
-          else events.fetch({ success: function() { self.goToState('dashboard-events-ready'); }});
+          eventController.fetchEvents(function() { that.goToState('dashboard-events-ready'); });
         }
       },
       {

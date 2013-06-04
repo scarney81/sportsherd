@@ -2,7 +2,6 @@ var App = App || {};
 
 App.Collections = {};
 App.Controllers = {};
-App.Data = {};
 App.Models = {};
 App.Router = {};
 // create statechart
@@ -29,9 +28,6 @@ if (window.location.hash === '#_=_') {
 
 $(document).ready(function() {
   $.ajaxSetup({ headers: {'X-CSRF-Token': window.CSRF} });
-
-  App.Data.Events = new App.Collections.Events();
-  App.Data.Profiles = new App.Collections.Profiles();
 
   //  initialize router
   App.Router = new App.Router();

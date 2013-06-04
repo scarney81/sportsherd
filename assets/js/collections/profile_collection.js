@@ -1,5 +1,6 @@
 /*globals App*/
 // #= require '../models/profile_model'
+
 (function(app, backbone) {
   "use strict";
 

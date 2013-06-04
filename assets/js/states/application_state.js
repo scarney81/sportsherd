@@ -1,11 +1,13 @@
 /*globals App*/
+// #= require '../controllers/profile_controller'
+
 (function(app, backbone) {
   "use strict";
 
-  var data = app.Data;
-  var Profile = app.Models.Profile;
   var sc = app.Statechart;
   var views = app.Views;
+
+  var profileController = app.Controllers.Profiles;
 
   sc.addState('application', {
 
@@ -13,18 +15,10 @@
       this.view = new views.Application();
       this.view.render();
 
-      var profile = data.Profiles.get('my');
-
-      if(!!!profile) {
-        profile = new Profile({ id: 'my' });
-        profile.fetch({
-          success: function(profile) {
-            data.Profiles.push(profile);
-            sc.goToState('nav', 'navigation');
-            backbone.history.start({ pushState: true });
-          }
-        });
-      }
+      profileController.fetchCurrent(function() {
+        sc.goToState('nav', 'navigation');
+        backbone.history.start({ pushState: true });
+      });
     },
 
     exitState: function() {
