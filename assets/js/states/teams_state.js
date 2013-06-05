@@ -1,5 +1,6 @@
 /*globals App*/
 // #= require ../controllers/groups_controller
+// #= require ../controllers/navigation_controller
 // #= require ../controllers/teams_controller
 
 (function(app) {
@@ -8,6 +9,7 @@
   var sc = app.Statechart;
   var views = app.Views;
   var groupController = app.Controllers.Groups;
+  var navigationController = app.Controllers.Navigation;
   var teamController = app.Controllers.Teams;
 
   sc.addState('teams', {
@@ -15,6 +17,8 @@
     parentState: 'application',
 
     enterState: function() {
+      navigationController.selectItem('Teams');
+      
       var teams = teamController.teams;
       var fetched = teamController.fetchedTeams;
 
@@ -27,6 +31,7 @@
 
     exitState: function() {
       if (this.view) this.view.close();
+      navigationController.deselectItem('Teams');
     }
 
   });

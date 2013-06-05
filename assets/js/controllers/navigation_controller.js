@@ -30,10 +30,21 @@
       return this.model;
     },
 
+    _setActiveState: function(title, isActive) {
+      if (this.items === null) return;
+
+      var item = this.items.findWhere({ title: title });
+      if (item) item.set('isActive', isActive);
+    },
+
+    selectItem: function(title) { this._setActiveState(title, true); },
+
+    deselectItem: function(title) { this._setActiveState(title, false); },
+
     getItems: function() {
       if (this.items) return this.items;
 
-      return new NavItems([
+      return this.items = new NavItems([
         { title: 'Home', cssClass: 'dashboard', icon: 'icon-home', event: 'gotoDashboard' },
         { title: 'Teams', cssClass: 'teams', icon: 'icon-group', event: 'gotoTeams' },
         { title: 'Events', cssClass: 'events', icon: 'icon-calendar', event: 'gotoEvents' },

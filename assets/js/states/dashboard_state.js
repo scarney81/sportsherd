@@ -1,5 +1,6 @@
 /*globals App*/
 // #= require ../controllers/events_controller
+// #= require ../controllers/navigation_controller
 // #= require ../controllers/teams_controller
 
 (function(app) {
@@ -9,6 +10,7 @@
   var views = app.Views;
 
   var eventController = app.Controllers.Events;
+  var navigationController = app.Controllers.Navigation;
   var teamController = app.Controllers.Teams;
 
   sc.addState('dashboard', {
@@ -18,6 +20,8 @@
     initialSubstate: 'dashboard-teams',
 
     enterState: function() {
+      navigationController.selectItem('Home');
+      
       var teams = teamController.teams;
       var events = eventController.events;
       this.view = new views.Dashboard(teams, events);
@@ -25,6 +29,7 @@
     },
 
     exitState: function() {
+      navigationController.deselectItem('Home');
       this.view.close();
     },
 

@@ -17,9 +17,20 @@
       'click a': 'navigate'
     },
 
+    initialize: function() {
+      this.model.on('change:isActive', this.changeActivation, this);
+    },
+
+    changeActivation: function(model, isActive) {
+      if (isActive) this.$el.addClass('is-active');
+      else this.$el.removeClass('is-active');
+      return this;
+    },
+
     navigate: function() {
       var event = this.model.get('event');
       this.sendEvent(event);
+      return this;
     }
 
   });

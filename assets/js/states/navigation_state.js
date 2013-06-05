@@ -38,13 +38,21 @@
 
     logout: function() { window.location.href = '/logout'; },
 
-    gotoProfile: function() { this.go('/profile'); },
+    gotoProfile: function() {
+      this.go('/profile');
+    },
 
-    gotoDashboard: function() { this.go(''); },
+    gotoDashboard: function() {
+      this.go('');
+    },
 
-    gotoEvents: function() { this.go('/events'); },
+    gotoEvents: function() {
+      this.go('/events');
+    },
 
-    gotoTeams: function() { this.go('/teams'); },
+    gotoTeams: function() {
+      this.go('/teams');
+    },
 
     go: function(url) {
       this.sendEvent('toggleNavigation');

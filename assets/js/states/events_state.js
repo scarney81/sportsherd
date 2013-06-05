@@ -1,5 +1,6 @@
 /*globals App*/
 // #= require '../controllers/events_controller'
+// #= require ../controllers/navigation_controller
 
 (function(app) {
   "use strict";
@@ -8,12 +9,15 @@
   var views = app.Views;
 
   var eventsController = app.Controllers.Events;
+  var navigationController = app.Controllers.Navigation;
 
   sc.addState('events', {
 
     parentState: 'application',
 
     enterState: function() {
+      navigationController.selectItem('Events');
+      
       var events = eventsController.events;
       var fetched = eventsController.fetchedEvents;
 
@@ -26,6 +30,7 @@
 
     exitState: function() {
       if (this.view) this.view.close();
+      navigationController.deselectItem('Events');
     }
 
   });
