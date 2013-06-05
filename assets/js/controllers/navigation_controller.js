@@ -41,6 +41,11 @@
 
     deselectItem: function(title) { this._setActiveState(title, false); },
 
+    deselectItems: function() { 
+      if (this.items === null) return;
+      this.items.forEach(function(item) { item.set('isActive', false); });
+    },
+
     getItems: function() {
       if (this.items) return this.items;
 
