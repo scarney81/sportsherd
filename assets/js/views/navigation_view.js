@@ -15,7 +15,7 @@
     el: 'nav#nav',
 
     events: {
-      'click .profile': 'profile'
+      'click .profile a': 'profile'
     },
 
     render: function() {
