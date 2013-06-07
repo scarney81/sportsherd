@@ -34,6 +34,7 @@ For more information about Statechart, visit http://www.itsgotwhatplanscrave.com
   
   @author: Evin Grano
 */
+// #ifdef DEBUG_MODE
 if (typeof DEBUG_MODE === "undefined"){
   DEBUG_MODE = true;
   COLOR_MODE = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
@@ -43,12 +44,13 @@ if (typeof DEBUG_MODE === "undefined"){
     EXIT_COLOR = "#880000";
   }
 }
-
+// #endif
 // Pre-processor for eventable code
+// #ifdef EVENTABLE
 if (typeof EVENTABLE === "undefined"){
   EVENTABLE = true;
 }
-
+// #endif
 // Helper function for creating prototypical objects...
 var creator = function(){
   function F() {}
@@ -58,23 +60,24 @@ var creator = function(){
 
 // helper function for merging in properties
 var merge = function(obj, configs){
-  var config, i, len, k;
+  var k;
   obj = obj || {};
-  for (i = 1, len = configs.length || 0; i < len; i++){
-    config = configs[i];
-    if (typeof config === 'object'){
-      for (k in config){ 
-        if(config.hasOwnProperty(k)) obj[k] = config[k]; 
+  configs = configs || [];
+  configs.forEach( function(x){
+    if (typeof x === 'object'){
+      for (k in x){ 
+        if(x.hasOwnProperty(k)) obj[k] = x[k];         
       }
     }
-  }
+  });
   
   return obj;
 };
 
-Stativus = { DEFAULT_TREE: 'default', SUBSTATE_DELIM: 'SUBSTATE:', version: '0.9.2' };
+Stativus = { DEFAULT_TREE: 'default', SUBSTATE_DELIM: 'SUBSTATE:', version: '0.9.3' };
 
 // This creates the Debug object that is used to output statements
+// #ifdef DEBUG_MODE
 if(DEBUG_MODE){
   Stativus.DebugMessagingObject = {
     
@@ -117,6 +120,7 @@ if(DEBUG_MODE){
     }
   };
 }
+// #endif
 // ******************
 // State Object
 // ******************
@@ -134,25 +138,31 @@ Stativus.State = {
   goToState: function(name, data){
     var sc = this.statechart;
     if (sc){ sc.goToState(name, this.globalConcurrentState, this.localConcurrentState, data); }
+    // #ifdef DEBUG_MODE
     else { // weird format for UglifyJS preprocessing
       if (DEBUG_MODE){ throw 'Cannot goToState cause state doesnt have a statechart'; }
     }
+    // #endif
   },
   
   goToHistoryState: function(name, isRecursive){
     var sc = this.statechart;
     if (sc){ sc.goToHistoryState(name, this.globalConcurrentState, this.localConcurrentState, isRecursive); }
+    // #ifdef DEBUG_MODE
     else { // weird format for UglifyJS preprocessing
       if (DEBUG_MODE){ throw 'Cannot goToState cause state doesnt have a statechart'; }
     }
+    // #endif
   },
   
   sendEvent: function(evt){
     var sc = this.statechart;
     if (sc){ sc.sendEvent.apply(sc, arguments); }
+    // #ifdef DEBUG_MODE
     else { // weird format for UglifyJS preprocessing
       if (DEBUG_MODE){ throw 'Cannot sendEvent cause state doesnt have a statechart'; }
     }
+    // #endif
   },
   sendAction: function(evt){
     return this.sendEvent.apply(this, arguments);
@@ -182,34 +192,28 @@ Stativus.State = {
     this.history = this.history || {};
     if (this.substatesAreConcurrent){
       this.history[this.localConcurrentState] = state.name;
+      // #ifdef DEBUG_MODE
       if (DEBUG_MODE) {
         Stativus.DebugMessagingObject.sendLog('HISTORY STATE SET', this.name, ' substree = '+this.localConcurrentState+' => history state set to: '+state.name, this.globalConcurrentState);
       }
+      // #endif
     }
     else {
       this.history = state.name;
+      // #ifdef DEBUG_MODE
       if (DEBUG_MODE) {
         Stativus.DebugMessagingObject.sendLog('HISTORY STATE SET', this.name, ' history state set to: '+state.name, this.globalConcurrentState);
       }
+      // #endif
     }
   }
 };
 // Our Maker function:  Thank you D.Crockford.
-Stativus.State.create = function (configs) {
-  var nState, k, config, i, len;
-  configs = configs || [];
+Stativus.State.create = function (config) {
+  var nState, k, i, len;
   nState = creator.call(this);
   nState._data = {};
-  // You can have 0...n configuration objects
-  for (i = 0, len = configs.length || 0; i < len; i++){
-    config = configs[i];
-    if (typeof config === 'object'){
-      for (k in config){ 
-        if(config.hasOwnProperty(k)) nState[k] = config[k]; 
-      }
-    }
-  }
-  return nState;
+  return merge(nState, [config]);
 };
 
 /**
@@ -218,13 +222,11 @@ Stativus.State.create = function (configs) {
 */
 Stativus.Statechart = {
   
-  
-  isStatechart: true,
-  
   create: function(config){
     var sc = creator.call(this);
     
     // config all the internal information 
+    sc.isStatechart = true;
     sc._all_states = {};
     sc._all_states[Stativus.DEFAULT_TREE] = {};
     sc._states_with_concurrent_substates = {};
@@ -237,6 +239,7 @@ Stativus.Statechart = {
     sc._pendingEvents = [];
     sc._active_subtrees = {};
     
+    // #ifdef DEBUG_MODE
     if(DEBUG_MODE){
       sc.inState = function(name, tree){
         var ret = false, cStates = this.currentState(tree);
@@ -248,7 +251,7 @@ Stativus.Statechart = {
       };
       sc.getActiveStates = sc.currentState;
     }
-    
+    // #endif
     return sc;
   },
   
@@ -261,7 +264,7 @@ Stativus.Statechart = {
       hasConcurrentSubstates = hasConcurrentSubstates || !!config.substatesAreConcurrent;
       pState = pState || config.parentState;
     }
-    if (len === 1) configs[0] = config = {};
+    config = len === 1 ? {} : merge(null, configs);
     // primary config is always the last config
     config.name = name;
     config.statechart = this;
@@ -287,34 +290,38 @@ Stativus.Statechart = {
       }
     }
     
-    nState = Stativus.State.create(configs);
+    nState = Stativus.State.create(config);
     
     // Actually add the state to our statechart
     obj = this._all_states[tree] || {}; 
+    // #ifdef DEBUG_MODE
     if (DEBUG_MODE){
       if (obj[name]) throw ['Trying to add state', name, 'to state tree', tree, 'and it already exists'].join(' ');
     }
-    
+    // #endif
     obj[name] = nState;
     this._all_states[tree] = obj;
     nState._beenAdded = true;
     
     // Code to get the substates and add them.
     states = nState.states || [];
+    // #ifdef DEBUG_MODE
     if (DEBUG_MODE){
       if(states.length === 1 && nState.substatesAreConcurrent){ // weird format for UglifyJS preprocessing
         throw ['Trying to add substates in property \'states\' to '+nState.name+', but must have more than ONE substate'];
       }
     }
-    
+    // #endif
     states.forEach( function(x, idx){
       var args = [], good = false, last;
       if(typeof x === 'object' && x.length > 0){
+        // #ifdef DEBUG_MODE
         if (DEBUG_MODE){
           if (typeof x[0] !== 'string'){
             throw '#addState: invalid substate array...Must have the name at index=0'; 
           }
         }
+        // #endif
         args = args.concat(x);
         good = true;
       }
@@ -323,9 +330,11 @@ Stativus.Statechart = {
         good = true;
       }
       else if (typeof x === 'object'){
-        if (typeof x.name !== 'string'){
-          if (DEBUG_MODE) throw '#addState: invalid substate hash...Must have a \'name\' property'; 
+        // #ifdef DEBUG_MODE
+        if (DEBUG_MODE){
+          if (typeof x.name !== 'string') throw '#addState: invalid substate hash...Must have a \'name\' property'; 
         }
+        // #endif
         args.push(x.name);
         args.push(x);
         good = true;
@@ -336,9 +345,12 @@ Stativus.Statechart = {
         args[last].parentState = name;
         args[last].globalConcurrentState = tree;
         that.addState.apply(that, args);
-      } else {
+      }
+      // #ifdef DEBUG_MODE 
+      else {
         if (DEBUG_MODE) throw '#addState: invalid substate at index='+idx; 
       }
+      // #endif
     });
     
     return this;
@@ -370,25 +382,33 @@ Stativus.Statechart = {
         enterMatchIndex, exitMatchIndex, that,
         reqState, pState, i, substateTree,
         enterStateHandled, exitStateHandled, substates;
-        
+    
+    // #ifdef DEBUG_MODE    
     if (DEBUG_MODE){
       if (!tree) throw '#goToState: invalid global parallel state';
     }
+    // #endif
 
     // First, find the current tree off of the concurrentTree, then the main tree
     cState = concurrentTree ? this._current_state[concurrentTree] : this._current_state[tree];
     
     reqState = allStates[requestedStateName];
     
+    // #ifdef DEBUG_MODE
     if (DEBUG_MODE) {
       if (!reqState) throw '#goToState: Could not find requested state: '+requestedStateName;
     } 
+    // #endif
 
     // if the current state is the same as the requested state do nothing
     if (this._checkAllCurrentStates(reqState, concurrentTree || tree)) return;
 
     if (typeof data !== 'undefined' && data !== null) {
-      Stativus.DebugMessagingObject.sendLog('SETTING DATA FOR TRANSITION FOR => '+requestedStateName);
+      // #ifdef DEBUG_MODE
+      if (DEBUG_MODE) {
+        Stativus.DebugMessagingObject.sendLog('SETTING DATA FOR TRANSITION FOR => '+requestedStateName);
+      }
+      // #endif
       if (typeof data === 'string') reqState.setData(data, data);
       if (typeof data === 'object') {
         for (var key in data) {
@@ -460,11 +480,11 @@ Stativus.Statechart = {
   goToHistoryState: function(requestedState, tree, concurrentTree, isRecursive){
     var allStateForTree = this._all_states[tree],
         pState, realHistoryState;
-    
+    // #ifdef DEBUG_MODE
     if (DEBUG_MODE){
       if (!tree || !allStateForTree) throw '#goToHistoryState: State requesting does not have a valid global parallel tree';
     }
-  
+    // #endif
     pState = allStateForTree[requestedState];
     if (pState) realHistoryState = pState.history || pState.initialSubstate;
     
@@ -589,20 +609,26 @@ Stativus.Statechart = {
         sResponder = currentStates[sTree];
         tmp = handled ? [true, true] : this[func](evt, args, sResponder, allStates, sTree);
         handled = tmp[0];
+        // #ifdef DEBUG_MODE
         if (DEBUG_MODE) found = tmp[1];
+        // #endif
       }
       if (!handled) {
         tmp = this[func](evt, args, responder, allStates, null);  
         handled = tmp[0];
+        // #ifdef DEBUG_MODE
         if (DEBUG_MODE){ 
           if (!found) found = tmp[1];
         }
+        // #endif
       }
+      // #ifdef DEBUG_MODE
       if (DEBUG_MODE){
         if(!found) {
           Stativus.DebugMessagingObject.sendLog('EVENT', this.name, 'Fired {'+evt+'} with '+(args.length || 0)+' argument(s) found NO state to handle this', this.globalConcurrentState);
         }
       }
+      // #endif
     }
   },
   
@@ -622,10 +648,20 @@ Stativus.Statechart = {
     
     while(!handled && responder){
       if (responder[evt]){
+        // #ifdef DEBUG_MODE
         if (DEBUG_MODE) {
-          var msg = Stativus.DebugMessagingObject.sendInfo('EVENT', responder.name, 'Fired \''+evt+'\' with '+(args.length || 0)+' argument(s)', responder.globalConcurrentState);
+          Stativus.DebugMessagingObject.sendInfo('EVENT', responder.name, 'Fired \''+evt+'\' with '+(args.length || 0)+' argument(s)', responder.globalConcurrentState);
         }
-        handled = responder[evt].apply(responder, args);
+        // #endif
+        try {
+          handled = responder[evt].apply(responder, args);
+        } catch(e){
+          // #ifdef DEBUG_MODE
+          if (DEBUG_MODE) {
+            Stativus.DebugMessagingObject.sendError('EVENT', responder.name, 'Fired \''+evt+'\': Exception: '+e, responder.globalConcurrentState);
+          }
+          // #endif
+        }
         found = true;
       }
       // check to see if we have reached the end of this tree
@@ -668,11 +704,22 @@ Stativus.Statechart = {
   _fullEnter: function(state){
     var pState, enterStateHandled = false;
     if (!state) return;
+    
+    try {
+      if (state.enterState) state.enterState();
+      if (state.didEnterState) state.didEnterState();
+    } catch(e){
+      // #ifdef DEBUG_MODE
+      if (DEBUG_MODE) {
+        Stativus.DebugMessagingObject.sendError('ENTER STATE', state.name, 'EXECEPTION ['+e+']', state.globalConcurrentState);
+      }
+      // #endif
+    }
+    // #ifdef DEBUG_MODE
     if (DEBUG_MODE) {
       Stativus.DebugMessagingObject.sendInfo('ENTER STATE', state.name, 'Completed', state.globalConcurrentState);
     }
-    if (state.enterState) state.enterState();
-    if (state.didEnterState) state.didEnterState();
+    // #endif
     if (state.parentState) {
       pState = state.statechart.getState(state.parentState, state.globalConcurrentState);
       pState.setHistoryState(state);
@@ -680,15 +727,26 @@ Stativus.Statechart = {
     this._unwindEnterStateStack();
   },
   
+  
   _fullExit: function(state){
     var pState;
     if (!state) return;
     var exitStateHandled = false;
-    if (state.exitState) state.exitState();
-    if (state.didExitState) state.didExitState();
+    try {
+      if (state.exitState) state.exitState();
+      if (state.didExitState) state.didExitState();
+    } catch (e){
+      // #ifdef DEBUG_MODE
+      if (DEBUG_MODE) {
+        Stativus.DebugMessagingObject.sendError('EXIT STATE', state.name, 'EXECEPTION ['+e+']', state.globalConcurrentState);
+      }
+      // #endif
+    }
+    // #ifdef DEBUG_MODE
     if (DEBUG_MODE) {
       Stativus.DebugMessagingObject.sendInfo('EXIT STATE', state.name, 'Completed', state.globalConcurrentState);
     }
+    // #endif
     this._unwindExitStateStack();
   },
   
@@ -818,16 +876,20 @@ Stativus.Statechart = {
         // exit for this path as needed
         stateRestart = function(){
           var sc = this._statechart;
+          // #ifdef DEBUG_MODE
           if (DEBUG_MODE) {
             Stativus.DebugMessagingObject.sendLog('ASYNC', stateToExit.name, 'willExitState() completed!', stateToExit.globalConcurrentState);
           }
+          // #endif
           if (sc) sc._fullExit(stateToExit);
         };
         delayForAsync = stateToExit.willExitState(stateRestart);
+        // #ifdef DEBUG_MODE
         if (DEBUG_MODE) {
           if (delayForAsync) { Stativus.DebugMessagingObject.sendLog('ASYNC', stateToExit.name, 'exitState() delayed', stateToExit.globalConcurrentState); }
           else { Stativus.DebugMessagingObject.sendWarn('ASYNC', stateToExit.name, 'Didn\'t return \'true\' willExitState() which is needed if you want async', stateToExit.globalConcurrentState); }
         }
+        // #endif
       }
       if (!delayForAsync) this._fullExit(stateToExit);
     }
@@ -850,16 +912,20 @@ Stativus.Statechart = {
         // into the willExitState call that will restart the state
         // exit for this path as needed
         stateRestart = function(){
+          // #ifdef DEBUG_MODE
           if (DEBUG_MODE) {
             Stativus.DebugMessagingObject.sendLog('ASYNC', stateToEnter.name, 'willEnterState() completed!', stateToEnter.globalConcurrentState);
           }
+          // #endif
           if (that) that._fullEnter(stateToEnter);
         };
         delayForAsync = stateToEnter.willEnterState(stateRestart);
+        // #ifdef DEBUG_MODE
         if (DEBUG_MODE) {
           if (delayForAsync) { Stativus.DebugMessagingObject.sendLog('ASYNC', stateToEnter.name, 'enterState() delayed', stateToEnter.globalConcurrentState); }
           else { Stativus.DebugMessagingObject.sendWarn('ASYNC', stateToEnter.name, 'Didn\'t return \'true\' willEnterState() which is needed if you want async', stateToEnter.globalConcurrentState); }
         }
+        // #endif
       }
       if (!delayForAsync) this._fullEnter(stateToEnter);
     }
@@ -913,7 +979,7 @@ Stativus.Statechart = {
 };
 
 Stativus.createStatechart = function(){ return this.Statechart.create(); };
-
+// #ifdef DEBUG_MODE
 if (DEBUG_MODE){
   Stativus.Statechart.createStateTree = function() {
 
@@ -1010,7 +1076,8 @@ if (DEBUG_MODE){
     return allStatesTree;
   };
 }
-
+// #endif
+// #ifdef DEBUG_MODE
 if (DEBUG_MODE){
   Stativus.TestStateObject = {
     
@@ -1154,9 +1221,10 @@ if (DEBUG_MODE){
     };
   };
 }
-
+// #endif
 // All this code will add some awesome eventing structure that looks like backbone.js
 // 
+// #ifdef EVENTABLE
 if (EVENTABLE){
   Stativus.Statechart._internalTryToPerform = function(node, evt, args){
     var that = this, lookup, selectors;
@@ -1183,9 +1251,11 @@ if (EVENTABLE){
     while(!handled && responder){
       evt = responder.actions ? responder.actions[lookup] : null;
       if (evt){
+        // #ifdef DEBUG_MODE
         if (DEBUG_MODE) {
           Stativus.DebugMessagingObject.sendLog('EVENT LOOKUP', responder.name, ['Will fire [',evt,'] for','['+lookup+']', 'with', args.length || 0, 'argument(s)'].join(' '), responder.globalConcurrentState);
         }
+        // #endif
         args.unshift(evt);
         this.sendEvent.apply(this, args);
         return [true, true];
@@ -1252,7 +1322,7 @@ if (EVENTABLE){
     };
   }
 }
-
+// #endif
 // TODO:  Work on AMD Loading...
 if (typeof window !== "undefined") {
   window.Stativus = Stativus;
