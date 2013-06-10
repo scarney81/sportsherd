@@ -27,7 +27,15 @@
     },
 
     getEvent: function(id) {
-      return this.events.get(id) || new Event({ id: id });
+      var evt = this.events.get(id);
+
+      if (!evt) {
+        evt = new Event({ id: id });
+        this.events.push(evt);
+      }
+
+      this.selectedEvent = evt;
+      return evt;
     },
 
     fetchEvent: function(done) {

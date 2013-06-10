@@ -76,7 +76,6 @@
       $('.content').html(this.view.render().el);
 
       var state = fetched ? 'event-ready' : 'event-loading';
-      eventsController.selectedEvent = evt;
       this.goToState(state);
     },
 
@@ -93,10 +92,8 @@
 
     enterState: function() {
       var that = this;
-      var ev = eventsController.selectedEvent;
-      
-      this.sendEvent('busy');
 
+      this.sendEvent('busy');
       eventsController.fetchEvent(function() { that.goToState('event-ready'); });
     },
 
