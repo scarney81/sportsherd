@@ -34,8 +34,8 @@ app.configure(function(){
   app.use(middleware.csrf());
   app.use(middleware.authentication(passport));
   app.use(middleware.facebookProxy);
-  app.param('event_id', middleware.events);
-  app.param('team_id', middleware.teams);
+  // app.param('event_id', middleware.events);
+  // app.param('team_id', middleware.teams);
 
   app.use(middleware.locals);
 

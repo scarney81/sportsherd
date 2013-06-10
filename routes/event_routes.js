@@ -3,6 +3,12 @@ var events = new Repository('Event');
 
 module.exports = function(app) {
 
+  var events = [
+    { id: '51b01909a262420b31000001', name: 'Invention of Electricity' },
+    { id: '51b01909a262420b31000002', name: 'Industrial Revolution' },
+    { id: '51b01909a262420b31000004', name: 'The Manhattan Project' }
+  ];
+
   var render_index = function(req, res, next) {
     if (req.isJSON) return next();
     res.render('index');
@@ -11,12 +17,16 @@ module.exports = function(app) {
   app.get('/events/:event_id', render_index);
   app.get('/events', render_index);
 
+  app.get('/events/:event_id', function(req, res, next) {
+    var evt = null;
+    var id = req.params.event_id;
+    events.forEach(function(e) {
+      if (e.id === id) evt = e;
+    });
+    res.json(evt);
+  });
+
   app.get('/events', function(req, res, next) {
-    var events = [
-      { id: 1, name: 'Invention of Electricity' },
-      { id: 2, name: 'Industrial Revolution' },
-      { id: 3, name: 'The Manhattan Project' }
-    ];
     res.json(events);
   });
 

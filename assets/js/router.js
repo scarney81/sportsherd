@@ -9,6 +9,8 @@
     routes: {
 
       'events': 'events',
+      
+      'events/:id': 'event',
 
       'profile': 'profile',
 
@@ -24,6 +26,10 @@
 
     events: function() {
       switch_state('events');
+    },
+
+    event: function(id) {
+      switch_state_with_id('event', id);
     },
 
     profile: function() {
