@@ -99,23 +99,16 @@
 
   sc.addState('team', {
 
-    parentState: 'application',
+    parentState: 'teams',
 
     enterState: function() {
-
-      navigationController.selectItem("Teams");
-
       var id = this.getData('id');
       var team = teamController.getTeam(id);
       var fetched = team.get('fetched') || false;
       var state = fetched ? 'team-ready' : 'team-loading';
       this.goToState(state);
-
-    },
-
-    exitState: function() {
-
     }
+    
   });
 
   sc.addState('team-loading', {
