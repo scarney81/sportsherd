@@ -1,4 +1,4 @@
-/*globals App*/
+/*globals App, $*/
 // #= require ../controllers/groups_controller
 // #= require ../controllers/navigation_controller
 // #= require ../controllers/teams_controller
@@ -96,5 +96,61 @@
     }
 
   });
+
+  sc.addState('team', {
+
+    parentState: 'application',
+
+    enterState: function() {
+
+      navigationController.selectItem("Teams");
+
+      var id = this.getData('id');
+      var team = teamController.getTeam(id);
+      var fetched = team.fetched || false;
+      var state = fetched ? 'team-ready' : 'team-loading';
+      this.goToState(state);
+
+    },
+
+    exitState: function() {
+
+    }
+  });
+
+  sc.addState('team-loading', {
+
+    parentState: 'team',
+
+    enterState: function() {
+
+      var that = this;
+      this.sendEvent('busy');
+      this.view = new views.LoadingContent();
+      $('.content').html(this.view.render().el);
+      teamController.fetchTeam(teamController.selectedTeam.id, function() { that.goToState('team-ready'); });
+    },
+
+    exitState: function() {
+      this.sendEvent('idle');
+      if(this.view) this.view.close();
+    }
+  });
+
+  sc.addState('team-ready', {
+
+    parentState: 'team',
+
+    enterState: function() {
+      this.view = new views.TeamProfile({ model: teamController.selectedTeam });
+      $('.content').html(this.view.render().el);
+    },
+
+    exitState: function() {
+
+    }
+  });
+
+
 
 })(App);

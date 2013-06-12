@@ -5,12 +5,15 @@
 
   var controllers = app.Controllers;
   var Teams = app.Collections.Teams;
+  var Team = app.Models.Team;
 
   controllers.Teams = {
 
     teams: new Teams(),
 
     fetchedTeams: false,
+
+    selectedTeam: null,
 
     fetchTeams: function(done) {
       var that = this;
@@ -20,6 +23,33 @@
         that.fetchedTeams = true;
         if (done) done();
       }});
+    },
+
+    getTeam: function(id){
+      var team = this.teams.get(id);
+
+      if (!team) {
+        team = new Team({ id: id });
+        this.teams.push(team);
+      }
+
+      this.selectedTeam = team;
+      return team;
+    },
+
+    fetchTeam: function(id,done){
+
+      if(this.selectedTeam === null){
+        if(done) done();
+        return;        
+      }
+
+      this.selectedTeam.fetch({
+        success: function(team) {
+          team.set('fetched', true);
+          if (done) done();
+        }
+      });
     }
 
   };

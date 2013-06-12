@@ -1,4 +1,4 @@
-/*globals App*/
+/*globals App, $*/
 // #= require '../controllers/events_controller'
 // #= require ../controllers/navigation_controller
 

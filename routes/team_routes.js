@@ -4,9 +4,9 @@ var Repository = require('../repositories/repository');
 module.exports = function(app) {
 
   var teams = [
-    { id: '51a01909a262420b31000001', name: 'Coconut Bangers Ballclub' },
-    { id: '51a01909a262420b31000002', name: 'The Cereal Killers' },
-    { id: '51a01909a262420b31000004', name: 'Thunder Down Under' }
+    { id: '51a01909a262420b31000001', name: 'Coconut Bangers Ballclub', facebookId: '120016944816606' },
+    { id: '51a01909a262420b31000002', name: 'The Cereal Killers', facebookId: '120016944816606'  },
+    { id: '51a01909a262420b31000004', name: 'Thunder Down Under', facebookId: '120016944816606'  }
   ];
 
   var render_index = function(req, res, next) {
@@ -17,15 +17,18 @@ module.exports = function(app) {
   app.get('/teams/:team_id', render_index);
   app.get('/teams', render_index);
 
+  app.get('/teams/:team_id', function(req, res, next) {
+
+    var team = teams.filter(function(t){ return t.id === req.params.team_id;})[0];
+    res.timeoutJson(team);
+  });
 
   app.get('/teams', function(req, res, next) {
     res.json(teams);
   });
 
-  // // get a specific team
-  // app.get('/teams/:team_id', function(req, res, next) {
-  //   res.json(req.team);
-  // });
+  // get a specific team
+
 
   // // get all teams
   // // TODO: modify to support paging (middleware)
