@@ -15,35 +15,42 @@
 
     parentState: 'application',
 
-    enterState: function() {     
-      navigationController.selectItem('Events');
-      
-      var events = eventsController.events;
-      var fetched = eventsController.fetchedEvents;
-
-      this.view = new views.Events({ collection: events });
-      $('.content').html(this.view.render().el);
-
-      var state = fetched ? 'events-ready' : 'events-loading';
-      this.goToState(state);
+    enterState: function() {
+      navigationController.selectItem('Events');      
     },
 
     exitState: function() {
       navigationController.deselectItem('Events');
+    }
+
+  });
+
+  sc.addState('events-list', {
+
+    parentState: 'events',
+
+    enterState: function() {
+      var fetched = eventsController.fetchedEvents;
+
+      var state = fetched ? 'events-list-ready' : 'events-list-loading';
+      this.goToState(state);
+    },
+
+    exitState: function() {
       if (this.view) this.view.close();
     }
 
   });
 
-  sc.addState('events-loading', {
-    
-    parentState: 'events',
+  sc.addState('events-list-loading', {
+
+    parentState: 'events-list',
 
     enterState: function() {
       var that = this;
 
       this.sendEvent('busy');
-      eventsController.events.fetch({ success: function() { that.goToState('events-ready'); }});
+      eventsController.events.fetch({ success: function() { that.goToState('events-list-ready'); }});
     },
 
     exitState: function() {
@@ -52,23 +59,54 @@
 
   });
 
-  sc.addState('events-ready', {
+  sc.addState('events-list-ready', {
     
-    parentState: 'events',
+    parentState: 'events-list',
+
+    enterState: function() {
+      var state = eventsController.events.length ? 'events-list-hasEvents' : 'events-list-noEvents';
+      this.goToState(state);
+    },
 
     showEvent: function(id) {
       app.Router.navigate('/events/'+id, { trigger: true });
-    }
+    },
+
+    states: [
+      {
+        name: 'events-list-hasEvents',
+
+        enterState: function() {
+          var events = eventsController.events;
+          this.view = new views.Events({ collection: events });
+          $('.content').html(this.view.render().el);
+        },
+        exitState: function() {
+          if (this.view) this.view.close();
+        }
+      },
+      {
+        name: 'events-list-noEvents',
+
+        enterState: function() {
+          // this.view = new view.NoEvents();
+          // $('.content').html(this.view.render().el);
+        },
+
+        exitState: function() {
+          if (this.view) this.view.close();
+        }
+
+      }
+    ]
 
   });
 
   sc.addState('event', {
 
-    parentState: 'application',
+    parentState: 'events',
 
     enterState: function() {
-      navigationController.selectItem('Events');
-      
       var evt = eventsController.getEvent(this.getData('id'));
       var fetched = evt.get('fetched') || false;
 
@@ -81,7 +119,6 @@
 
     exitState: function() {
       this.removeData('event');
-      navigationController.deselectItem('Events');
     }
 
   });
@@ -106,7 +143,7 @@
   sc.addState('event-ready', {
 
     parentState: 'event'
-    
+
   });
 
 })(App);

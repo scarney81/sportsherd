@@ -25,7 +25,7 @@
     },
 
     events: function() {
-      switch_state('events');
+      switch_state('events-list');
     },
 
     event: function(id) {
