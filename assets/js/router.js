@@ -37,7 +37,7 @@
     },
 
     teams: function() {
-      switch_state('teams');
+      switch_state('teams-list');
     },
 
     team: function(id) {

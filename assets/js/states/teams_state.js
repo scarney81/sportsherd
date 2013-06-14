@@ -16,9 +16,24 @@
 
     parentState: 'application',
 
+    initialSubstate: 'teams-list',
+
     enterState: function() {
       navigationController.selectItem('Teams');
-      
+    },
+
+    exitState: function() {
+      if (this.view) this.view.close();
+      navigationController.deselectItem('Teams');
+    }
+
+  });
+
+  sc.addState('teams-list', {
+    
+    parentState: 'teams',
+
+    enterState: function() {
       var teams = teamController.teams;
       var fetched = teamController.fetchedTeams;
 
@@ -30,8 +45,6 @@
     },
 
     exitState: function() {
-      if (this.view) this.view.close();
-      navigationController.deselectItem('Teams');
     }
 
   });
@@ -69,7 +82,7 @@
 
   sc.addState('teams-new', {
 
-    parentState: 'application',
+    parentState: 'teams',
 
     enterState: function() {
       var groups = groupController.groups;
