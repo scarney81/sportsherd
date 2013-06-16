@@ -48,28 +48,18 @@
 
     enterState: function() {
       var that = this;
-
-      this.sendEvent('busy');
       eventsController.events.fetch({ success: function() { that.goToState('events-list-ready'); }});
-    },
-
-    exitState: function() {
-      this.sendEvent('idle');
     }
 
   });
 
   sc.addState('events-list-ready', {
-    
+
     parentState: 'events-list',
 
     enterState: function() {
       var state = eventsController.events.length ? 'events-list-hasEvents' : 'events-list-noEvents';
       this.goToState(state);
-    },
-
-    showEvent: function(id) {
-      app.Router.navigate('/events/'+id, { trigger: true });
     },
 
     states: [
@@ -129,13 +119,7 @@
 
     enterState: function() {
       var that = this;
-
-      this.sendEvent('busy');
       eventsController.fetchEvent(function() { that.goToState('event-ready'); });
-    },
-
-    exitState: function() {
-      this.sendEvent('idle');
     }
 
   });

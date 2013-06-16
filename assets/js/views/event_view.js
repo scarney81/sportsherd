@@ -13,15 +13,7 @@
 
     tagName: 'li',
 
-    className: 'event',
-
-    events: {
-      'click a.event': 'showEvent'
-    },
-
-    showEvent: function() {
-      sc.sendEvent('showEvent', this.model.id);
-    }
+    className: 'event'
 
 
   });
