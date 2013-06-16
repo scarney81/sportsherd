@@ -21,7 +21,6 @@
     },
 
     exitState: function() {
-      if (this.view) this.view.close();
       navigationController.deselectItem('Teams');
     }
 
