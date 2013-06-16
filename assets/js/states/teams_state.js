@@ -27,7 +27,7 @@
   });
 
   sc.addState('teams-list', {
-    
+
     parentState: 'teams',
 
     enterState: function() {
@@ -48,34 +48,20 @@
   });
 
   sc.addState('teams-loading', {
-    
-    parentState: 'teams',
+
+    parentState: 'teams-list',
 
     enterState: function() {
       var that = this;
-
-      this.sendEvent('busy');
       teamController.fetchTeams(function() { that.goToState('teams-ready'); });
-    },
-
-    exitState: function() {
-      this.sendEvent('idle');
     }
 
   });
 
   sc.addState('teams-ready', {
-    
-    parentState: 'teams',
 
-    showTeam: function(id) {
-      app.Router.navigate('/teams/'+id, { trigger: true });
-    },
+    parentState: 'teams-list'
 
-    createTeam: function() {
-      app.Router.navigate('/teams/new', { trigger: true });
-    }
-    
   });
 
   sc.addState('teams-new', {
@@ -119,7 +105,7 @@
       var state = fetched ? 'team-ready' : 'team-loading';
       this.goToState(state);
     }
-    
+
   });
 
   sc.addState('team-loading', {
@@ -127,9 +113,7 @@
     parentState: 'team',
 
     enterState: function() {
-
       var that = this;
-      this.sendEvent('busy');
       this.view = new views.LoadingContent();
       $('.content').html(this.view.render().el);
       teamController.fetchTeam(teamController.selectedTeam.id, function() { that.goToState('team-ready'); });
@@ -151,7 +135,7 @@
     },
 
     exitState: function() {
-
+      if (this.view) this.view.close();
     }
   });
 

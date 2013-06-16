@@ -9,7 +9,7 @@
     routes: {
 
       'events': 'events',
-      
+
       'events/:id': 'event',
 
       'profile': 'profile',
@@ -17,9 +17,11 @@
       'teams/new': 'newTeam',
 
       'teams/:id': 'team',
-      
+
       'teams': 'teams',
-      
+
+      'logout': 'logout',
+
       '*route': 'dashboard'
 
     },
@@ -50,6 +52,10 @@
 
     dashboard: function() {
       switch_state('dashboard');
+    },
+
+    logout: function() {
+      sc.sendEvent('logout');
     }
 
   });

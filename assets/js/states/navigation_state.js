@@ -36,28 +36,7 @@
 
     switchStateWithId: function(state, id) { sc.goToState(state, 'default', 'default', { id: id }); },
 
-    logout: function() { window.location.href = '/logout'; },
-
-    gotoProfile: function() {
-      this.go('/profile');
-    },
-
-    gotoDashboard: function() {
-      this.go('');
-    },
-
-    gotoEvents: function() {
-      this.go('/events');
-    },
-
-    gotoTeams: function() {
-      this.go('/teams');
-    },
-
-    go: function(url) {
-      this.sendEvent('toggleNavigation');
-      navigate(url);
-    }
+    logout: function() { window.location.href = '/logout'; }
 
   });
 

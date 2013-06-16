@@ -12,15 +12,7 @@
 
     tagName: 'li',
 
-    className: 'team',
-
-    events: {
-      'click a.team': 'showTeam'
-    },
-
-    showTeam: function() {
-      sc.sendEvent('showTeam', this.model.id);
-    }
+    className: 'team'
 
   });
 

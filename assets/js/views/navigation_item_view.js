@@ -28,8 +28,7 @@
     },
 
     navigate: function() {
-      var event = this.model.get('event');
-      this.sendEvent(event);
+      this.sendEvent('toggleNavigation');
       return this;
     }
 

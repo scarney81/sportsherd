@@ -26,6 +26,24 @@ if (window.location.hash === '#_=_') {
   }
 }
 
+// technique taken from: https://gist.github.com/colllin/5717284
+$(document.body).on('click', 'a', function(e) {
+  var href = $(this).attr('href');
+
+  if (!href) return; // ensure there is an href tag on the anchor
+
+  // remove leading and trailing slashes
+  href = href.replace(/^\/+/, '').replace(/\/+$/, '');
+
+  // only handle click if href contains backbone history root
+  _(Backbone.history.handlers).chain().pluck('route').each(function(route) {
+    if (route.test(href)) {
+      event.preventDefault();
+      Backbone.history.navigate(href, { trigger: true });
+    }
+  });
+});
+
 $(document).ready(function() {
   $.ajaxSetup({ headers: {'X-CSRF-Token': window.CSRF} });
 

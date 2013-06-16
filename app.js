@@ -39,8 +39,7 @@ app.configure(function(){
   app.use(function(req, res, next){
     res.timeoutJson = function(data, timeout){
       timeout = timeout || 500;
-      console.log(timeout);
-      setTimeout(function(){ console.log('foo'); res.json(data); },timeout);
+      setTimeout(function(){ res.json(data); },timeout);
     };
     next();
   });

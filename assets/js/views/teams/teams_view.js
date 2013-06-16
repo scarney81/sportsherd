@@ -13,18 +13,10 @@
 
     className: 'teams',
 
-    events: {
-      'click .create': 'createTeam'
-    },
-
     renderModel: function(team) {
       var view = new views.Team({ model: team });
       this.$el.append(view.render().el);
       this.views.push(view);
-    },
-
-    createTeam: function() {
-      this.sendEvent('createTeam');
     }
 
   });

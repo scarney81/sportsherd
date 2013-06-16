@@ -50,10 +50,10 @@
       if (this.items) return this.items;
 
       return this.items = new NavItems([
-        { title: 'Home', cssClass: 'dashboard', icon: 'icon-home', event: 'gotoDashboard' },
-        { title: 'Teams', cssClass: 'teams', icon: 'icon-group', event: 'gotoTeams' },
-        { title: 'Events', cssClass: 'events', icon: 'icon-calendar', event: 'gotoEvents' },
-        { title: 'Logout', cssClass: 'logout', icon: 'icon-off', event: 'logout' }
+        { title: 'Home', cssClass: 'dashboard', icon: 'icon-home', url: '/' },
+        { title: 'Teams', cssClass: 'teams', icon: 'icon-group', url: '/teams' },
+        { title: 'Events', cssClass: 'events', icon: 'icon-calendar', url: '/events' },
+        { title: 'Logout', cssClass: 'logout', icon: 'icon-off', url: '/logout' }
       ]);
     }
 
