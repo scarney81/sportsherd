@@ -42,6 +42,7 @@
     },
 
     exitState: function() {
+      if (this.view) this.view.close();
     }
 
   });
