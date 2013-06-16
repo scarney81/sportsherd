@@ -16,8 +16,6 @@
 
     parentState: 'application',
 
-    initialSubstate: 'teams-list',
-
     enterState: function() {
       navigationController.selectItem('Teams');
     },
