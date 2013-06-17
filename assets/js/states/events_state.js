@@ -16,7 +16,7 @@
     parentState: 'application',
 
     enterState: function() {
-      navigationController.selectItem('Events');      
+      navigationController.selectItem('Events');
     },
 
     exitState: function() {

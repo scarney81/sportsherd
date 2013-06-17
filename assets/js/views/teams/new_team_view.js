@@ -14,12 +14,6 @@
       this.$el.html(this.template());
       this.delegateEvents();
       return this;
-    },
-
-    renderGroups: function(groups) {
-      var view = new views.Groups({ collection: groups });
-      this.$el.find('.groups').html(view.render().el);
-      this.views.push(view);
     }
 
   });

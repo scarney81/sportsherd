@@ -8,6 +8,7 @@
 
   var sc = app.Statechart;
   var views = app.Views;
+
   var groupController = app.Controllers.Groups;
   var navigationController = app.Controllers.Navigation;
   var teamController = app.Controllers.Teams;
@@ -16,13 +17,9 @@
 
     parentState: 'application',
 
-    enterState: function() {
-      navigationController.selectItem('Teams');
-    },
+    enterState: function() { navigationController.selectItem('Teams'); },
 
-    exitState: function() {
-      navigationController.deselectItem('Teams');
-    }
+    exitState: function() { navigationController.deselectItem('Teams'); }
 
   });
 
@@ -31,18 +28,9 @@
     parentState: 'teams',
 
     enterState: function() {
-      var teams = teamController.teams;
       var fetched = teamController.fetchedTeams;
-
-      this.view = new views.Teams({ collection: teams });
-      $('.content').html(this.view.render().el);
-
       var state = fetched ? 'teams-ready' : 'teams-loading';
       this.goToState(state);
-    },
-
-    exitState: function() {
-      if (this.view) this.view.close();
     }
 
   });
@@ -60,7 +48,40 @@
 
   sc.addState('teams-ready', {
 
-    parentState: 'teams-list'
+    parentState: 'teams-list',
+
+    enterState: function() {
+      var state = teamController.teams.length ? 'teams-list-hasTeams' : 'teams-list-noTeams';
+      this.goToState(state);
+    },
+
+    states: [
+      {
+        name: 'teams-list-hasTeams',
+
+        enterState: function() {
+          var teams = teamController.teams;
+          this.view = new views.Teams({ collection: teams });
+          $('.content').html(this.view.render().el);
+        },
+
+        exitState: function() {
+          if (this.view) this.view.close();
+        }
+      },
+      {
+        name: 'teams-list-noTeams',
+
+        enterState: function() {
+          this.view = new views.NoTeams();
+          $('.content').html(this.view.render().el);
+        },
+
+        exitState: function() {
+          if (this.view) this.view.close();
+        }
+      }
+    ]
 
   });
 
@@ -69,8 +90,6 @@
     parentState: 'teams',
 
     enterState: function() {
-      var groups = groupController.groups;
-
       this.view = new views.NewTeam();
       $('.content').html(this.view.render().el);
 
@@ -78,14 +97,14 @@
     },
 
     loadGroups: function() {
-      var that = this;
-      var fetched = groupController.fetchedGroups;
       var groups = groupController.groups;
+      var view = new views.Groups({ collection: groups });
 
-      var render = function() { that.view.renderGroups(groups); };
+      this.view.$el.find('.groups').html(view.render().el);
+      this.view.views.push(view);
 
-      if (fetched) render();
-      else groupController.fetchGroups(render);
+      var fetched = groupController.fetchedGroups;
+      if (!fetched) groupController.fetchGroups();
     },
 
     exitState: function() {
