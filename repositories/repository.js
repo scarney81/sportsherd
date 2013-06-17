@@ -1,12 +1,6 @@
-/*globals _:true*/
-var _ = require('underscore');
-var models = require('../models');
 var ObjectId = require('mongoose').Schema.ObjectId;
 
-var Repository = function(model) {
-  if (typeof model === 'string') this._model = models.getModel(model);
-  else this._model = model;
-};
+var Repository = function() {};
 
 Repository.prototype.all = function(callback) {
   this._model.find({}, callback);

@@ -35,7 +35,7 @@ app.configure(function(){
   app.use(middleware.authentication(passport));
   app.use(middleware.facebookProxy);
   // app.param('event_id', middleware.events);
-  // app.param('team_id', middleware.teams);
+  app.param('team_id', middleware.teams);
   app.use(function(req, res, next){
     res.timeoutJson = function(data, timeout){
       timeout = timeout || 500;

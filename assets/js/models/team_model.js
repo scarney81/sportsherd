@@ -4,6 +4,8 @@
 
   app.Models.Team = backbone.Model.extend({
 
+    idAttribute: '_id',
+
     urlRoot: '/teams'
 
   });

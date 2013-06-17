@@ -1,36 +1,16 @@
-/*globals _:true*/
-var _ = require('underscore');
+var util = require("util");
 var models = require('../models');
 var Repository = require('./repository');
 
 var TeamRepository = function() {
-  var model = models.getModel('Team');
-  this._repository = new Repository(model);
+  this._model = models.getModel('Team');
 };
 
-TeamRepository.prototype.all = function(callback) {
-  this._repository.all(callback);
-};
+util.inherits(TeamRepository, Repository);
 
-TeamRepository.prototype.findById = function(id, callback) {
-  this._repository.findById(id, callback);
-};
-
-TeamRepository.prototype.findByFacebookId = function(facebookId, callback) {
-  var query = { facebookId: facebookId };
-  this._repository.findMany(query, callback);
-};
-
-TeamRepository.prototype.create = function(obj, callback) {
-  this._repository.create(obj, callback);
-};
-
-TeamRepository.prototype.removeById = function(id, callback) {
-  this._repository.removeById(id, callback);
-};
-
-TeamRepository.prototype.removeAll = function(callback) {
-  this._repository.removeAll(callback);
+TeamRepository.prototype.findByGroupId = function(groupId, callback) {
+  var condition = (typeof groupId === 'string') ? groupId : { $in: groupId };
+  this.findMany({ facebookGroupId: condition }, callback);
 };
 
 module.exports = TeamRepository;

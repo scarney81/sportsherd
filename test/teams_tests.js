@@ -16,7 +16,7 @@ describe('teams', function() {
   after(clean_up);
 
   beforeEach(function(done) {
-    var new_team = { name: 'The Cereal Killers', facebookId: '1234567890' };
+    var new_team = { name: 'The Cereal Killers', facebookGroupId: '1234567890' };
     teams.create(new_team, function(err, team) {
       if (err) return done(err);
       currentTeam = team;
@@ -41,7 +41,7 @@ describe('teams', function() {
   });
 
   it('creates a new team', function(done) {
-    var new_team = { name: 'The Thunder Down Under', facebookId: '0987654321' };
+    var new_team = { name: 'The Thunder Down Under', facebookGroupId: '0987654321' };
     teams.create(new_team, function(err, team) {
       if (err) return done(err);
       team.should.have.property('name', 'The Thunder Down Under');
@@ -50,7 +50,7 @@ describe('teams', function() {
   });
 
   it('cannot create team without name', function(done) {
-    teams.create({ facebookId: '1234567890' }, function(err, team) {
+    teams.create({ facebookGroupId: '1234567890' }, function(err, team) {
       if (!err && team) return done('should not be able to create a team without a name');
       err.should.have.property('message', 'Validation failed');
       err.should.have.property('errors');
@@ -64,7 +64,7 @@ describe('teams', function() {
       if (!err && team) return done('should not be able to create a team without a facebook id');
       err.should.have.property('message', 'Validation failed');
       err.should.have.property('errors');
-      err.errors.should.have.property('facebookId');
+      err.errors.should.have.property('facebookGroupId');
       done();
     });
   });
@@ -78,7 +78,7 @@ describe('teams', function() {
   });
 
   it('finds team(s) by facebookId', function(done) {
-    teams.findByFacebookId('1234567890', function(err, teams) {
+    teams.findByGroupId('1234567890', function(err, teams) {
       if (err) return done(err);
       teams.should.be.an.instanceOf(Array);
       teams.length.should.be.above(0);
@@ -86,8 +86,23 @@ describe('teams', function() {
     });
   });
 
+  it('finds team(s) by multiple facebookIds', function(done) {
+    var new_team = { name: 'The Thunder Down Under', facebookGroupId: '1029384756' };
+    teams.create(new_team, function(err, team) {
+      if (err) return done(err);
+
+      var ids = [ '1234567890', '1029384756' ];
+      teams.findByGroupId(ids, function(err, teams) {
+        if (err) return done(err);
+        teams.should.be.an.instanceOf(Array);
+        teams.length.should.be.eql(2);
+        done();
+      });
+    });
+  });
+
   it('removes a team by its id', function(done) {
-    var new_team = { name: 'Space Monkey Mafia', facebookId: '5432167890' };
+    var new_team = { name: 'Space Monkey Mafia', facebookGroupId: '5432167890' };
     teams.create(new_team, function(err, team) {
       if (err) return done(err);
       var id = team._id.toString();
