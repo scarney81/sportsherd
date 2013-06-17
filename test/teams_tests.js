@@ -1,26 +1,23 @@
 /*globals describe, it, should, before, after, beforeEach, afterEach*/
-var Repository = require('../repositories/repository');
+var Teams = require('../repositories/team_repository');
 
 describe('teams', function() {
-  var teams = new Repository('Team');
+  var teams = new Teams();
   var currentTeam = null;
 
-  before(function(done) {
+  var clean_up = function(done) {
     teams.removeAll(function(err) {
       if (err) return done(err);
       done();
     });
-  });
+  };
 
-  after(function(done) {
-    teams.removeAll(function(err) {
-      if (err) return done(err);
-      done();
-    });
-  });
+  before(clean_up);
+  after(clean_up);
 
   beforeEach(function(done) {
-    teams.create({ name: 'The Cereal Killers'}, function(err, team) {
+    var new_team = { name: 'The Cereal Killers', facebookId: '1234567890' };
+    teams.create(new_team, function(err, team) {
       if (err) return done(err);
       currentTeam = team;
       done();
@@ -44,7 +41,8 @@ describe('teams', function() {
   });
 
   it('creates a new team', function(done) {
-    teams.create({ name: 'The Thunder Down Under' }, function(err, team) {
+    var new_team = { name: 'The Thunder Down Under', facebookId: '0987654321' };
+    teams.create(new_team, function(err, team) {
       if (err) return done(err);
       team.should.have.property('name', 'The Thunder Down Under');
       done();
@@ -52,11 +50,21 @@ describe('teams', function() {
   });
 
   it('cannot create team without name', function(done) {
-    teams.create({}, function(err, team) {
+    teams.create({ facebookId: '1234567890' }, function(err, team) {
       if (!err && team) return done('should not be able to create a team without a name');
       err.should.have.property('message', 'Validation failed');
       err.should.have.property('errors');
       err.errors.should.have.property('name');
+      done();
+    });
+  });
+
+  it('cannot create team without facebookId', function(done) {
+    teams.create({ name: 'A new team' }, function(err, team) {
+      if (!err && team) return done('should not be able to create a team without a facebook id');
+      err.should.have.property('message', 'Validation failed');
+      err.should.have.property('errors');
+      err.errors.should.have.property('facebookId');
       done();
     });
   });
@@ -69,8 +77,18 @@ describe('teams', function() {
     });
   });
 
+  it('finds team(s) by facebookId', function(done) {
+    teams.findByFacebookId('1234567890', function(err, teams) {
+      if (err) return done(err);
+      teams.should.be.an.instanceOf(Array);
+      teams.length.should.be.above(0);
+      done();
+    });
+  });
+
   it('removes a team by its id', function(done) {
-    teams.create({ name: 'Space Monkey Mafia' }, function(err, team) {
+    var new_team = { name: 'Space Monkey Mafia', facebookId: '5432167890' };
+    teams.create(new_team, function(err, team) {
       if (err) return done(err);
       var id = team._id.toString();
       teams.removeById(id, function(err) {

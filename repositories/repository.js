@@ -4,7 +4,8 @@ var models = require('../models');
 var ObjectId = require('mongoose').Schema.ObjectId;
 
 var Repository = function(model) {
-  this._model = models.getModel(model);
+  if (typeof model === 'string') this._model = models.getModel(model);
+  else this._model = model;
 };
 
 Repository.prototype.all = function(callback) {
@@ -13,6 +14,10 @@ Repository.prototype.all = function(callback) {
 
 Repository.prototype.findById = function(id, callback) {
   this._model.findById(id, callback);
+};
+
+Repository.prototype.findMany = function(query, callback) {
+  this._model.find(query, callback);
 };
 
 Repository.prototype.create = function(obj, callback) {
