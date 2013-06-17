@@ -10,6 +10,19 @@
 
     template: window.JadeTemplates['templates/teams/new'],
 
+    events: {
+      'click .selectTeam': 'selectTeam',
+      'click .createTeam': 'createTeam'
+    },
+
+    selectTeam: function() {
+      return this.sendEvent('newSelectTeam');
+    },
+
+    createTeam: function() {
+      return this.sendEvent('newCreateTeam');
+    },
+
     render: function() {
       this.$el.html(this.template());
       this.delegateEvents();

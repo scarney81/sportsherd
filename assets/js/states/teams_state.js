@@ -85,34 +85,6 @@
 
   });
 
-  sc.addState('teams-new', {
-
-    parentState: 'teams',
-
-    enterState: function() {
-      this.view = new views.NewTeam();
-      $('.content').html(this.view.render().el);
-
-      this.sendEvent('loadGroups');
-    },
-
-    loadGroups: function() {
-      var groups = groupController.groups;
-      var view = new views.Groups({ collection: groups });
-
-      this.view.$el.find('.groups').html(view.render().el);
-      this.view.views.push(view);
-
-      var fetched = groupController.fetchedGroups;
-      if (!fetched) groupController.fetchGroups();
-    },
-
-    exitState: function() {
-      if (this.view) this.view.close();
-    }
-
-  });
-
   sc.addState('team', {
 
     parentState: 'teams',
@@ -158,6 +130,91 @@
     }
   });
 
+  sc.addState('teams-new', {
+
+    parentState: 'teams',
+
+    enterState: function() {
+      this.view = new views.NewTeam();
+      $('.content').html(this.view.render().el);
+
+      this.sendEvent('loadGroups');
+    },
+
+    newSelectTeam: function(){
+      this.goToState('teams-new-select');
+    },
+
+    newCreateTeam: function(){
+      this.goToState('teams-new-create');
+    },
+
+    exitState: function() {
+      if (this.view) this.view.close();
+    }
+
+  });
+
+  sc.addState('teams-new-select', {
+
+    parentState: 'teams-new',
+
+    enterState: function() {
+
+      this.view = new views.NewTeamSelect();
+      $('.content').html(this.view.render().el);
+
+      this.sendEvent('loadGroups');
+
+    },
+
+    loadGroups: function() {
+      var groups = groupController.groups;
+      var view = new views.Groups({ collection: groups });
+
+      this.view.$el.find('.groups').html(view.render().el);
+      this.view.views.push(view);
+
+      var fetched = groupController.fetchedGroups;
+      if (!fetched) groupController.fetchGroups();
+    },
+
+    exitState: function() {
+
+    }
+
+  });
+
+  sc.addState('teams-new-create', {
+
+    parentState: 'teams-new',
+
+    enterState: function() {
+
+      this.view = new views.NewTeamCreate();
+      $('.content').html(this.view.render().el);
+
+    },
+
+    exitState: function() {
+      
+    }
+
+  });
+
+  sc.addState('teams-new-confirm', {
+
+    parentState: 'teams-new',
+
+    enterState: function() {
+
+    },
+
+    exitState: function() {
+      
+    }
+
+  });
 
 
 })(App);
