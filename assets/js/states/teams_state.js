@@ -107,11 +107,10 @@
       var that = this;
       this.view = new views.LoadingContent();
       $('.content').html(this.view.render().el);
-      teamController.fetchTeam(teamController.selectedTeam.id, function() { that.goToState('team-ready'); });
+      teamController.fetchTeam(function() { that.goToState('team-ready'); });
     },
 
     exitState: function() {
-      this.sendEvent('idle');
       if(this.view) this.view.close();
     }
   });

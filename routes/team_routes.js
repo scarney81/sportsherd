@@ -12,7 +12,9 @@ module.exports = function(app) {
   app.get('/teams/:team_id', render_index);
   app.get('/teams', render_index);
 
-  app.get('/teams/:team_id', function(req, res, next) { res.json(req.team); });
+  app.get('/teams/:team_id', function(req, res, next) {
+    res.json(req.team);
+  });
 
   app.get('/teams', function(req, res, next) {
     var facebook = req.facebook;

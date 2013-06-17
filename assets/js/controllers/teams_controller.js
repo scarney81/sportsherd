@@ -27,9 +27,8 @@
 
     getTeam: function(id){
       var team = this.teams.get(id);
-
       if (!team) {
-        team = new Team({ id: id });
+        team = new Team({ _id: id });
         this.teams.push(team);
       }
 
@@ -37,13 +36,8 @@
       return team;
     },
 
-    fetchTeam: function(id,done){
-
-      if(this.selectedTeam === null){
-        if(done) done();
-        return;        
-      }
-
+    fetchTeam: function(done){
+      console.log(this.selectedTeam);
       this.selectedTeam.fetch({
         success: function(team) {
           team.set('fetched', true);
