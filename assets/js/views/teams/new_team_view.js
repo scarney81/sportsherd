@@ -11,16 +11,8 @@
     template: window.JadeTemplates['templates/teams/new'],
 
     events: {
-      'click .selectTeam': 'selectTeam',
-      'click .createTeam': 'createTeam'
-    },
-
-    selectTeam: function() {
-      return this.sendEvent('newSelectTeam');
-    },
-
-    createTeam: function() {
-      return this.sendEvent('newCreateTeam');
+      'click .selectTeam': 'newSelectTeam',
+      'click .createTeam': 'newCreateTeam'
     },
 
     render: function() {

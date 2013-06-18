@@ -37,7 +37,6 @@
     },
 
     fetchTeam: function(done){
-      console.log(this.selectedTeam);
       this.selectedTeam.fetch({
         success: function(team) {
           team.set('fetched', true);

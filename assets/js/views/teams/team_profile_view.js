@@ -10,15 +10,7 @@
 
     template: window.JadeTemplates['templates/teams/profile'],
 
-    className: 'teamProfile',
-
-    events: {
-      'click a.team': 'showTeam'
-    },
-
-    showTeam: function() {
-      sc.sendEvent('showTeam', this.model.id);
-    }
+    className: 'teamProfile'
 
   });
 
