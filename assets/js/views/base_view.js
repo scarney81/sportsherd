@@ -22,18 +22,18 @@
       for (var key in events) {
         if (events.hasOwnProperty(key)) {
           var method = events[key];
-          if (!_.isFunction(method)) method = this[events[key]];
-          if (!method) continue;
+          // if (!_.isFunction(method)) method = this[events[key]];
+          // if (!method) continue;
 
           var match = key.match(delegateEventSplitter);
           var eventName = match[1], selector = match[2];
-          method = _.bind(method, this);
+          // method = _.bind(method, this);
           eventName += '.delegateEvents' + this.cid;
           if (selector === '') this.$el.on(eventName, method);
           else {
             // this.$el.on(eventName, selector, method);
             // apply directly to element instead of parent (this prevents flicker in iOS)
-            this.$el.find(selector).on(eventName, method);
+            this.$el.find(selector).on(eventName, function() { sc.sendEvent(method); });
           }
         }
       }

@@ -13,10 +13,6 @@
 
     events: {
       'click .nav-btn': 'toggleNavigation'
-    },
-
-    toggleNavigation: function() {
-      this.sendEvent('toggleNavigation');
     }
 
   });
