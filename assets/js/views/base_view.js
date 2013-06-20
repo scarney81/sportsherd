@@ -21,22 +21,31 @@
       this.undelegateEvents();
       for (var key in events) {
         if (events.hasOwnProperty(key)) {
-          var method = events[key];
           var viewHasMethod = !!this[events[key]];
-
           var match = key.match(delegateEventSplitter);
           var eventName = match[1], selector = match[2];
           eventName += '.delegateEvents' + this.cid;
-          if (selector === '') this.$el.on(eventName, method);
+
+          var method = events[key];
+          var func = null;
+          if (viewHasMethod) {
+            if (!_.isFunction(method)) method = this[events[key]];
+            if (!method) continue;
+            func = _.bind(method, this);
+          } else {
+            if (_.isObject(method) && method.hasOwnProperty('event')) {
+              var data = null;
+              if  (method.hasOwnProperty('data')) data = _.isFunction(method['data']) ? method['data']() : method['data'];
+
+              method = method['event'];
+              func = function() { sc.sendEvent(method, data); };
+            } else func = function() { sc.sendEvent(method); };
+          }
+
+          if (selector === '') this.$el.on(eventName, func);
           else {
             // this.$el.on(eventName, selector, method);
             // apply directly to element instead of parent (this prevents flicker in iOS)
-            var func = function() { sc.sendEvent(method); };
-            if (viewHasMethod) {
-              if (!_.isFunction(method)) method = this[events[key]];
-              if (!method) continue;
-              func = _.bind(method, this);
-            }
             this.$el.find(selector).on(eventName, func);
           }
         }
