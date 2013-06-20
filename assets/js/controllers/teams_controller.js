@@ -36,6 +36,11 @@
       return team;
     },
 
+    getNewTeam: function(){
+      var team = new Team();
+      return team;
+    },
+
     fetchTeam: function(done){
       this.selectedTeam.fetch({
         success: function(team) {

@@ -136,8 +136,6 @@
     enterState: function() {
       this.view = new views.NewTeam();
       $('.content').html(this.view.render().el);
-
-      this.sendEvent('loadGroups');
     },
 
     newSelectTeam: function(){
@@ -160,6 +158,7 @@
 
     enterState: function() {
 
+
       this.view = new views.NewTeamSelect();
       $('.content').html(this.view.render().el);
 
@@ -176,6 +175,10 @@
 
       var fetched = groupController.fetchedGroups;
       if (!fetched) groupController.fetchGroups();
+    },
+
+    groupSelected: function(){
+      console.log(this.getData('data'));
     },
 
     exitState: function() {

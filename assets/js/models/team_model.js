@@ -6,7 +6,12 @@
 
     idAttribute: '_id',
 
-    urlRoot: '/teams'
+    urlRoot: '/teams',
+
+    defaults: {
+      "name":  "",
+      "facebookGroupId": null
+    }
 
   });
 

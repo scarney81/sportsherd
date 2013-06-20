@@ -12,7 +12,11 @@
 
     tagName: 'li',
 
-    className: 'group'
+    className: 'group',
+
+    events: {
+      'click a': {event:'groupSelected', data: function(){ return this.model.id; } }
+    }
 
 
   });
