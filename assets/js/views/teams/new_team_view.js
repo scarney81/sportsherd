@@ -13,12 +13,6 @@
     events: {
       'click .selectTeam': 'newSelectTeam',
       'click .createTeam': 'newCreateTeam'
-    },
-
-    render: function() {
-      this.$el.html(this.template());
-      this.delegateEvents();
-      return this;
     }
 
   });

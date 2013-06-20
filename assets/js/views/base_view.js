@@ -19,6 +19,7 @@
     delegateEvents: function(events) {
       if (!(events || (events = _.result(this, 'events')))) return this;
       this.undelegateEvents();
+      var sendEvent = function(action, data) { return function() { console.log(action);sc.sendEvent(action, data); }; };
       for (var key in events) {
         if (events.hasOwnProperty(key)) {
           var viewHasMethod = !!this[events[key]];
@@ -38,8 +39,8 @@
               if  (method.hasOwnProperty('data')) data = _.isFunction(method['data']) ? method['data']() : method['data'];
 
               method = method['event'];
-              func = function() { sc.sendEvent(method, data); };
-            } else func = function() { sc.sendEvent(method); };
+              func = sendEvent(method, data);
+            } else func = sendEvent(method);
           }
 
           if (selector === '') this.$el.on(eventName, func);
