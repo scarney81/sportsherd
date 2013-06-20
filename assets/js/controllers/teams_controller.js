@@ -37,8 +37,7 @@
     },
 
     getNewTeam: function(){
-      var team = new Team();
-      return team;
+      return this.selectedTeam = new Team();
     },
 
     fetchTeam: function(done){

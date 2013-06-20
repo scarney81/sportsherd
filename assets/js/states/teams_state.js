@@ -134,6 +134,7 @@
     parentState: 'teams',
 
     enterState: function() {
+      var team = teamController.newTeam();
       this.view = new views.NewTeam();
       $('.content').html(this.view.render().el);
     },
@@ -177,8 +178,9 @@
       if (!fetched) groupController.fetchGroups();
     },
 
-    groupSelected: function(){
-      console.log(this.getData('data'));
+    groupSelected: function(id){
+      teamController.selectedTeam.set('facebookGroupId',id);
+      this.goToState('teams-new-confirm');
     },
 
     exitState: function() {
@@ -209,6 +211,8 @@
     parentState: 'teams-new',
 
     enterState: function() {
+      var id = this.getData('id');
+      console.log(id);
 
     },
 
