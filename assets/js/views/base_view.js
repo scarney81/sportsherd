@@ -1,6 +1,6 @@
-/*globals App*/
+/*globals _, Backbone, App*/
 (function(app, backbone) {
-  "use strict";
+  'use strict';
 
   var sc = app.Statechart;
   var views = app.Views;
@@ -36,9 +36,9 @@
           } else {
             if (_.isObject(method) && method.hasOwnProperty('event')) {
               var data = null;
-              if  (method.hasOwnProperty('data')){
+              if  (method.hasOwnProperty('data')) {
                 data = _.isFunction(method['data']) ? method['data'].apply(this) : method['data'];
-              } 
+              }
 
               method = method['event'];
               func = sendEvent(method, data);
@@ -78,16 +78,15 @@
     },
 
     close: function() {
-      this.remove();
-      this.unbind();
-      this.undelegateEvents();
-
       if (this.views && this.views.length) {
         this.views.forEach(function(view) {
           if (view.close) view.close();
         });
       }
 
+      this.unbind();
+      this.undelegateEvents();
+      this.remove();
       return this;
     }
 

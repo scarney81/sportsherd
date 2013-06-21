@@ -2,7 +2,7 @@
 // #= require 'base_view'
 
 (function(app) {
-  "use strict";
+  'use strict';
 
   var views = app.Views;
   views.Header = views.Base.extend({
@@ -13,6 +13,13 @@
 
     events: {
       'click .nav-btn': 'toggleNavigation'
+    },
+
+    toggleNavigation: function(e) {
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      this.sendEvent('toggleNavigation');
     }
 
   });

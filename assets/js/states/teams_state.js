@@ -134,7 +134,7 @@
     parentState: 'teams',
 
     enterState: function() {
-      var team = teamController.newTeam();
+      var team = teamController.getNewTeam();
       this.view = new views.NewTeam();
       $('.content').html(this.view.render().el);
     },

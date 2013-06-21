@@ -4,7 +4,7 @@
 // #= require '../views/navigation_view'
 
 (function(app) {
-  "use strict";
+  'use strict';
 
   var sc = app.Statechart;
 
@@ -12,13 +12,11 @@
   var profileController = app.Controllers.Profiles;
   var navController = app.Controllers.Navigation;
 
-  var navigate = function(url) {
-    app.Router.navigate(url, { trigger: true });
-  };
-
   sc.addState('nav', {
 
     globalConcurrentState: 'navigation',
+
+    initialSubstate: 'nav-hidden',
 
     enterState: function() {
       if (!navController.profile) navController.profile = profileController.currentUser;
@@ -36,7 +34,12 @@
 
     switchStateWithId: function(state, id) { sc.goToState(state, 'default', 'default', { id: id }); },
 
-    logout: function() { window.location.href = '/logout'; }
+    logout: function() { window.location.href = '/logout'; },
+
+    states: [
+      { name: 'nav-hidden' },
+      { name: 'nav-visible' }
+    ]
 
   });
 
