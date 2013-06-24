@@ -2,6 +2,7 @@
 // #= require '../collections/team_collection'
 
 (function(app) {
+  'use strict';
 
   var controllers = app.Controllers;
   var Teams = app.Collections.Teams;
@@ -34,10 +35,6 @@
 
       this.selectedTeam = team;
       return team;
-    },
-
-    getNewTeam: function(){
-      return this.selectedTeam = new Team();
     },
 
     fetchTeam: function(done){

@@ -1,25 +1,24 @@
 /*globals App, $*/
 // #= require ../controllers/groups_controller
-// #= require ../controllers/navigation_controller
-// #= require ../controllers/teams_controller
+// #= require ../models/team_model
 
 (function(app) {
-  "use strict";
+  'use strict';
 
   var sc = app.Statechart;
   var views = app.Views;
 
+  var Team = app.Models.Team;
   var groupController = app.Controllers.Groups;
-  var navigationController = app.Controllers.Navigation;
-  var teamController = app.Controllers.Teams;
-
 
   sc.addState('teams-new', {
 
     parentState: 'teams',
 
     enterState: function() {
-      var team = teamController.getNewTeam();
+      // create and store team model for child states to use
+      var team = new Team();
+      this.setData('model', team);
       this.view = new views.NewTeam();
       $('.content').html(this.view.render().el);
     },
@@ -34,6 +33,8 @@
 
     exitState: function() {
       if (this.view) this.view.close();
+      // remove the model if exiting create new team
+      this.removeData('model');
     }
 
   });
@@ -43,13 +44,10 @@
     parentState: 'teams-new',
 
     enterState: function() {
-
-
       this.view = new views.NewTeamSelect();
       $('.content').html(this.view.render().el);
 
       this.sendEvent('loadGroups');
-
     },
 
     loadGroups: function() {
@@ -63,8 +61,12 @@
       if (!fetched) groupController.fetchGroups();
     },
 
-    groupSelected: function(id){
-      teamController.selectedTeam.set('facebookGroupId',id);
+    selectGroup: function(group) {
+      var team = this.getData('model');
+      if (team) {
+        team.set('name', group.get('name'));
+        team.set('facebookGroupId', group.id);
+      }
       this.goToState('teams-new-confirm');
     },
 
@@ -79,10 +81,8 @@
     parentState: 'teams-new',
 
     enterState: function() {
-
       this.view = new views.NewTeamCreate();
       $('.content').html(this.view.render().el);
-
     },
 
     exitState: function() {
@@ -96,9 +96,8 @@
     parentState: 'teams-new',
 
     enterState: function() {
-      var id = this.getData('id');
-      console.log(id);
-
+      var team = this.getData('model');
+      console.log(team);
     },
 
     exitState: function() {
@@ -106,6 +105,5 @@
     }
 
   });
-
 
 })(App);

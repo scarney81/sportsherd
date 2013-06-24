@@ -2,9 +2,8 @@
 // #= require '../base_model_view'
 
 (function(app) {
-  "use strict";
+  'use strict';
 
-  var sc = app.Statechart;
   var views = app.Views;
   views.Group = views.Model.extend({
 
@@ -15,7 +14,7 @@
     className: 'group',
 
     events: {
-      'click a': {event:'groupSelected', data: function(){ return this.model.id; } }
+      'click a': { event: 'selectGroup', data: function() { return this.model; } }
     }
 
 
