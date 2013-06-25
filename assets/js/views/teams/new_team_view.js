@@ -10,7 +10,8 @@
     template: window.JadeTemplates['templates/teams/new'],
 
     events: {
-      'click .selectTeam': 'newSelectTeam'
+      'click .selectTeam': 'newSelectTeam',
+      'click .createTeam': 'newCreateTeam'
     }
 
   });

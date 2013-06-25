@@ -13,9 +13,18 @@ facebook.prototype._buildHeaders = function() {
   return { Authorization: 'OAuth '+this._accessToken };
 };
 
-facebook.prototype._buildRequestOptions = function(uri, method) {
+facebook.prototype._buildRequestOptions = function(uri, method, body) {
   var headers = this._buildHeaders();
-  return { uri: uri, headers: headers, json: true, method: method || 'GET' };
+  method = method || 'GET';
+
+  var options = { uri: uri, headers: headers, json: true, method: method };
+
+  if (body) {
+    options.headers['content-type'] = 'application/x-www-form-urlencoded';
+    options.body = body;
+  }
+
+  return options;
 };
 
 facebook.prototype._buildResourceURI = function(resource) {
@@ -43,21 +52,42 @@ facebook.prototype.groups = function(userId, callback) {
 
 };
 
-facebook.prototype.createGroup = function(group, callback) {
-  if (!group.name) return callback(new Error('Name is required to create a group'));
-  if (!group.description) return callback(new Error('Description is required to create a group'));
-
+facebook.prototype.getAppGroups = function(callback) {
   var uri = this._buildResourceURI(this._clientId+'/groups');
-  var options = this._buildRequestOptions(uri, 'POST');
-
-  options.headers['content-type'] = 'application/x-www-form-urlencoded';
-  // TODO: make current user admin
-  options.body = 'access_token='+this._appToken+'&name='+group.name+'&description='+group.description+'&admin=1347927447';
-  delete options.json;
+  var options = this._buildRequestOptions(uri);
 
   this._execute(options, function(err, body) {
-    if (err) return callback(err);
+    if (err) return callback(body || err);
+    callback(null, body.data || []);
+  });
+};
+
+facebook.prototype.createGroup = function(group, callback) {
+  if (!group.name) return callback(new Error('Name is required to create a group'));
+
+  var body = 'access_token='+this._appToken+'&name='+group.name;
+
+  if (group.privacy) body += '&privacy='+group.privacy;
+  if (group.description) body += '&description='+group.description;
+  if (group.admin) body += '&admin='+group.admin;
+
+  var uri = this._buildResourceURI(this._clientId+'/groups');
+  var options = this._buildRequestOptions(uri, 'POST', body);
+
+  this._execute(options, function(err, body) {
+    if (err) return callback(body || err);
     callback(null, body.id || null);
+  });
+};
+
+facebook.prototype.deleteGroup = function(groupId, callback) {
+  var body = 'access_token='+this._appToken;
+  var uri = this._buildResourceURI(this._clientId+'/groups/'+groupId);
+  var options = this._buildRequestOptions(uri, 'DELETE', body);
+
+  this._execute(options, function(err, body) {
+    if (err) return callback(body || err);
+    callback(null, null);
   });
 };
 

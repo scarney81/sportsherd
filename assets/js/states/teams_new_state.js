@@ -28,7 +28,7 @@
     },
 
     newCreateTeam: function(){
-      this.goToState('teams-new-create');
+      this.goToState('groups-new', { onCreate: 'teams-new-confirm' });
     },
 
     exitState: function() {
@@ -81,6 +81,8 @@
     parentState: 'teams-new',
 
     enterState: function() {
+      var group = this.getData('group');
+      console.log(group);
       var team = this.getData('model');
       console.log(team);
     },

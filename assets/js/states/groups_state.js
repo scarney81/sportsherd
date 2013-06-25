@@ -20,8 +20,10 @@
     parentState: 'groups',
 
     enterState: function() {
-      var view = new GroupView({ model: new Group() });
+      var group = new Group();
+      var view = new GroupView({ model: group });
       $('.content').html(view.render().el);
+      this.setData('model', group);
       this.setData('view', view);
     },
 
@@ -49,6 +51,12 @@
         exitState: function() {
           var view = this.getData('view');
           view.hideSuccessMessage();
+        },
+
+        completed: function() {
+          var group = this.getData('model');
+          var onCreate = this.getData('onCreate');
+          this.goToState(onCreate, { group: group });
         }
       },
       {

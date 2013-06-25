@@ -8,7 +8,8 @@
 
     defaults: {
       'name': '',
-      'description': ''
+      'description': '',
+      'privacy': 'open'
     },
 
     validate: function(attrs) {

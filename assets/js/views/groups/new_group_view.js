@@ -12,6 +12,7 @@
 
     events: {
       'change input': 'updateModel',
+      'change #privacy': 'updateModel',
       'click input.next': 'next'
     },
 
@@ -22,35 +23,47 @@
     },
 
     updateModel: function(e) {
+      this._hideStatusMessage();
+      this.$el.find('input.next').show();
       var $target = $(e.target);
       this.model.set($target.attr('id'), $target.val());
       return this;
     },
 
-    showSuccessMessage: function() {
-      // TODO: show success message
-      // TODO: change button
+    _hideStatusMessage: function() {
+      this.$el.find('.status').fadeOut();
       return this;
+    },
+
+    _setStatusMessage: function(message) {
+      this.$el.find('.status').text(message).fadeIn();
+      return this;
+    },
+
+    showSuccessMessage: function() {
+      setTimeout(function() { sc.sendEvent('completed'); }, 3000);
+      return this._setStatusMessage('Group successfully created! Redirect in 3 seconds.');
     },
 
     hideSuccessMessage: function() {
-      // TODO: hide message
-      return this;
+      return this._hideStatusMessage();
     },
 
     showFailureMessage: function() {
-      // TODO: show failure message
-      return this;
+      this.$el.find('input.next').show();
+      return this._setStatusMessage('Group creation FAILED!');
     },
 
     hideFailureMessage: function() {
-      // TODO: hide message
-      return this;
+      return this._hideStatusMessage();
     },
 
     next: function() {
-      if (this.model.isValid()) sc.sendEvent('saveGroup', this.model);
-      else alert('Model is not valid');
+      if (this.model.isValid()) {
+        this.$el.find('input.next').hide();
+        sc.sendEvent('saveGroup', this.model);
+      }
+      else this._setStatusMessage('Model is not valid');
       return this;
     }
 
