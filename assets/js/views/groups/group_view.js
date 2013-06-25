@@ -17,7 +17,6 @@
       'click a': { event: 'selectGroup', data: function() { return this.model; } }
     }
 
-
   });
 
 })(App);

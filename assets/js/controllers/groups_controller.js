@@ -2,6 +2,7 @@
 // #= require '../collections/group_collection'
 
 (function(app) {
+  'use strict';
 
   var controllers = app.Controllers;
   var Groups = app.Collections.Groups;
@@ -20,6 +21,10 @@
         that.fetchedGroups = true;
         if (done) done();
       }});
+    },
+
+    createGroup: function(group, success, failure) {
+      this.groups.create(group, { wait: true, success: success, error: failure });
     }
 
   };

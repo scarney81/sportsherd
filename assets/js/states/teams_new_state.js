@@ -76,21 +76,6 @@
 
   });
 
-  sc.addState('teams-new-create', {
-
-    parentState: 'teams-new',
-
-    enterState: function() {
-      this.view = new views.NewTeamCreate();
-      $('.content').html(this.view.render().el);
-    },
-
-    exitState: function() {
-      if (this.view) this.view.close();
-    }
-
-  });
-
   sc.addState('teams-new-confirm', {
 
     parentState: 'teams-new',

@@ -1,4 +1,12 @@
+/* jshint strict:false*/
 module.exports = function(app) {
+
+  var renderIndex = function(req, res, next) {
+    if (req.isJSON) return next();
+    res.render('index');
+  };
+
+  app.get('/groups/new', renderIndex);
 
   app.get('/groups', function(req, res, next) {
     var facebook = req.facebook;
@@ -9,13 +17,13 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/groups/:group_id', function(req, res, next) {
+  app.post('/groups', function(req, res, next) {
     var facebook = req.facebook;
-    var groupId = req.params.group_id;
+    var model = { name: req.body.name, description: req.body.description };
 
-    facebook.group(groupId, function(err, group) {
+    facebook.createGroup(model, function(err, group) {
       if (err) return next(err);
-      res.json(group);
+      res.send(200, group);
     });
   });
 

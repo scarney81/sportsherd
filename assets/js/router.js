@@ -1,9 +1,10 @@
-/*globals App*/
+/*globals App, Backbone*/
 (function(app, backbone) {
+  'use strict';
 
   var sc = app.Statechart;
-  var switch_state = function(state) { sc.sendEvent('switchState', state); };
-  var switch_state_with_id = function(state, id) { sc.sendEvent('switchStateWithId', state, id); };
+  var switchState = function(state) { sc.sendEvent('switchState', state); };
+  var switchStateWithId = function(state, id) { sc.sendEvent('switchStateWithId', state, id); };
 
   app.Router = backbone.Router.extend({
     routes: {
@@ -18,6 +19,8 @@
 
       'teams/:id': 'team',
 
+      'groups/new': 'newGroup',
+
       'teams': 'teams',
 
       'logout': 'logout',
@@ -27,31 +30,35 @@
     },
 
     events: function() {
-      switch_state('events-list');
+      switchState('events-list');
     },
 
     event: function(id) {
-      switch_state_with_id('event', id);
+      switchStateWithId('event', id);
     },
 
     profile: function() {
-      switch_state('profile');
+      switchState('profile');
     },
 
     teams: function() {
-      switch_state('teams-list');
+      switchState('teams-list');
     },
 
     team: function(id) {
-      switch_state_with_id('team', id);
+      switchStateWithId('team', id);
+    },
+
+    newGroup: function() {
+      switchState('groups-new');
     },
 
     newTeam: function() {
-      switch_state('teams-new');
+      switchState('teams-new');
     },
 
     dashboard: function() {
-      switch_state('dashboard');
+      switchState('dashboard');
     },
 
     logout: function() {

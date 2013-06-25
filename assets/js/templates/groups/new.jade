@@ -3,14 +3,14 @@ h2 Create a Team
 h3 This will create a new group on Facebook
 
 div: label Team Name
-div: input(placeholder="i.e. Ninja Cats")
+div: input#name(placeholder="i.e. Ninja Cats")
 
 div: label Team Description
-div: input(placeholder='i.e. Cats that have have been trained to be ninjas')
+div: input#description(placeholder='i.e. Cats that have have been trained to be ninjas')
 
 div: label Group Privacy Level
 div
-  select
+  select#privacy
     option(value='Open') Open
     option(value='Closed') Closed
     option(value='Secret') Secret
