@@ -2,7 +2,7 @@
 // #= require '../base_model_view'
 
 (function(app) {
-  "use strict";
+  'use strict';
 
   var sc = app.Statechart;
   var views = app.Views;

@@ -1,6 +1,6 @@
-/*globals App*/
+/*globals App, Backbone*/
 (function(app, backbone) {
-  "use strict";
+  'use strict';
 
   app.Models.Team = backbone.Model.extend({
 
@@ -9,8 +9,8 @@
     urlRoot: '/teams',
 
     defaults: {
-      "name":  "",
-      "facebookGroupId": null
+      'name':  '',
+      'facebookGroupId': null
     }
 
   });

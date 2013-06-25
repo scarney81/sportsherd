@@ -84,7 +84,8 @@
       var group = this.getData('group');
       console.log(group);
       var team = this.getData('model');
-      console.log(team);
+      this.view = new views.NewTeamConfirm({model: team});
+      $('.content').html(this.view.render().el);
     },
 
     exitState: function() {
