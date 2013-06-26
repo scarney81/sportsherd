@@ -20,6 +20,7 @@ module.exports = function(app) {
   app.post('/groups', function(req, res, next) {
     var facebook = req.facebook;
     var group = { name: req.body.name, description: req.body.description, privacy: req.body.privacy };
+    group.admin = '1347927447';
 
     facebook.createGroup(group, function(err, id) {
       if (err) return next(err);
@@ -29,13 +30,4 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/groups/:groupId/delete', function(req, res, next) {
-    var facebook = req.facebook;
-    var groupId = req.params.groupId;
-
-    facebook.deleteGroup(groupId, function(err) {
-      if (err) return next(err);
-      res.send(200);
-    });
-  });
 };
