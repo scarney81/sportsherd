@@ -1,18 +1,24 @@
 /*globals App*/
+/*jshint camelcase:false*/
 // #= require '../base_view'
 
 (function(app) {
   'use strict';
 
-  var views = app.Views;
   var sc = app.Statechart;
-  views.NewGroup = views.Base.extend({
+
+  var NewGroup = app.Views.NewGroup = app.Views.Base.extend({
 
     template: window.JadeTemplates['templates/groups/new'],
 
+    initialize: function() {
+      this.model.on('invalid', this.invalid, this);
+      NewGroup.__super__.initialize.call(this);
+    },
+
     events: {
       'change input': 'updateModel',
-      'change #privacy': 'updateModel',
+      'change select': 'updateModel',
       'click input.next': 'next'
     },
 
@@ -20,6 +26,13 @@
       this.$el.html(this.template());
       this.delegateEvents();
       return this;
+    },
+
+    invalid: function(model, error) {
+      var that = this;
+      error.forEach(function(e) {
+        if (e['name']) that.$el.find('#'+e['name']).addClass('invalid');
+      });
     },
 
     updateModel: function(e) {
