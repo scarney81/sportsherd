@@ -44,6 +44,10 @@
           if (done) done();
         }
       });
+    },
+
+    createTeam: function(team, success, failure) {
+      this.teams.create(team, { wait: true, success: success, error: failure });
     }
 
   };

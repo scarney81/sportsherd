@@ -11,7 +11,8 @@
     template: window.JadeTemplates['templates/teams/new_confirm'],
 
     events: {
-      'click .confirm': 'save'
+      'change #name': 'updateModel',
+      'click input.next': 'next'
     },
 
     render: function() {
@@ -21,9 +22,49 @@
       return this;
     },
 
-    save: function() {
-      console.log(this.$input);
-      alert('saving ' + $('input.name').val());
+    updateModel: function(e) {
+      this._hideStatusMessage();
+      this.$el.find('input.next').show();
+      var $target = $(e.target);
+      this.model.set($target.attr('id'), $target.val());
+      return this;
+    },
+
+    _hideStatusMessage: function() {
+      this.$el.find('.status').fadeOut();
+      return this;
+    },
+
+    _setStatusMessage: function(message) {
+      this.$el.find('.status').text(message).fadeIn();
+      return this;
+    },
+
+    showSuccessMessage: function() {
+      setTimeout(function() { sc.sendEvent('completed'); }, 3000);
+      return this._setStatusMessage('Team successfully created! Redirect in 3 seconds.');
+    },
+
+    hideSuccessMessage: function() {
+      return this._hideStatusMessage();
+    },
+
+    showFailureMessage: function() {
+      this.$el.find('input.next').show();
+      return this._setStatusMessage('Team creation FAILED!');
+    },
+
+    hideFailureMessage: function() {
+      return this._hideStatusMessage();
+    },
+
+    next: function() {
+      if (this.model.isValid()) {
+        this.$el.find('input.next').hide();
+        sc.sendEvent('saveTeam', this.model);
+      }
+      else this._setStatusMessage(this.model.validationError[0].message); //Todo: Need standard way to display multiple validation errors, or inline highlighting
+      return this;
     }
 
   });

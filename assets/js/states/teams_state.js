@@ -4,12 +4,11 @@
 // #= require ../controllers/teams_controller
 
 (function(app) {
-  "use strict";
+  'use strict';
 
   var sc = app.Statechart;
   var views = app.Views;
 
-  var groupController = app.Controllers.Groups;
   var navigationController = app.Controllers.Navigation;
   var teamController = app.Controllers.Teams;
 

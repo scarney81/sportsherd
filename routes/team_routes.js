@@ -1,18 +1,19 @@
+/* jshint strict:false*/
 var Teams = require('../repositories/team_repository');
 
 module.exports = function(app) {
 
   var teams = new Teams();
 
-  var render_index = function(req, res, next) {
+  var renderIndex = function(req, res, next) {
     if (req.isJSON) return next();
     res.render('index');
   };
 
-  app.get('/teams/:team_id', render_index);
-  app.get('/teams', render_index);
+  app.get('/teams/:team_id', renderIndex);
+  app.get('/teams', renderIndex);
 
-  app.get('/teams/:team_id', function(req, res, next) {
+  app.get('/teams/:team_id', function(req, res) {
     res.json(req.team);
   });
 
@@ -30,17 +31,19 @@ module.exports = function(app) {
     });
   });
 
-  app.put('/teams', function(req, res, next) {
-    var team = { name: req.body.name, facebookId: req.body.facebookId };
+  app.post('/teams', function(req, res, next) {
+    var team = { name: req.body.name, facebookGroupId: req.body.facebookGroupId };
     teams.create(team, function(err, team) {
       if (err) return next(err);
-      res.json(team);
+      console.log(team);
+      res.send(200, team);
     });
   });
 
   // // update a team
-  // app.post('/teams/:team_id', function(req, res, next) {
+  // app.put('/teams', function(req, res, next) {
   // });
+
 
   // // remove a team
   // app.del('/teams/:team_id', function(req, res, next) {

@@ -1,9 +1,14 @@
-h2 Confirm Team
+h2 Create Team
 
+div.instructions Create a team record in SportsHerd for the following Facebook Group
+
+h3 Facebook Group
 img(src='http://graph.facebook.com/#{facebookGroupId}/picture?type=large')
-div Name
-input.name(value='#{name}')
-br
-a.confirm Create
-br
-a.cancel Cancel
+div: label Team Name
+div: input#name(value='#{name}')
+
+div.status
+
+div
+  input.cancel(type='button', value='Cancel')
+  input.next(type='button', value='Create Team')
