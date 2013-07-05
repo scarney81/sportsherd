@@ -14,7 +14,7 @@ after_success:
   - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
   - heroku keys:clear
   - yes | heroku keys:add
-  - yes | git push heroku master
+  - yes | git push heroku master --force
 node_js: 
   - "0.10"
   - "0.8"
