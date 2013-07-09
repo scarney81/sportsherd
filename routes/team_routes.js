@@ -35,7 +35,6 @@ module.exports = function(app) {
     var team = { name: req.body.name, facebookGroupId: req.body.facebookGroupId };
     teams.create(team, function(err, team) {
       if (err) return next(err);
-      console.log(team);
       res.send(200, team);
     });
   });
