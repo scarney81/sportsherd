@@ -2,19 +2,20 @@ h2 Create a Team
 
 h3 This will create a new group on Facebook
 
-div: label Team Name
-div: input#name(placeholder="i.e. Ninja Cats")
-
-div: label Team Description
-div: input#description(placeholder='i.e. Cats that have have been trained to be ninjas')
-
-div: label Group Privacy Level
-div
-  select#privacy
-    option(value='open') Open
-    option(value='closed') Closed
-    option(value='secret') Secret
-
-div.status
-
-div: input.next(type='button', value='Next')
+.status
+form
+  fieldset
+    .form-group
+      label Team Name
+      input#name.form-control(placeholder="i.e. Ninja Cats")
+    .form-group
+      label Team Description
+      input#description.form-control(placeholder='i.e. Cats that have have been trained to be ninjas')
+    .form-group
+      label Group Privacy Level
+      select#privacy.form-control
+        option(value='open') Open
+        option(value='closed') Closed
+        option(value='secret') Secret
+.size1of1
+  input.btn.btn-primary.btn-block.next(type='button', value='Next')

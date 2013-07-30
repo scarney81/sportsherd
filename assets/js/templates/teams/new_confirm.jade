@@ -4,11 +4,13 @@ div.instructions Create a team record in SportsHerd for the following Facebook G
 
 h3 Facebook Group
 img(src='http://graph.facebook.com/#{facebookGroupId}/picture?type=large')
-div: label Team Name
-div: input#name(value='#{name}')
 
-div.status
-
-div
-  input.cancel(type='button', value='Cancel')
-  input.next(type='button', value='Create Team')
+.size1of1
+  form
+    .form-group
+      label Team Name
+      input.form-control#name(value='#{name}')
+    .status
+.size1of1  
+  input.btn.btn-default.cancel(type='button', value='Cancel')
+  input.btn.btn-primary.next(type='button', value='Create Team')

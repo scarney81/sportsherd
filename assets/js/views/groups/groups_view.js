@@ -11,7 +11,7 @@
 
     tagName: 'ul',
 
-    className: 'groups',
+    className: 'groups list',
 
     renderModel: function(group) {
       var view = new views.Group({ model: group });

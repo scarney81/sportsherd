@@ -1,7 +1,61 @@
-h2
-  font-family $altfont2
-  font-weight normal
-  font-style italic 
+// ==========================================================
 
-a
-  cursor pointer
+// 320 and Up by Andy Clarke
+// Version: 3.0
+// URL: http://stuffandnonsense.co.uk/projects/320andup/
+// Apache License: v2.0. http://www.apache.org/licenses/LICENSE-2.0
+
+// ==========================================================
+
+/* Typography =================================================== */
+
+// HEADINGS ====================================================
+
+h1,.h1, 
+h2,.h2, 
+h3,.h3, 
+h4,.h4, 
+h5,.h5
+{
+  margin : 0;
+  font-family : $baseheadingfont;
+  font-weight : $baseheadingfontweight;
+  color : $baseheadingfontcolor;
+  text-rendering : optimizelegibility;
+}
+
+h1 small, h2 small
+  font-weight normal
+  color $lightgrey
+
+h1,.h1
+  font-size 2.5em
+  line-height 1.2em
+  margin-bottom ($baselineheight / 2)
+
+h2, .h2
+  font-size 1em 
+  line-height 1.4em
+  margin-bottom 0
+
+
+
+h3, .h3 
+  font-size 1em
+  line-height 1.4em
+  color $grey
+  text-transform uppercase
+  margin-bottom ($baselineheight / 3)
+
+
+h4, .h4 
+  font-size 1.125em
+  line-height 1.6em
+  margin-bottom ($baselineheight / 1.5)
+
+h5, .h5 
+  font-size 1em
+  line-height inherit
+  margin-bottom ($baselineheight / 1.5)
+  text-transform uppercase
+
