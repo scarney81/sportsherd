@@ -1,12 +1,11 @@
 include mixins/emailAddress_mixin
-
-h2 Profile
-
-img(src='http://graph.facebook.com/#{facebookId}/picture?type=large')
-div Display Name: #{displayName}
-div Given Name: #{name.givenName}
-div Family Name: #{name.familyName}
-div: a(href='#{profileUrl}', target='_blank') Profile
+.row
+    .media
+        .media-image
+            img.thumbnail.profilePicture(src='http://graph.facebook.com/#{facebookId}/picture?type=large')
+        .media-body
+            .media-heading #{displayName}
+            div: a(href='#{profileUrl}', target='_blank') Profile
 
 - emails.forEach(function(emailAddress) {
   mixin email(emailAddress)

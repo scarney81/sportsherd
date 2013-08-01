@@ -1,7 +1,7 @@
-.unit.size1of1
+a.team(href='/teams/#{_id}')
     .media
         .media-image
-            img(src='http://graph.facebook.com/#{facebookGroupId}/picture??width=100&height=100')
+            img.thumbnail(src='http://graph.facebook.com/#{facebookGroupId}/picture??width=100&height=100')
         .media-body
-            .media-heading 
-                a.team(href='/teams/#{_id}')= name
+            .media-heading= name
+            

@@ -1,4 +1,6 @@
-h2 Team Profile
-
-img(src='http://graph.facebook.com/#{facebookGroupId}/picture?type=large')
-div Name: #{name}
+.row
+    .media
+        .media-image
+            img.thumbnail.profilePicture(src='http://graph.facebook.com/#{facebookGroupId}/picture?width=200&height=200')
+        .media-body
+            .media-heading #{name}
